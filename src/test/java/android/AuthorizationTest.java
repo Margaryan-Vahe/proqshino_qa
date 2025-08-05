@@ -4,6 +4,8 @@ import baseUtils.Data;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.visible;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -41,5 +43,42 @@ public class AuthorizationTest extends BaseAndroidTest {
                                 .incorrectDataErrorMessage()
                                 .is(visible),
                 "Ожидался текст ошибки");
+    }
+
+    @Test
+    public void successAuthorizationByPin() throws InterruptedException {
+        loginPageAndroid
+                .waitUntilLoaded()
+                .login(
+                        Data.UserTypes.DEFAULT_USER.phoneValidValue(),
+                        Data.UserTypes.DEFAULT_USER.passwordValidValue(),
+                        false);
+
+        mainPageAndroid.closeAndRunApp();
+        inputPinPageAndroid.clickNum1();
+        mainPageAndroid.waitUntilLoaded();
+
+        assertTrue(
+                mainPageAndroid.mainPageHeader().is(visible),
+                "Ожидался видимый заголовок главной страницы после успешного входа"  // или: main.mainPageHeaderShouldBeVisible()
+        );
+    }
+
+    @Test
+    public void incorrectAuthorizationByPin() throws InterruptedException {
+        loginPageAndroid
+                .waitUntilLoaded()
+                .login(
+                        Data.UserTypes.DEFAULT_USER.phoneValidValue(),
+                        Data.UserTypes.DEFAULT_USER.passwordValidValue(),
+                        false);
+
+        mainPageAndroid.closeAndRunApp();
+        inputPinPageAndroid.clickNum2();
+
+        assertTrue(
+                inputPinPageAndroid.inputPinHeader().is(visible),
+                "Ожидался видимый заголовок страницы ввода пин-кода"
+        );
     }
 }

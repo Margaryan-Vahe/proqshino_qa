@@ -7,6 +7,8 @@ import io.appium.java_client.MobileElement;
 import pages.BaseProfilePage;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
@@ -32,5 +34,17 @@ public abstract class MainPageBase {
     }
     public void openProfile() {
         profileButton().shouldBe(visible).click();
+    }
+
+    public void closeAndRunApp(){
+        // Завершение работы приложения по его bundleId
+        Map<String, Object> terminateArgs = new HashMap<>();
+        terminateArgs.put("appId", "ru.prokshino.prokshino");
+        appiumDriver.executeScript("mobile: terminateApp", terminateArgs);
+
+        // Запуск приложения по его bundleId
+        Map<String, Object> activateArgs = new HashMap<>();
+        activateArgs.put("appId", "ru.prokshino.prokshino");
+        appiumDriver.executeScript("mobile: activateApp", activateArgs);
     }
 }

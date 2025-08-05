@@ -29,4 +29,9 @@ public abstract class InputPinPageBase {
             num1().click();
         }
     }
+    public void clickNum2(){
+        for (int i = 1; i <= 4; i++){
+            num2().click();
+        }
+    }
 }
