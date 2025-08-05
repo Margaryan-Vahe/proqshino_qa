@@ -5,7 +5,6 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import pages.base.InputPinPageBase;
-import pages.base.SetPinPageBase;
 
 import static com.codeborne.selenide.Selenide.$;
 

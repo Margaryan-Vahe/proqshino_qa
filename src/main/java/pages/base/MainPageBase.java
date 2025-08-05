@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
 
 public abstract class MainPageBase {
     public static AppiumDriver<MobileElement> appiumDriver;
@@ -24,9 +23,8 @@ public abstract class MainPageBase {
     }
 
     // Методы класса
-    public MainPageBase waitUntilLoaded() {
+    public void waitUntilLoaded() {
         mainPageHeader().shouldBe(visible, Duration.ofSeconds(10));
-        return this;
     }
     public void mainPageHeaderShouldNeVisible(){
         mainPageHeader().shouldBe(visible,Duration.ofSeconds(10));
@@ -50,10 +48,5 @@ public abstract class MainPageBase {
     public void turnInternet(){
         AndroidDriver<MobileElement> android = (AndroidDriver<MobileElement>) appiumDriver;
         android.toggleData();
-    }
-    public void enableInternet(){
-        Map<String, Object> dataOn = new HashMap<>();
-        dataOn.put("command", "svc data enable");
-        appiumDriver.executeScript("mobile: shell", dataOn);
     }
 }
