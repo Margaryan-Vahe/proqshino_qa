@@ -1,10 +1,9 @@
 package android;
 
 import baseUtils.Data;
+import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -79,6 +78,29 @@ public class AuthorizationTest extends BaseAndroidTest {
         assertTrue(
                 inputPinPageAndroid.inputPinHeader().is(visible),
                 "Ожидался видимый заголовок страницы ввода пин-кода"
+        );
+    }
+    @Test
+    public void authorizationByPinWithoutInternet() throws InterruptedException {
+        loginPageAndroid
+                .waitUntilLoaded()
+                .login(
+                        Data.UserTypes.DEFAULT_USER.phoneValidValue(),
+                        Data.UserTypes.DEFAULT_USER.passwordValidValue(),
+                        false);
+
+        mainPageAndroid.closeAndRunApp();
+        mainPageAndroid.turnInternet();
+        inputPinPageAndroid.clickNum1();
+
+        SelenideElement checkModalWindowIsVisible =
+        inputPinPageAndroid.somethingWrongWithInternetModalWindow().shouldBe(visible);
+
+        mainPageAndroid.turnInternet();
+
+        assertTrue(
+                checkModalWindowIsVisible.is(visible),
+                "Ожидалось отображение модального окна проблем с интернетом"
         );
     }
 }

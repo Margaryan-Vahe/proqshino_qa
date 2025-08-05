@@ -17,6 +17,11 @@ public class InputPinPageAndroid extends InputPinPageBase {
         return $(MobileBy.AccessibilityId("Введите PIN код"));
     }
 
+    @Override
+    public SelenideElement somethingWrongWithInternetModalWindow() {
+        return $(MobileBy.AccessibilityId("Что-то с интернетом"));
+    }
+
     public final SelenideElement num1(){
         return $(MobileBy.AccessibilityId("1"));
     }

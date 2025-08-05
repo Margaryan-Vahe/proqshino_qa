@@ -10,6 +10,7 @@ public abstract class InputPinPageBase {
     AppiumDriver<MobileElement> appiumDriver;
     // Локаторы элементов страницы
     public abstract SelenideElement inputPinHeader();
+    public abstract SelenideElement somethingWrongWithInternetModalWindow();
     public abstract SelenideElement num1();
     public abstract SelenideElement num2();
 
