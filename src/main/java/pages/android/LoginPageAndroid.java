@@ -52,4 +52,10 @@ public class LoginPageAndroid extends LoginPageBase {
 
     // Методы класса
 
+    @Override
+    public void typePhoneNumber(String phoneNumber){
+        phoneNumberField().click();
+        phoneNumberField().sendKeys(phoneNumber);
+    }
+
 }
