@@ -34,8 +34,11 @@ public class AuthorizationTest extends BaseAndroidTest {
 
     @Test
     public void incorrectAuthorization() throws InterruptedException {
-        loginPageAndroid.login(Data.UserTypes.DEFAULT_USER.phoneValidValue(),
-                Data.UserTypes.DEFAULT_USER.passwordInvalidValue(),
+        loginPageAndroid
+                .waitUntilLoaded()
+                .login(
+                        Data.UserTypes.DEFAULT_USER.phoneValidValue(),
+                        Data.UserTypes.DEFAULT_USER.passwordInvalidValue(),
                 true);
 
                 assertTrue(loginPageAndroid

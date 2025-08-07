@@ -12,9 +12,11 @@ import java.util.Map;
 import static com.codeborne.selenide.Condition.visible;
 
 public abstract class MainPageBase {
-    public static AppiumDriver<MobileElement> appiumDriver;
+    public final AppiumDriver<MobileElement> appiumDriver;
+
     // Локаторы элементов страницы
     public abstract SelenideElement mainPageHeader();
+
     public abstract SelenideElement profileButton();
 
     // Конструктор класса
@@ -23,29 +25,28 @@ public abstract class MainPageBase {
     }
 
     // Методы класса
-    public void waitUntilLoaded() {
+    public MainPageBase waitUntilLoaded() {
+        mainPageHeader().shouldBe(visible, Duration.ofSeconds(10));
+        return this;
+    }
+
+    public void mainPageHeaderShouldNeVisible() {
         mainPageHeader().shouldBe(visible, Duration.ofSeconds(10));
     }
-    public void mainPageHeaderShouldNeVisible(){
-        mainPageHeader().shouldBe(visible,Duration.ofSeconds(10));
-    }
+
     public void openProfile() {
         profileButton().shouldBe(visible).click();
     }
 
-    public void closeAndRunApp(){
-        // Завершение работы приложения по его bundleId
-        Map<String, Object> terminateArgs = new HashMap<>();
-        terminateArgs.put("appId", "ru.prokshino.prokshino");
-        appiumDriver.executeScript("mobile: terminateApp", terminateArgs);
+    public void closeAndRunApp() {
+        AndroidDriver<MobileElement> android = (AndroidDriver<MobileElement>) appiumDriver;
+        String appId = "ru.prokshino.prokshino";
 
-        // Запуск приложения по его bundleId
-        Map<String, Object> activateArgs = new HashMap<>();
-        activateArgs.put("appId", "ru.prokshino.prokshino");
-        appiumDriver.executeScript("mobile: activateApp", activateArgs);
+        android.terminateApp(appId);
+        android.activateApp(appId);
     }
 
-    public void turnInternet(){
+    public void turnInternet() {
         AndroidDriver<MobileElement> android = (AndroidDriver<MobileElement>) appiumDriver;
         android.toggleData();
     }
