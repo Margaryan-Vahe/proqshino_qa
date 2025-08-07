@@ -28,6 +28,11 @@ public class InputPinPageIOS extends InputPinPageBase {
        return $(MobileBy.AccessibilityId("2"));
     }
 
+    @Override
+    public SelenideElement forgotPinButton() {
+        return null;
+    }
+
 
     // Конструктор класса
     public InputPinPageIOS(AppiumDriver<MobileElement> appiumDriver) {
