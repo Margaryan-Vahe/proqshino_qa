@@ -16,6 +16,7 @@ public class RecoveringTest extends BaseAndroidTest{
     public void passRecover() throws InterruptedException {
         loginPageAndroid.clickToForgotPassButton();
         recoverPageAndroid.inputDataForRecover(Data.UserTypes.DEFAULT_USER.phoneValidValue());
+        otpPageAndroid.typeCorrectOtp();
     }
 
 }

@@ -3,10 +3,7 @@ package android;
 import baseUtils.SetupCapabilities;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import pages.android.InputPinPageAndroid;
-import pages.android.LoginPageAndroid;
-import pages.android.MainPageAndroid;
-import pages.android.RecoverPageAndroid;
+import pages.android.*;
 
 import static baseUtils.SetupCapabilities.appiumDriver;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -16,6 +13,7 @@ public class BaseAndroidTest{
     LoginPageAndroid loginPageAndroid;
     InputPinPageAndroid inputPinPageAndroid;
     RecoverPageAndroid recoverPageAndroid;
+    OtpPageAndroid otpPageAndroid;
 
     @BeforeEach
     public void initPages() throws Exception {
@@ -26,6 +24,7 @@ public class BaseAndroidTest{
         loginPageAndroid = new LoginPageAndroid(appiumDriver);
         inputPinPageAndroid = new InputPinPageAndroid(appiumDriver);
         recoverPageAndroid = new RecoverPageAndroid(appiumDriver);
+        otpPageAndroid = new OtpPageAndroid(appiumDriver);
     }
 
     @AfterEach
