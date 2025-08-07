@@ -56,6 +56,11 @@ public class LoginPageIOS extends LoginPageBase {
                 .AccessibilityId("Вы ввели неверный номер телефона или пароль, пожалуйста, попробуйте снова"));
     }
 
+    @Override
+    public SelenideElement forgotPassButton() {
+        return $(MobileBy.AccessibilityId("Забыл пароль"));
+    }
+
     // Конструктор класса
     public LoginPageIOS(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);
