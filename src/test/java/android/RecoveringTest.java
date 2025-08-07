@@ -53,6 +53,11 @@ public class RecoveringTest extends BaseAndroidTest{
                         Data.UserTypes.DEFAULT_USER.phoneValidValue(),
                         Data.UserTypes.DEFAULT_USER.passwordValidValue(),
                         false);
+
+        assertTrue(
+                mainPageAndroid.mainPageHeader().is(visible),
+                "Ожидался видимый заголовок главной страницы после успешного восстановления пин-кода"  // или: main.mainPageHeaderShouldBeVisible()
+        );
     }
 
 
