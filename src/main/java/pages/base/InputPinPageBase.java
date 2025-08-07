@@ -13,6 +13,7 @@ public abstract class InputPinPageBase {
     public abstract SelenideElement somethingWrongWithInternetModalWindow();
     public abstract SelenideElement num1();
     public abstract SelenideElement num2();
+    public abstract SelenideElement forgotPinButton();
 
     // Конструктор класса
     public InputPinPageBase(AppiumDriver<MobileElement> appiumDriver) {
@@ -34,5 +35,9 @@ public abstract class InputPinPageBase {
         for (int i = 1; i <= 4; i++){
             num2().click();
         }
+    }
+    public void clickToForgotPinButton(){
+        waitUntilLoaded();
+        forgotPinButton().click();
     }
 }

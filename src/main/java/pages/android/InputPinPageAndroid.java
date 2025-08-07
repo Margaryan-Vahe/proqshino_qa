@@ -28,6 +28,10 @@ public class InputPinPageAndroid extends InputPinPageBase {
        return $(MobileBy.AccessibilityId("2"));
     }
 
+    @Override
+    public SelenideElement forgotPinButton() {
+        return $(MobileBy.AccessibilityId("Забыл ПИН-код"));
+    }
 
     // Конструктор класса
     public InputPinPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
