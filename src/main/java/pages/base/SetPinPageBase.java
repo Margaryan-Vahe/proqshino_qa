@@ -19,9 +19,8 @@ public abstract class SetPinPageBase {
     }
 
     // Методы класса
-    public SetPinPageBase waitUntilLoaded() {
+    public void waitUntilLoaded() {
         setPinHeader().shouldBe(visible);
-        return this;
     }
 
     public void clickNum1(){

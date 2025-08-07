@@ -14,6 +14,10 @@ public class BaseAndroidTest{
     InputPinPageAndroid inputPinPageAndroid;
     RecoverPageAndroid recoverPageAndroid;
     OtpPageAndroid otpPageAndroid;
+    SetPasswordPageAndroid setPasswordPageAndroid;
+    SetPinPageAndroid setPinPageAndroid;
+    RepeatPinPageAndroid repeatPinPageAndroid;
+    BioConfirmationPageAndroid bioConfirmationPageAndroid;
 
     @BeforeEach
     public void initPages() throws Exception {
@@ -25,6 +29,10 @@ public class BaseAndroidTest{
         inputPinPageAndroid = new InputPinPageAndroid(appiumDriver);
         recoverPageAndroid = new RecoverPageAndroid(appiumDriver);
         otpPageAndroid = new OtpPageAndroid(appiumDriver);
+        setPasswordPageAndroid = new SetPasswordPageAndroid(appiumDriver);
+        setPinPageAndroid = new SetPinPageAndroid(appiumDriver);
+        repeatPinPageAndroid = new RepeatPinPageAndroid(appiumDriver);
+        bioConfirmationPageAndroid = new BioConfirmationPageAndroid(appiumDriver);
     }
 
     @AfterEach
