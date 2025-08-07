@@ -37,4 +37,23 @@ public class RecoveringTest extends BaseAndroidTest{
         );
     }
 
+    @Test
+    public void pinRecovery() throws InterruptedException {
+        loginPageAndroid
+                .waitUntilLoaded()
+                .login(
+                        Data.UserTypes.DEFAULT_USER.phoneValidValue(),
+                        Data.UserTypes.DEFAULT_USER.passwordValidValue(),
+                        false);
+        mainPageAndroid.closeAndRunApp();
+        inputPinPageAndroid.clickToForgotPinButton();
+        loginPageAndroid
+                .waitUntilLoaded()
+                .login(
+                        Data.UserTypes.DEFAULT_USER.phoneValidValue(),
+                        Data.UserTypes.DEFAULT_USER.passwordValidValue(),
+                        false);
+    }
+
+
 }
