@@ -1,11 +1,11 @@
 package pages.base;
 
+import baseUtils.Data;
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import pages.BaseProfilePage;
 import pages.android.*;
-import pages.ios.MainPageIOS;
 
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
@@ -28,6 +28,7 @@ public abstract class LoginPageBase implements BaseProfilePage {
     public abstract SelenideElement passwordField();
     public abstract SelenideElement loginButton();
     public abstract SelenideElement incorrectDataErrorMessage();
+    public abstract SelenideElement forgotPassButton();
 
     // Конструктор класса
     public LoginPageBase(AppiumDriver<MobileElement> appiumDriver) {
@@ -49,7 +50,9 @@ public abstract class LoginPageBase implements BaseProfilePage {
                     .shouldBe(visible, enabled);
             phone.click();
             phone.sendKeys(phoneNumber);
-        } while (!phoneNumberField().getText().equals("+7 (932) 121-78-16"));
+        } while (!phoneNumberField()
+                .getText()
+                .equals(Data.UserTypes.DEFAULT_USER.phoneFullValue()));
     }
 
     public void typePassword(String pass) {
@@ -79,5 +82,9 @@ public abstract class LoginPageBase implements BaseProfilePage {
 
             mainPageAndroid.mainPageHeaderShouldNeVisible();
         }
+    }
+    public void clickToForgotPassButton() {
+        waitUntilLoaded();
+        forgotPassButton().click();
     }
 }
