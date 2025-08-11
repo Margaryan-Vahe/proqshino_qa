@@ -9,9 +9,9 @@ import pages.base.InputPinPageBase;
 import static com.codeborne.selenide.Selenide.$;
 
 public class InputPinPageAndroid extends InputPinPageBase {
-    // Локаторы элементов страницы
+
     @Override
-    public final SelenideElement inputPinHeader(){
+    public SelenideElement inputPinHeader(){
         return $(MobileBy.AccessibilityId("Введите PIN код"));
     }
 
@@ -20,12 +20,14 @@ public class InputPinPageAndroid extends InputPinPageBase {
         return $(MobileBy.AccessibilityId("Что-то с интернетом"));
     }
 
-    public final SelenideElement num1(){
+    @Override
+    public SelenideElement num1(){
         return $(MobileBy.AccessibilityId("1"));
     }
 
-    public final SelenideElement num2(){
-       return $(MobileBy.AccessibilityId("2"));
+    @Override
+    public SelenideElement num2(){
+        return $(MobileBy.AccessibilityId("2"));
     }
 
     @Override
@@ -33,10 +35,7 @@ public class InputPinPageAndroid extends InputPinPageBase {
         return $(MobileBy.AccessibilityId("Забыл ПИН-код"));
     }
 
-    // Конструктор класса
     public InputPinPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);
     }
-
-    // Методы класса
 }

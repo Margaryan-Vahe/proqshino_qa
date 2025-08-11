@@ -9,21 +9,17 @@ import pages.base.MainPageBase;
 import static com.codeborne.selenide.Selenide.$;
 
 public class MainPageAndroid extends MainPageBase {
-    // Локаторы элементов страницы
     @Override
-    public final SelenideElement mainPageHeader() {
+    public SelenideElement mainPageHeader() {
         return $(MobileBy.AccessibilityId("Управляющая компания"));
     }
 
     @Override
-    public final SelenideElement profileButton() {
+    public SelenideElement profileButton() {
         return $(MobileBy.AccessibilityId("Профиль"));
     }
 
-    // Конструктор класса
     public MainPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);
     }
-
-    // Методы класса
 }

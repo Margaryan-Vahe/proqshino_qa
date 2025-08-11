@@ -68,7 +68,7 @@ public class LoginPageIOS extends LoginPageBase {
 
     // Методы класса
     @Override
-    public void typePhoneNumber(String phoneNumber) throws InterruptedException {
+    public void typePhoneNumber(String phoneNumber) {
         boolean isFieldEmpty;
         boolean isFieldCorrect;
         String phoneFiledText;
@@ -100,22 +100,21 @@ public class LoginPageIOS extends LoginPageBase {
         passFieldInFocusCondition
                 .sendKeys(pass);
     }
-    @Override
-    public void login(String phone, String pass, boolean isErrorCase) throws InterruptedException {
-        typePhoneNumber(phone);
-        typePassword(pass);
-        clickToLoginButton();
-
-        if (isErrorCase) {
-            incorrectDataErrorMessage().shouldBe(visible);
-        } else {
-            setPinPageIOS.clickNum1();
-            repeatPinPageIOS.clickNum1();
-            bioConfirmationPageIOS.clickToRefuseButton();
-            inputPinPageIOS.clickNum1();
-
-            mainPageIOS.mainPageHeaderShouldNeVisible();
-        }
-    }
+//    @Override
+//    public void login(String phone, String pass, boolean isErrorCase) {
+//        typePhoneNumber(phone);
+//        typePassword(pass);
+//        clickToLoginButton();
+//
+//        if (isErrorCase) {
+//            incorrectDataErrorMessage().shouldBe(visible);
+//        } else {
+//            setPinPageIOS.clickNum1();
+//            repeatPinPageIOS.clickNum1();
+//            bioConfirmationPageIOS.clickToRefuseButton();
+//            inputPinPageIOS.clickNum1();
+//
+//        }
+//    }
 
 }
