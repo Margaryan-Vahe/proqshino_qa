@@ -1,26 +1,22 @@
 package pages.base;
 
-import baseUtils.Data;
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.visible;
 
 public abstract class RecoveryPageBase {
-    public static AppiumDriver<MobileElement> appiumDriver;
+    protected final AppiumDriver<MobileElement> appiumDriver;
 
     // Локаторы элементов страницы
     public abstract SelenideElement pageHeader();
-
     public abstract SelenideElement phoneNumberField();
-
     public abstract SelenideElement continueButton();
-
     public abstract SelenideElement noAccessToPhoneButton();
-
     public abstract SelenideElement alreadyHaveAccountButton();
 
     // Конструктор класса
@@ -29,26 +25,33 @@ public abstract class RecoveryPageBase {
     }
 
     // Методы класса
-    public void waitUntilLoaded() {
+    @Step("Жду загрузки экрана восстановления")
+    public RecoveryPageBase waitUntilLoaded() {
         pageHeader().shouldBe(visible, Duration.ofSeconds(10));
+        return this;
     }
 
-    public void typePhoneNumber(String phoneNumber) {
-        SelenideElement phone = phoneNumberField();
-        phone.click();
-        phone.sendKeys(phoneNumber);
+    @Step("Ввожу номер телефона для восстановления: {phoneNumber}")
+    public RecoveryPageBase typePhoneNumber(String phoneNumber) {
+        phoneNumberField()
+                .shouldBe(visible, Duration.ofSeconds(10))
+                .click();
+
+        phoneNumberField().sendKeys(phoneNumber);
+        return this;
     }
 
+    @Step("Нажимаю кнопку 'Продолжить'")
     public void clickToContinueButton() throws InterruptedException {
-        Thread.sleep(1500);
-        continueButton().click();
-
-
+        Thread.sleep(1500); // осознанно оставлено
+        continueButton()
+                .shouldBe(visible, Duration.ofSeconds(10))
+                .click();
     }
 
+    @Step("Заполняю данные для восстановления и продолжаю")
     public void inputDataForRecover(String phoneNumber) throws InterruptedException {
         waitUntilLoaded();
-
         typePhoneNumber(phoneNumber);
         clickToContinueButton();
     }

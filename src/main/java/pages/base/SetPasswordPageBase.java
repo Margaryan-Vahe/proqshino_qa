@@ -3,25 +3,26 @@ package pages.base;
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.enabled;
 
 public abstract class SetPasswordPageBase {
-    public static AppiumDriver<MobileElement> appiumDriver;
+    protected final AppiumDriver<MobileElement> appiumDriver; // было static
 
     // Локаторы элементов страницы
     public abstract SelenideElement pageHeader();
-
     public abstract SelenideElement setPassField();
-
     public abstract SelenideElement repeatPassField();
-
-    public abstract SelenideElement eayButton();
+    public abstract SelenideElement eayButton(); // оставляю как есть
     public abstract SelenideElement passIsMatchMessage();
-
     public abstract SelenideElement savePasswordButton();
+
+    // Доп. алиас, чтобы не путаться в названии (не ломает существующий код)
+    public SelenideElement eyeButton() { return eayButton(); }
 
     // Конструктор класса
     public SetPasswordPageBase(AppiumDriver<MobileElement> appiumDriver) {
@@ -29,29 +30,37 @@ public abstract class SetPasswordPageBase {
     }
 
     // Методы класса
-    public void waitUntilLoaded() {
+    @Step("Жду загрузки экрана 'Задайте пароль'")
+    public SetPasswordPageBase waitUntilLoaded() {
         pageHeader().shouldBe(visible, Duration.ofSeconds(10));
+        return this;
     }
 
+    @Step("Ввожу новый пароль")
     public void setPassword(String pass){
         waitUntilLoaded();
-
+        setPassField().shouldBe(visible, Duration.ofSeconds(10)).shouldBe(enabled);
         setPassField().click();
-        setPassField().sendKeys(pass);
+        setPassField().sendKeys(pass); // по правилу проекта — только sendKeys
     }
+
+    @Step("Повторяю пароль")
     public void repeatPassword(String pass){
+        repeatPassField().shouldBe(visible, Duration.ofSeconds(10)).shouldBe(enabled);
         repeatPassField().click();
-        repeatPassField().sendKeys(pass);
+        repeatPassField().sendKeys(pass); // по правилу проекта — только sendKeys
     }
+
+    @Step("Сохраняю пароль")
     public void clickToSavePassButton(){
         passIsMatchMessage().shouldBe(visible, Duration.ofSeconds(5));
-        savePasswordButton().click();
+        savePasswordButton().shouldBe(visible, Duration.ofSeconds(10)).click();
     }
+
+    @Step("Заполняю и сохраняю пароль")
     public void inputPassword(String pass){
         setPassword(pass);
         repeatPassword(pass);
         clickToSavePassButton();
     }
-
-
 }

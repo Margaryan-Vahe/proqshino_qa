@@ -2,35 +2,49 @@ package pages.base;
 
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
-import pages.android.InputPinPageAndroid;
+import io.qameta.allure.Step;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
 
-public abstract class RepeatPinPageBase <T> {
-    AppiumDriver<MobileElement> appiumDriver;
+public abstract class RepeatPinPageBase {
+    protected final AppiumDriver<MobileElement> appiumDriver;
+
     // Локаторы элементов страницы
     public abstract SelenideElement repeatPinHeader();
     public abstract SelenideElement num1();
     public abstract SelenideElement num2();
 
-    // Конструктор класса
     public RepeatPinPageBase(AppiumDriver<MobileElement> appiumDriver) {
         this.appiumDriver = appiumDriver;
     }
 
-    // Методы класса
+    @Step("Жду загрузки экрана 'Повторите PIN-код'")
     public RepeatPinPageBase waitUntilLoaded() {
-        repeatPinHeader().shouldBe(visible);
+        repeatPinHeader().shouldBe(visible, Duration.ofSeconds(10));
         return this;
     }
 
-    public InputPinPageAndroid clickNum1(){
-        for (int i = 1; i <= 4; i++){
+    @Step("Повторяю PIN: 1111")
+    public InputPinPageBase clickNum1(){
+        num1().shouldBe(visible, Duration.ofSeconds(10));
+        for (int i = 0; i < 4; i++){
             num1().click();
         }
-        return new InputPinPageAndroid(appiumDriver);
+        return createInputPinPage();
     }
+
+    @Step("Повторяю PIN: 2222")
+    public InputPinPageBase clickNum2(){
+        num2().shouldBe(visible, Duration.ofSeconds(10));
+        for (int i = 0; i < 4; i++){
+            num2().click();
+        }
+        return createInputPinPage();
+    }
+
+    // фабрика следующей страницы — реализуется в наследниках (Android/iOS)
+    protected abstract InputPinPageBase createInputPinPage();
 }
