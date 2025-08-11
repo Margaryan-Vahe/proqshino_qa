@@ -1,28 +1,36 @@
 package android;
 
 import baseUtils.SetupCapabilities;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import pages.android.*;
 
 import static baseUtils.SetupCapabilities.appiumDriver;
+import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class BaseAndroidTest{
-    MainPageAndroid mainPageAndroid;
-    LoginPageAndroid loginPageAndroid;
-    InputPinPageAndroid inputPinPageAndroid;
-    RecoverPageAndroid recoverPageAndroid;
-    OtpPageAndroid otpPageAndroid;
-    SetPasswordPageAndroid setPasswordPageAndroid;
-    SetPinPageAndroid setPinPageAndroid;
-    RepeatPinPageAndroid repeatPinPageAndroid;
-    BioConfirmationPageAndroid bioConfirmationPageAndroid;
+public class BaseAndroidTest {
+
+    protected MainPageAndroid mainPageAndroid;
+    protected LoginPageAndroid loginPageAndroid;
+    protected InputPinPageAndroid inputPinPageAndroid;
+    protected RecoverPageAndroid recoverPageAndroid;
+    protected OtpPageAndroid otpPageAndroid;
+    protected SetPasswordPageAndroid setPasswordPageAndroid;
+    protected SetPinPageAndroid setPinPageAndroid;
+    protected RepeatPinPageAndroid repeatPinPageAndroid;
+    protected BioConfirmationPageAndroid bioConfirmationPageAndroid;
 
     @BeforeEach
     public void initPages() throws Exception {
         new SetupCapabilities().setUp();
         assertNotNull(appiumDriver, "Appium driver не инициализирован");
+
+        // Allure + Selenide вложения (скриншоты/страница при падениях)
+        addListener("AllureSelenide", new AllureSelenide()
+                .screenshots(true)
+                .savePageSource(true));
 
         mainPageAndroid = new MainPageAndroid(appiumDriver);
         loginPageAndroid = new LoginPageAndroid(appiumDriver);
@@ -36,10 +44,9 @@ public class BaseAndroidTest{
     }
 
     @AfterEach
-    public void tearDown(){
-        if(appiumDriver != null){
+    public void tearDown() {
+        if (appiumDriver != null) {
             appiumDriver.quit();
         }
     }
-
 }

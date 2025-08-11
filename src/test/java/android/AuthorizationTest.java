@@ -2,12 +2,11 @@ package android;
 
 import baseUtils.Data;
 import com.codeborne.selenide.SelenideElement;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Condition.visible;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@DisplayName("Авторизация: Android")
 public class AuthorizationTest extends BaseAndroidTest {
 
     @Override
@@ -18,92 +17,88 @@ public class AuthorizationTest extends BaseAndroidTest {
     }
 
     @Test
+    @DisplayName("Успешный вход по логину/паролю")
     public void successAuthorization() throws InterruptedException {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
                         Data.UserTypes.DEFAULT_USER.phoneValidValue(),
                         Data.UserTypes.DEFAULT_USER.passwordValidValue(),
-                false);
+                        false
+                );
 
-                assertTrue(
-                mainPageAndroid.mainPageHeader().is(visible),
-                "Ожидался видимый заголовок главной страницы после успешного входа"  // или: main.mainPageHeaderShouldBeVisible()
-        );
+        // Предпочтительный для диплома стиль: проверка через шаг страницы
+        mainPageAndroid.mainPageHeaderShouldBeVisible();
     }
 
     @Test
+    @DisplayName("Ошибка при входе с неверным паролем")
     public void incorrectAuthorization() throws InterruptedException {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
                         Data.UserTypes.DEFAULT_USER.phoneValidValue(),
                         Data.UserTypes.DEFAULT_USER.passwordInvalidValue(),
-                true);
+                        true
+                );
 
-                assertTrue(loginPageAndroid
-                                .incorrectDataErrorMessage()
-                                .is(visible),
-                "Ожидался текст ошибки");
+        loginPageAndroid.incorrectDataErrorMessage().shouldBe(visible);
     }
 
     @Test
+    @DisplayName("Повторный вход по PIN после перезапуска приложения")
     public void successAuthorizationByPin() throws InterruptedException {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
                         Data.UserTypes.DEFAULT_USER.phoneValidValue(),
                         Data.UserTypes.DEFAULT_USER.passwordValidValue(),
-                        false);
+                        false
+                );
 
-        mainPageAndroid.closeAndRunApp();
+        mainPageAndroid.closeAndRunApp();      // app.id можно переопределить через -Dapp.id
         inputPinPageAndroid.clickNum1();
-        mainPageAndroid.waitUntilLoaded();
-
-        assertTrue(
-                mainPageAndroid.mainPageHeader().is(visible),
-                "Ожидался видимый заголовок главной страницы после успешного входа"  // или: main.mainPageHeaderShouldBeVisible()
-        );
+        mainPageAndroid.waitUntilLoaded().mainPageHeaderShouldBeVisible();
     }
 
     @Test
+    @DisplayName("Неверный PIN — остаёмся на экране ввода PIN")
     public void incorrectAuthorizationByPin() throws InterruptedException {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
                         Data.UserTypes.DEFAULT_USER.phoneValidValue(),
                         Data.UserTypes.DEFAULT_USER.passwordValidValue(),
-                        false);
+                        false
+                );
 
         mainPageAndroid.closeAndRunApp();
         inputPinPageAndroid.clickNum2();
 
-        assertTrue(
-                inputPinPageAndroid.inputPinHeader().is(visible),
-                "Ожидался видимый заголовок страницы ввода пин-кода"
-        );
+        inputPinPageAndroid.inputPinHeader().shouldBe(visible);
     }
+
     @Test
+    @DisplayName("Вход по PIN без интернета — вижу модалку о проблемах с сетью")
     public void authorizationByPinWithoutInternet() throws InterruptedException {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
                         Data.UserTypes.DEFAULT_USER.phoneValidValue(),
                         Data.UserTypes.DEFAULT_USER.passwordValidValue(),
-                        false);
+                        false
+                );
 
         mainPageAndroid.closeAndRunApp();
-        mainPageAndroid.turnInternet();
+        mainPageAndroid.toggleMobileData(); // выключили/включили мобильные данные
         inputPinPageAndroid.clickNum1();
 
-        SelenideElement checkModalWindowIsVisible =
-        inputPinPageAndroid.somethingWrongWithInternetModalWindow().shouldBe(visible);
+        SelenideElement modal = inputPinPageAndroid
+                .somethingWrongWithInternetModalWindow()
+                .shouldBe(visible);
 
-        mainPageAndroid.turnInternet();
+        mainPageAndroid.toggleMobileData(); // вернули сеть
 
-        assertTrue(
-                checkModalWindowIsVisible.is(visible),
-                "Ожидалось отображение модального окна проблем с интернетом"
-        );
+        modal.shouldBe(visible); // финальная проверка состояния модалки
     }
 }
