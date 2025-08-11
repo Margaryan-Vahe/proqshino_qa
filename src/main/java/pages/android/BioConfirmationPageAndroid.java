@@ -1,32 +1,43 @@
+// pages.android.BioConfirmationPageAndroid — ИЗМЕНЁННЫЙ КОД
 package pages.android;
 
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
+import io.qameta.allure.Step;
 import pages.base.BioConfirmationPageBase;
 
 import static com.codeborne.selenide.Selenide.$;
 
 public class BioConfirmationPageAndroid extends BioConfirmationPageBase {
-    // Локаторы элементов страницы
+
+    // Локаторы
     @Override
     public SelenideElement bioModalWindow() {
-        return $(MobileBy.AccessibilityId("PIN‑код успешно установлен"));
+        return $(MobileBy.AccessibilityId("PIN-код успешно установлен"));
     }
+
     @Override
     public SelenideElement confirmBiometricButton(){
         return $(MobileBy.AccessibilityId("Подключить вход по биометрии"));
     }
+
     @Override
     public SelenideElement refuseBiometricButton(){
         return $(MobileBy.AccessibilityId("Я хочу отказаться от биометрического доступа"));
     }
 
-    // Конструктор класса
+    // Конструктор
     public BioConfirmationPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);
     }
 
-    // Методы класса
+    // Ковариантный возврат для удобного чейнинга + явные шаги под Android
+    @Override
+    @Step("Жду появления модального окна подтверждения биометрии (Android)")
+    public BioConfirmationPageAndroid waitUntilLoaded() {
+        super.waitUntilLoaded();
+        return this;
+    }
 }

@@ -4,7 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
-import pages.base.OtpPageBase;
+import io.qameta.allure.Step;
 import pages.base.SetPasswordPageBase;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -15,9 +15,7 @@ public class SetPasswordPageAndroid extends SetPasswordPageBase {
     @Override
     public SelenideElement pageHeader() {
         return $(MobileBy.AndroidUIAutomator(
-                "new UiSelector()" +
-                        ".description(\"Задайте пароль\")" +
-                        ".instance(0)"
+                "new UiSelector().description(\"Задайте пароль\").instance(0)"
         ));
     }
 
@@ -34,9 +32,7 @@ public class SetPasswordPageAndroid extends SetPasswordPageBase {
     @Override
     public SelenideElement eayButton() {
         return $(MobileBy.AndroidUIAutomator(
-                "new UiSelector()" +
-                        ".className(\"android.view.View\")" +
-                        ".instance(8)"
+                "new UiSelector().className(\"android.view.View\").instance(8)"
         ));
     }
 
@@ -50,10 +46,16 @@ public class SetPasswordPageAndroid extends SetPasswordPageBase {
         return $(MobileBy.AccessibilityId("Сохранить пароль"));
     }
 
-    // Конструктор классаа
+    // Конструктор класса
     public SetPasswordPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);
     }
 
-    // Методы класса
+    // Ковариант для удобного чейнинга + явные шаги под Android
+    @Override
+    @Step("Жду загрузки экрана 'Задайте пароль' (Android)")
+    public SetPasswordPageAndroid waitUntilLoaded() {
+        super.waitUntilLoaded();
+        return this;
+    }
 }

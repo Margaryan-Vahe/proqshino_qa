@@ -4,6 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
+import pages.base.InputPinPageBase;
 import pages.base.RepeatPinPageBase;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -27,6 +28,11 @@ public class RepeatPinPageIOS extends RepeatPinPageBase {
     // Конструктор класса
     public RepeatPinPageIOS(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);
+    }
+
+    @Override
+    protected InputPinPageBase createInputPinPage() {
+        return null;
     }
 
     // Методы класса
