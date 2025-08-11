@@ -1,90 +1,65 @@
 package pages.base;
 
-import baseUtils.Data;
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import pages.BaseProfilePage;
-import pages.android.*;
+import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.Condition.enabled;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 
-public abstract class LoginPageBase implements BaseProfilePage {
-    public static AppiumDriver<MobileElement> appiumDriver;
-    MainPageAndroid mainPageAndroid = new MainPageAndroid(appiumDriver);
-    SetPinPageAndroid setPinPageAndroid = new SetPinPageAndroid(appiumDriver);;
-    RepeatPinPageAndroid repeatPinPageAndroid = new RepeatPinPageAndroid(appiumDriver);
-    InputPinPageAndroid inputPinPageAndroid = new InputPinPageAndroid(appiumDriver);
-    BioConfirmationPageAndroid bioConfirmationPageAndroid = new BioConfirmationPageAndroid(appiumDriver);
+public abstract class LoginPageBase implements pages.BaseProfilePage {
+    protected final AppiumDriver<MobileElement> appiumDriver;
 
-    // Локаторы элементов страницы
+    // Локаторы
     @Override
-    public SelenideElement pageHeader() {
-        return null;
-    }
-
+    public abstract SelenideElement pageHeader();
     public abstract SelenideElement phoneNumberField();
     public abstract SelenideElement passwordField();
     public abstract SelenideElement loginButton();
     public abstract SelenideElement incorrectDataErrorMessage();
     public abstract SelenideElement forgotPassButton();
 
-    // Конструктор класса
     public LoginPageBase(AppiumDriver<MobileElement> appiumDriver) {
         this.appiumDriver = appiumDriver;
     }
 
-    // Методы класса
+    @Step("Жду загрузки страницы логина")
     public LoginPageBase waitUntilLoaded() {
         pageHeader().shouldBe(visible);
         return this;
     }
-    public String getPageHeaderText(){
+
+    @Step("Читаю заголовок страницы логина")
+    public String getPageHeaderText() {
         return pageHeader().getText();
     }
 
-    public void typePhoneNumber(String phoneNumber) throws InterruptedException {
-        do {
-            SelenideElement phone = phoneNumberField()
-                    .shouldBe(visible, enabled);
-            phone.click();
-            phone.sendKeys(phoneNumber);
-        } while (!phoneNumberField()
-                .getText()
-                .equals(Data.UserTypes.DEFAULT_USER.phoneFullValue()));
+    @Step("Ввожу номер телефона: {phoneNumber}")
+    public void typePhoneNumber(String phoneNumber) {
+        SelenideElement phone = phoneNumberField().shouldBe(visible).shouldBe(enabled);
+
+        phone.click();
+        phone.sendKeys(phoneNumber);
     }
 
+    @Step("Ввожу пароль")
     public void typePassword(String pass) {
-        passwordField().click();
-        passwordField()
-                .shouldBe(visible, enabled)
-                .sendKeys(pass);
+        SelenideElement password = passwordField()
+                .shouldBe(visible,enabled);
+
+        password.click();
+        password.sendKeys(pass);
     }
 
+    @Step("Нажимаю кнопку 'Войти'")
     public void clickToLoginButton() throws InterruptedException {
         Thread.sleep(1500);
         loginButton().click();
     }
 
-    public void login(String phone, String pass, boolean isErrorCase) throws InterruptedException {
-        typePhoneNumber(phone);
-        typePassword(pass);
-        clickToLoginButton();
-
-        if(isErrorCase){
-            incorrectDataErrorMessage().shouldBe(visible);
-        } else {
-            setPinPageAndroid.clickNum1();
-            repeatPinPageAndroid.clickNum1();
-            bioConfirmationPageAndroid.clickToRefuseButton();
-            inputPinPageAndroid.clickNum1();
-
-            mainPageAndroid.mainPageHeaderShouldNeVisible();
-        }
-    }
+    @Step("Открываю 'Забыл пароль'")
     public void clickToForgotPassButton() {
         waitUntilLoaded();
-        forgotPassButton().click();
+        forgotPassButton().shouldBe(visible).click();
     }
 }

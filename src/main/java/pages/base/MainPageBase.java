@@ -4,49 +4,56 @@ import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.qameta.allure.Step;
 
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.codeborne.selenide.Condition.visible;
 
 public abstract class MainPageBase {
-    public final AppiumDriver<MobileElement> appiumDriver;
+    protected final AppiumDriver<MobileElement> appiumDriver;
 
-    // Локаторы элементов страницы
+    // Локаторы
     public abstract SelenideElement mainPageHeader();
-
     public abstract SelenideElement profileButton();
 
-    // Конструктор класса
     public MainPageBase(AppiumDriver<MobileElement> appiumDriver) {
         this.appiumDriver = appiumDriver;
     }
 
-    // Методы класса
+    @Step("Жду загрузки главной страницы")
     public MainPageBase waitUntilLoaded() {
         mainPageHeader().shouldBe(visible, Duration.ofSeconds(10));
         return this;
     }
 
-    public void mainPageHeaderShouldNeVisible() {
+    @Step("Проверяю, что заголовок главной страницы виден")
+    public void mainPageHeaderShouldBeVisible() {
         mainPageHeader().shouldBe(visible, Duration.ofSeconds(10));
     }
 
+    @Step("Открываю профиль с главной страницы")
     public void openProfile() {
-        profileButton().shouldBe(visible).click();
+        profileButton().shouldBe(visible, Duration.ofSeconds(10)).click();
     }
 
-    public void closeAndRunApp() {
+    // Перезагрузка приложения: без хардкода appId
+    @Step("Перезапускаю приложение: {appId}")
+    public void closeAndRunApp(String appId) {
         AndroidDriver<MobileElement> android = (AndroidDriver<MobileElement>) appiumDriver;
-        String appId = "ru.prokshino.prokshino";
-
         android.terminateApp(appId);
         android.activateApp(appId);
     }
 
-    public void turnInternet() {
+    // Оставил перегрузку — чтобы не ломать существующие тесты
+    @Step("Перезапускаю приложение (app.id из -D или дефолт)")
+    public void closeAndRunApp() {
+        String appId = System.getProperty("app.id", "ru.prokshino.prokshino");
+        closeAndRunApp(appId);
+    }
+
+    @Step("Переключаю мобильные данные (Android)")
+    public void toggleMobileData() {
         AndroidDriver<MobileElement> android = (AndroidDriver<MobileElement>) appiumDriver;
         android.toggleData();
     }

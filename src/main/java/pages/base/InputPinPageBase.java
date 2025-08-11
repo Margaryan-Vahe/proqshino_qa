@@ -3,41 +3,44 @@ package pages.base;
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.visible;
 
 public abstract class InputPinPageBase {
-    AppiumDriver<MobileElement> appiumDriver;
-    // Локаторы элементов страницы
+    protected final AppiumDriver<MobileElement> appiumDriver;
+
     public abstract SelenideElement inputPinHeader();
     public abstract SelenideElement somethingWrongWithInternetModalWindow();
     public abstract SelenideElement num1();
     public abstract SelenideElement num2();
     public abstract SelenideElement forgotPinButton();
 
-    // Конструктор класса
     public InputPinPageBase(AppiumDriver<MobileElement> appiumDriver) {
         this.appiumDriver = appiumDriver;
     }
 
-    // Методы класса
+    @Step("Жду загрузки экрана ввода PIN")
     public InputPinPageBase waitUntilLoaded() {
         inputPinHeader().shouldBe(visible);
         return this;
     }
 
+    @Step("Ввожу PIN: 1111")
     public void clickNum1(){
-        for (int i = 1; i <= 4; i++){
-            num1().click();
-        }
+        num1().shouldBe(visible);
+        for (int i = 0; i < 4; i++) num1().click();
     }
+
+    @Step("Ввожу PIN: 2222")
     public void clickNum2(){
-        for (int i = 1; i <= 4; i++){
-            num2().click();
-        }
+        num2().shouldBe(visible);
+        for (int i = 0; i < 4; i++) num2().click();
     }
+
+    @Step("Нажимаю 'Забыл ПИН-код'")
     public void clickToForgotPinButton(){
         waitUntilLoaded();
-        forgotPinButton().click();
+        forgotPinButton().shouldBe(visible).click();
     }
 }
