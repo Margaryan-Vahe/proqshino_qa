@@ -1,13 +1,12 @@
 package android;
 
 import baseUtils.Data;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.visible;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+public class RecoveringTest extends BaseAndroidTest {
 
-public class RecoveringTest extends BaseAndroidTest{
     @Override
     @BeforeEach
     public void initPages() throws Exception {
@@ -16,49 +15,55 @@ public class RecoveringTest extends BaseAndroidTest{
     }
 
     @Test
+    @DisplayName("Восстановление пароля через SMS-код → настройка PIN → вход")
     public void passRecovery() throws InterruptedException {
         loginPageAndroid.clickToForgotPassButton();
-        recoverPageAndroid.inputDataForRecover(Data.UserTypes.DEFAULT_USER.phoneValidValue());
-        otpPageAndroid.typeCorrectOtp();
-        setPasswordPageAndroid.inputPassword(Data.UserTypes.DEFAULT_USER.passwordValidValue());
 
-        setPinPageAndroid.waitUntilLoaded();
-
-        setPinPageAndroid.clickNum1();
-        repeatPinPageAndroid.clickNum1();
-        bioConfirmationPageAndroid.clickToRefuseButton();
-        inputPinPageAndroid.clickNum1();
-
-        mainPageAndroid.waitUntilLoaded();
-
-        assertTrue(
-                mainPageAndroid.mainPageHeader().is(visible),
-                "Ожидался видимый заголовок главной страницы после успешного восстановления пароля"  // или: main.mainPageHeaderShouldBeVisible()
+        recoverPageAndroid.waitUntilLoaded();
+        recoverPageAndroid.inputDataForRecover(
+                Data.UserTypes.DEFAULT_USER.phoneValidValue()
         );
+
+        otpPageAndroid
+                .waitUntilLoaded()
+                .typeCorrectOtp(); // код 1111
+
+        setPasswordPageAndroid
+                .waitUntilLoaded();
+        setPasswordPageAndroid.inputPassword(
+                Data.UserTypes.DEFAULT_USER.passwordValidValue()
+        );
+
+        setPinPageAndroid.waitUntilLoaded().clickNum1();
+        repeatPinPageAndroid.waitUntilLoaded().clickNum1();
+        bioConfirmationPageAndroid.waitUntilLoaded().clickToRefuseButton();
+        inputPinPageAndroid.waitUntilLoaded().clickNum1();
+
+        mainPageAndroid.waitUntilLoaded().mainPageHeaderShouldBeVisible();
     }
 
     @Test
+    @DisplayName("Восстановление PIN-кода через 'Забыл ПИН'")
     public void pinRecovery() throws InterruptedException {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
                         Data.UserTypes.DEFAULT_USER.phoneValidValue(),
                         Data.UserTypes.DEFAULT_USER.passwordValidValue(),
-                        false);
+                        false
+                );
+
         mainPageAndroid.closeAndRunApp();
         inputPinPageAndroid.clickToForgotPinButton();
+
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
                         Data.UserTypes.DEFAULT_USER.phoneValidValue(),
                         Data.UserTypes.DEFAULT_USER.passwordValidValue(),
-                        false);
+                        false
+                );
 
-        assertTrue(
-                mainPageAndroid.mainPageHeader().is(visible),
-                "Ожидался видимый заголовок главной страницы после успешного восстановления пин-кода"  // или: main.mainPageHeaderShouldBeVisible()
-        );
+        mainPageAndroid.waitUntilLoaded().mainPageHeaderShouldBeVisible();
     }
-
-
 }
