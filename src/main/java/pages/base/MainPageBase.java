@@ -16,6 +16,8 @@ public abstract class MainPageBase {
     // Локаторы
     public abstract SelenideElement mainPageHeader();
     public abstract SelenideElement profileButton();
+    public abstract SelenideElement passButton();
+
 
     public MainPageBase(AppiumDriver<MobileElement> appiumDriver) {
         this.appiumDriver = appiumDriver;
@@ -35,6 +37,11 @@ public abstract class MainPageBase {
     @Step("Открываю профиль с главной страницы")
     public void openProfile() {
         profileButton().shouldBe(visible, Duration.ofSeconds(10)).click();
+    }
+
+    @Step("Открываю раздел Пропуск с главной страницы")
+    public void openPassPage() {
+        passButton().shouldBe(visible, Duration.ofSeconds(10)).click();
     }
 
     // Перезагрузка приложения: без хардкода appId
