@@ -6,7 +6,6 @@ import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Condition.visible;
 
-@DisplayName("Авторизация: Android")
 public class AuthorizationTest extends BaseAndroidTest {
 
     @Override
