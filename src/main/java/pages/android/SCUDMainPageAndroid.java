@@ -4,13 +4,11 @@ import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
-import io.qameta.allure.Step;
-import pages.base.PassCreationMainPageBase;
-import pages.base.SetPasswordPageBase;
+import pages.base.SCUDMainPageBase;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class PassCreationMainPageAndroid extends PassCreationMainPageBase {
+public class SCUDMainPageAndroid extends SCUDMainPageBase {
     // Элементы страницы
 
     @Override
@@ -34,7 +32,7 @@ public class PassCreationMainPageAndroid extends PassCreationMainPageBase {
     }
 
     // Конструктор класса
-    public PassCreationMainPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
+    public SCUDMainPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);
     }
 

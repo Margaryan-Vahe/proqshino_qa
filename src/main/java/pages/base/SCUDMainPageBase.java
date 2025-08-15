@@ -9,7 +9,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
 
-public abstract class PassCreationMainPageBase {
+public abstract class SCUDMainPageBase {
     protected final AppiumDriver<MobileElement> appiumDriver;
 
     // Локаторы элементов страницы
@@ -19,13 +19,13 @@ public abstract class PassCreationMainPageBase {
     public abstract SelenideElement myPasses();
 
     // Конструктор класса
-    public PassCreationMainPageBase(AppiumDriver<MobileElement> appiumDriver) {
+    public SCUDMainPageBase(AppiumDriver<MobileElement> appiumDriver) {
         this.appiumDriver = appiumDriver;
     }
 
     // Методы класса
     @Step("Жду загрузки экрана 'Задайте пароль'")
-    public PassCreationMainPageBase waitUntilLoaded() {
+    public SCUDMainPageBase waitUntilLoaded() {
         pageHeader().shouldBe(visible, Duration.ofSeconds(10));
         return this;
     }
