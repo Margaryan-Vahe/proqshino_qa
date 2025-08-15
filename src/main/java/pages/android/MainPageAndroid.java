@@ -19,6 +19,11 @@ public class MainPageAndroid extends MainPageBase {
         return $(MobileBy.AccessibilityId("Профиль"));
     }
 
+    @Override
+    public SelenideElement passButton() {
+        return $(MobileBy.xpath("//android.view.View[contains(@content-desc, 'Пропуск')]"));
+    }
+
     public MainPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);
     }
