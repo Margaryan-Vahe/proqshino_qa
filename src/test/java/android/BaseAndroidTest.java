@@ -5,6 +5,7 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import pages.android.*;
+import pages.base.PassCreationMainPageBase;
 
 import static baseUtils.SetupCapabilities.appiumDriver;
 import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
@@ -21,6 +22,9 @@ public class BaseAndroidTest {
     protected SetPinPageAndroid setPinPageAndroid;
     protected RepeatPinPageAndroid repeatPinPageAndroid;
     protected BioConfirmationPageAndroid bioConfirmationPageAndroid;
+    PassCreationMainPageAndroid passCreationMainPageAndroid;
+    PersonalPassTypesPageAndroid personalPassTypesPageAndroid;
+    QrPassMainPageAndroid qrPassMainPageAndroid;
 
     @BeforeEach
     public void initPages() throws Exception {
@@ -41,6 +45,9 @@ public class BaseAndroidTest {
         setPinPageAndroid = new SetPinPageAndroid(appiumDriver);
         repeatPinPageAndroid = new RepeatPinPageAndroid(appiumDriver);
         bioConfirmationPageAndroid = new BioConfirmationPageAndroid(appiumDriver);
+        passCreationMainPageAndroid = new PassCreationMainPageAndroid(appiumDriver);
+        personalPassTypesPageAndroid = new PersonalPassTypesPageAndroid(appiumDriver);
+        qrPassMainPageAndroid = new QrPassMainPageAndroid(appiumDriver);
     }
 
     @AfterEach
