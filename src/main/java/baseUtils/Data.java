@@ -7,7 +7,7 @@ public class Data {
                 return "79321217816";
             }
             public String phoneFullValue() {
-                return "+7 (932) 100-00-09";
+                return "+7 (932) 121-78-16";
             }
             public String phoneInvalidValue() {
                 return "793212178";
