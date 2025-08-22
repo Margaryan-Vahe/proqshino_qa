@@ -4,13 +4,13 @@ public class Data {
     public enum UserTypes {
         DEFAULT_USER {
             public String phoneValidValue() {
-                return "79321217816";
+                return "79330000000";
             }
             public String phoneFullValue() {
-                return "+7 (932) 121-78-16";
+                return "+7 (933) 000-00-00";
             }
             public String phoneInvalidValue() {
-                return "793212178";
+                return "793300000";
             }
 
             public String passwordValidValue() {
@@ -33,11 +33,11 @@ public class Data {
             }
 
             public String userLastName() {
-                return "AUTOMATION";
+                return "DEFAULT";
             }
 
             public String userEmail() {
-                return "user_simple@test.com";
+                return "9330000000@test.com";
             }
         };
 
