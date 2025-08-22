@@ -14,6 +14,9 @@ public class ProfilePageAndroid extends ProfilePageBase {
     public final SelenideElement pageHeader() {
         return $(MobileBy.AccessibilityId("Профиль"));
     }
+    public final SelenideElement myPassesButton() {
+        return $(MobileBy.xpath("//android.view.View[contains(@content-desc,'Мои пропуска')]"));
+    }
 
     // Конструктор класса
     public ProfilePageAndroid(AppiumDriver<MobileElement> appiumDriver) {

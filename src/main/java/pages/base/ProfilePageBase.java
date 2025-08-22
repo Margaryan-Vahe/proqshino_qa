@@ -1,12 +1,12 @@
 package pages.base;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
+import io.qameta.allure.Step;
 import pages.BaseProfilePage;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 public abstract class ProfilePageBase implements BaseProfilePage {
@@ -22,11 +22,17 @@ public abstract class ProfilePageBase implements BaseProfilePage {
     public SelenideElement pageHeader() {
         return null;
     }
+    public SelenideElement myPassesButton() {
+        return null;
+    }
+    @Step("Жду загрузки экрана 'Профиль'")
     public ProfilePageBase waitUntilLoaded() {
-        pageHeader().shouldBe(Condition.visible);
+        pageHeader().shouldBe(visible);
         return this;
     }
-    public String getPageHeaderText(){
-        return pageHeader().getText();
+    @Step("Перехожу в раздел 'Мои пропуска'")
+    public void clickToMyPassesButton() {
+        waitUntilLoaded();
+        myPassesButton().shouldBe(visible).click();
     }
 }
