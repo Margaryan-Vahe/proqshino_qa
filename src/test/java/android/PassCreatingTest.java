@@ -40,4 +40,23 @@ public class PassCreatingTest extends BaseAndroidTest {
         myPassesPageAndroid.checkQRActiveStatus();
     }
 
+    @Test
+    @DisplayName("Успешный выпуск личного QR-пропуска: будучи неподтвержденным на ресепшен пользователем")
+    public void successCreatingPersonalQRPassBeingNotApproved() throws Exception {
+        loginPageAndroid
+                .waitUntilLoaded()
+                .login(
+                        Data.UserTypes.NOT_APPROVED_USER.phoneValidValue(),
+                        Data.UserTypes.NOT_APPROVED_USER.passwordValidValue(),
+                        false
+                );
+
+        mainPageAndroid.openPassPage();
+        passCreationMainPageAndroid.clickToPersonalPassButton();
+        personalPassTypesPageAndroid.clickToQRPassButton();
+        qrPassMainPageAndroid.requestPersonalQRPassBeingNotApproved();
+
+        myPassesPageAndroid.checkQROnApprovalStatus();
+    }
+
 }

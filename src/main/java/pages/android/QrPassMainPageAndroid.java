@@ -37,6 +37,11 @@ public class QrPassMainPageAndroid extends QrPassMainPageBase {
     }
 
     @Override
+    public SelenideElement checkBoxIllGoToReception() {
+        return $(MobileBy.AccessibilityId("Я подойду на ресепшен с паспортом"));
+    }
+
+    @Override
     public SelenideElement confirmRadioButton() {
         return $(MobileBy.AndroidUIAutomator("new UiSelector().className(\"android.view.View\").instance(6)"));
     }

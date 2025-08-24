@@ -20,6 +20,7 @@ public abstract class QrPassMainPageBase {
     public abstract SelenideElement generateButton();
     public abstract SelenideElement modalWindowSuccessApproved();
     public abstract SelenideElement modalWindowSuccessNotApproved();
+    public abstract SelenideElement checkBoxIllGoToReception();
     public abstract SelenideElement confirmRadioButton();
     public abstract SelenideElement myPassesButton();
     // Конструктор класса
@@ -44,6 +45,12 @@ public abstract class QrPassMainPageBase {
     @Step("Жду загрузки экрана 'Успешно' (без подтверждения на ресепшене)")
     public void waitUntilLoadedModalWindowSuccessNotApproved() {
         modalWindowSuccessNotApproved().shouldBe(visible, Duration.ofSeconds(10));
+    }
+    @Step("Жду загрузки экрана 'Успешно' (без подтверждения на ресепшене)")
+    public void clickToCheckBox() {
+        checkBoxIllGoToReception()
+                .shouldBe(visible, Duration.ofSeconds(10))
+                .click();
     }
     @Step("Нажимаю на кнопку 'Сгенерировать'")
     public void clickToGenerateButton() {
@@ -71,7 +78,11 @@ public abstract class QrPassMainPageBase {
     }
     @Step("Подаю заявку на личный QR-пропуск: не подтвержден")
     public void requestPersonalQRPassBeingNotApproved() {
-        myPassesButton().shouldBe(visible, Duration.ofSeconds(10));
+        waitUntilLoaded();
+        clickToGenerateButton();
+        waitUntilLoadedModalWindowSuccessNotApproved();
+        clickToCheckBox();
+        clickToMyPassesButton();
     }
 
 }
