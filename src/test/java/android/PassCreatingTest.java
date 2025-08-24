@@ -58,6 +58,7 @@ public class PassCreatingTest extends BaseAndroidTest {
 
         myPassesPageAndroid.checkQROnApprovalStatus();
     }
+
     @Test
     @DisplayName("Выпуск личного QR-пропуска: подтвержденный на ресепшене пользователь (Профиль-Мои пропуска)")
     public void successCreatingPersonalQRPassBeingApprovedFromProfilePage() throws Exception {
@@ -78,4 +79,23 @@ public class PassCreatingTest extends BaseAndroidTest {
         myPassesPageAndroid.checkQRActiveStatus();
     }
 
+    @Test
+    @DisplayName("Выпуск личного QR-пропуска: неподтвержденный на ресепшене пользователь (Профиль-Мои пропуска)")
+    public void successCreatingPersonalQRPassBeingNotApprovedFromProfilePage() throws Exception {
+        loginPageAndroid
+                .waitUntilLoaded()
+                .login(
+                        Data.UserTypes.NOT_APPROVED_USER.phoneValidValue(),
+                        Data.UserTypes.NOT_APPROVED_USER.passwordValidValue(),
+                        false
+                );
+
+        mainPageAndroid.openProfile();
+        profilePageAndroid.clickToMyPassesButton();
+        myPassesPageAndroid.clickToCreateNewPersonalPassButton();
+        personalPassTypesPageAndroid.clickToQRPassButton();
+        qrPassMainPageAndroid.requestPersonalQRPassBeingNotApproved();
+
+        myPassesPageAndroid.checkQROnApprovalStatus();
+    }
 }
