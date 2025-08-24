@@ -39,6 +39,44 @@ public class Data {
             public String userEmail() {
                 return "9330000000@test.com";
             }
+        },
+        NOT_APPROVED_USER {
+            public String phoneValidValue() {
+                return "79330000001";
+            }
+            public String phoneFullValue() {
+                return "+7 (933) 000-00-01";
+            }
+            public String phoneInvalidValue() {
+                return "793300000";
+            }
+
+            public String passwordValidValue() {
+                return "Password1";
+            }
+            public String passwordInvalidValue() {
+                return "Password123";
+            }
+            public String passwordIncorrectValue() {
+                return "Password";
+            }
+
+
+            public String userFirstName() {
+                return "USER";
+            }
+
+            public String userSecondName() {
+                return "TEST";
+            }
+
+            public String userLastName() {
+                return "NOT-APPROVED";
+            }
+
+            public String userEmail() {
+                return "9330000001@test.com";
+            }
         };
 
         public String phoneValidValue() {
