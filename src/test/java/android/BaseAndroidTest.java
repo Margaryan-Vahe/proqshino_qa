@@ -24,6 +24,7 @@ public class BaseAndroidTest {
     protected SCUDMainPageAndroid passCreationMainPageAndroid;
     protected PersonalPassTypesPageAndroid personalPassTypesPageAndroid;
     protected QrPassMainPageAndroid qrPassMainPageAndroid;
+    MyPassesPageAndroid myPassesPageAndroid;
 
     @BeforeEach
     public void initPages() throws Exception {
@@ -47,6 +48,7 @@ public class BaseAndroidTest {
         passCreationMainPageAndroid = new SCUDMainPageAndroid(appiumDriver);
         personalPassTypesPageAndroid = new PersonalPassTypesPageAndroid(appiumDriver);
         qrPassMainPageAndroid = new QrPassMainPageAndroid(appiumDriver);
+        myPassesPageAndroid = new MyPassesPageAndroid(appiumDriver);
     }
 
     @AfterEach
