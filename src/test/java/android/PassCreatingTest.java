@@ -22,8 +22,8 @@ public class PassCreatingTest extends BaseAndroidTest {
     }
 
     @Test
-    @DisplayName("Успешный выпуск личного QR-пропуска: будучи подтвержденным на ресепшен пользователем")
-    public void successCreatingPersonalQRPassBeingApproved() throws Exception {
+    @DisplayName("Выпуск личного QR-пропуска: подтвержденный на ресепшене пользователь (Главная-Пропуск)")
+    public void successCreatingPersonalQRPassBeingApprovedFromMainPage() throws Exception {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
@@ -41,8 +41,8 @@ public class PassCreatingTest extends BaseAndroidTest {
     }
 
     @Test
-    @DisplayName("Успешный выпуск личного QR-пропуска: будучи неподтвержденным на ресепшен пользователем")
-    public void successCreatingPersonalQRPassBeingNotApproved() throws Exception {
+    @DisplayName("Выпуск личного QR-пропуска: неподтвержденный на ресепшене пользователь (Главная-Пропуск)")
+    public void successCreatingPersonalQRPassBeingNotApprovedFromMainPage() throws Exception {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
