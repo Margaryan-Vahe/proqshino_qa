@@ -43,6 +43,31 @@ public class MyPassesPageAndroid extends MyPassesPageBase {
         return $(MobileBy.AccessibilityId("Деактивировать"));
     }
 
+    @Override
+    public SelenideElement approveDeactivatingModalWindow() {
+        return $(MobileBy.AccessibilityId("Деактивировать пропуск?"));
+    }
+
+    @Override
+    public SelenideElement approveDeactivatingButton() {
+        return $(MobileBy.AccessibilityId("Да, деактивировать пропуск"));
+    }
+
+    @Override
+    public SelenideElement deactivatingSuccessModalWindow() {
+        return $(MobileBy.AccessibilityId("Успешно"));
+    }
+
+    @Override
+    public SelenideElement myPassesButton() {
+        return $(MobileBy.AccessibilityId("Мои пропуска"));
+    }
+
+    @Override
+    public SelenideElement noActivePassMessage() {
+        return $(MobileBy.AccessibilityId("Нет активных пропусков"));
+    }
+
 
     // Конструктор класса
     public MyPassesPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
