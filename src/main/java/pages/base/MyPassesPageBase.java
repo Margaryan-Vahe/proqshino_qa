@@ -33,7 +33,10 @@ public abstract class MyPassesPageBase {
     public abstract SelenideElement deactivatingSuccessModalWindow();
 
     public abstract SelenideElement myPassesButton();
+
     public abstract SelenideElement noActivePassMessage();
+
+    public abstract SelenideElement createNewPersonalPassButton();
 
     // Конструктор класса
     public MyPassesPageBase(AppiumDriver<MobileElement> appiumDriver) {
@@ -96,9 +99,18 @@ public abstract class MyPassesPageBase {
         waitUntilLoadedDeactivatingSuccessModalWindow();
         myPassesButton().shouldBe(visible).click();
     }
+
     @Step("Жду отображения сообщения 'Нет активных пропусков'")
     public void waitUntilLoadedNoActivePassMessage() {
         noActivePassMessage().shouldBe(visible);
+    }
+
+    @Step("Нажимаю на кнопку 'Создать личный пропуск'")
+    public void clickToCreateNewPersonalPassButton() {
+        waitUntilLoadedNoActivePassMessage();
+        createNewPersonalPassButton()
+                .shouldBe(visible)
+                .click();
     }
 
     @Step("Деактивирую пропуск")
