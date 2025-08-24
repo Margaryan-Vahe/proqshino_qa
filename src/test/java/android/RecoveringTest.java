@@ -15,7 +15,7 @@ public class RecoveringTest extends BaseAndroidTest {
     }
 
     @Test
-    @DisplayName("Восстановление пароля через SMS-код → настройка PIN → вход")
+    @DisplayName("Восстановление пароля через SMS-код")
     public void passRecovery() throws InterruptedException {
         loginPageAndroid.clickToForgotPassButton();
 
