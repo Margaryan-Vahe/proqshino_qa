@@ -59,17 +59,20 @@ public abstract class MyPassesPageBase {
 
     @Step("Ожидаю статус у QR пропуска 'Активен'")
     public void checkQRActiveStatus() {
+        waitUntilLoaded();
         qrActive().shouldBe(visible);
     }
 
     @Step("Ожидаю статус у QR пропуска 'На согласовании'")
     public void checkQROnApprovalStatus() {
+        waitUntilLoaded();
         qrOnApproval().shouldBe(visible);
     }
 
     @Step("Нажимаю на кнопку 'Деактивировать'")
     public void clickToDeactivateButton() {
-        deactivationButton().shouldBe(visible);
+        waitUntilLoaded();
+        deactivationButton().shouldBe(visible).click();
     }
 
     @Step("Жду загрузки экрана 'Деактивировать пропуск?'")

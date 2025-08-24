@@ -13,7 +13,7 @@ public class MyPassesPageAndroid extends MyPassesPageBase {
 
     @Override
     public SelenideElement pageHeader() {
-        return $(MobileBy.AccessibilityId("QR"));
+        return $(MobileBy.AccessibilityId("Мои пропуска"));
     }
 
     @Override
