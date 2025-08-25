@@ -35,4 +35,9 @@ public class PassViewingTest extends BaseAndroidTest {
         passCreationMainPageAndroid.clickMyPassesButton();
         myPassesPageAndroid.openQR();
     }
+    @Test
+    @DisplayName("Отображение личного QR-пропуска через Главную страницу")
+    public void openQRPassCodeFromMainPage() {
+        mainPageAndroid.openQR();
+    }
 }
