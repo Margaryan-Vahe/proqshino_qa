@@ -25,6 +25,17 @@ public class MainPageIOS extends MainPageBase {
         return $(MobileBy.xpath("//android.view.View[contains(@content-desc, 'Пропуск')]"));
     }
 
+    @Override
+    public SelenideElement QRButton() {
+        return null;
+    }
+
+    @Override
+    public SelenideElement QRCode() {
+        return null;
+    }
+
+
     // Конструктор класса
     public MainPageIOS(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);

@@ -17,7 +17,8 @@ public abstract class MainPageBase {
     public abstract SelenideElement mainPageHeader();
     public abstract SelenideElement profileButton();
     public abstract SelenideElement passButton();
-
+    public abstract SelenideElement QRButton();
+    public abstract SelenideElement QRCode();
 
     public MainPageBase(AppiumDriver<MobileElement> appiumDriver) {
         this.appiumDriver = appiumDriver;
@@ -63,5 +64,14 @@ public abstract class MainPageBase {
     public void toggleMobileData() {
         AndroidDriver<MobileElement> android = (AndroidDriver<MobileElement>) appiumDriver;
         android.toggleData();
+    }
+    @Step("Открываю QR-пропуск")
+    public void openQR() {
+        waitUntilLoaded();
+        QRButton()
+                .shouldBe(visible, Duration.ofSeconds(10))
+                .click();
+
+        QRCode().shouldBe(visible, Duration.ofSeconds(10));
     }
 }

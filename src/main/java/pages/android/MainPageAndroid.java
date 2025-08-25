@@ -24,6 +24,16 @@ public class MainPageAndroid extends MainPageBase {
         return $(MobileBy.xpath("//android.view.View[contains(@content-desc, 'Пропуск')]"));
     }
 
+    @Override
+    public SelenideElement QRButton() {
+        return $(MobileBy.AccessibilityId("Ваш QR-пропуск"));
+    }
+
+    @Override
+    public SelenideElement QRCode() {
+        return $(MobileBy.AccessibilityId("qr code"));
+    }
+
     public MainPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);
     }
