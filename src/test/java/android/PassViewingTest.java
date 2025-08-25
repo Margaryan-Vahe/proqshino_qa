@@ -23,9 +23,16 @@ public class PassViewingTest extends BaseAndroidTest {
 
     @Test
     @DisplayName("Отображение личного QR-пропуска через Профиль-Мои пропуска")
-    public void openQRPassCodeFromProfilePage() throws Exception {
+    public void openQRPassCodeFromProfilePage() {
         mainPageAndroid.openProfile();
         profilePageAndroid.clickToMyPassesButton();
+        myPassesPageAndroid.openQR();
+    }
+    @Test
+    @DisplayName("Отображение личного QR-пропуска через Главная-Пропуск-Мои пропуска")
+    public void openQRPassCodeFromPassPage() {
+        mainPageAndroid.openPassPage();
+        passCreationMainPageAndroid.clickMyPassesButton();
         myPassesPageAndroid.openQR();
     }
 }
