@@ -37,6 +37,7 @@ public abstract class MyPassesPageBase {
     public abstract SelenideElement noActivePassMessage();
 
     public abstract SelenideElement createNewPersonalPassButton();
+    public abstract SelenideElement QR();
 
     // Конструктор класса
     public MyPassesPageBase(AppiumDriver<MobileElement> appiumDriver) {
@@ -120,5 +121,12 @@ public abstract class MyPassesPageBase {
 
         clickToMyPassesButton();
         waitUntilLoadedNoActivePassMessage();
+    }
+    @Step("Открываю QR-пропуск")
+    public void openQR() {
+        waitUntilLoaded();
+        qrActive().shouldBe(visible).click();
+
+        QR().shouldBe(visible, Duration.ofSeconds(10));
     }
 }

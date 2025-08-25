@@ -73,6 +73,11 @@ public class MyPassesPageAndroid extends MyPassesPageBase {
         return $(MobileBy.AccessibilityId("Создать личный пропуск"));
     }
 
+    @Override
+    public SelenideElement QR() {
+        return $(MobileBy.AccessibilityId("qr code"));
+    }
+
 
     // Конструктор класса
     public MyPassesPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
