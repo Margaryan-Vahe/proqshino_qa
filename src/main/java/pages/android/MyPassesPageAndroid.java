@@ -74,6 +74,11 @@ public class MyPassesPageAndroid extends MyPassesPageBase {
     }
 
     @Override
+    public SelenideElement createNewGuestPassButton() {
+        return $(MobileBy.AccessibilityId("Создать гостевой пропуск"));
+    }
+
+    @Override
     public SelenideElement QR() {
         return $(MobileBy.AccessibilityId("qr code"));
     }
