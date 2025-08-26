@@ -17,7 +17,6 @@ public abstract class SetPasswordPageBase {
     public abstract SelenideElement pageHeader();
     public abstract SelenideElement setPassField();
     public abstract SelenideElement repeatPassField();
-    public abstract SelenideElement eayButton(); // оставляю как есть
     public abstract SelenideElement passIsMatchMessage();
     public abstract SelenideElement savePasswordButton();
 

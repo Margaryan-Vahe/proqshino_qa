@@ -18,8 +18,6 @@ public abstract class OtpPageBase {
 
     public abstract SelenideElement otpField();
 
-    public abstract SelenideElement resendOtpButton();
-
     public abstract SelenideElement backButton();
 
     public OtpPageBase(AppiumDriver<MobileElement> appiumDriver) {

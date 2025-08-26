@@ -15,7 +15,6 @@ public abstract class BioConfirmationPageBase {
 
     // Локаторы элементов страницы
     public abstract SelenideElement bioModalWindow();
-    public abstract SelenideElement confirmBiometricButton();
     public abstract SelenideElement refuseBiometricButton();
 
     // Конструктор

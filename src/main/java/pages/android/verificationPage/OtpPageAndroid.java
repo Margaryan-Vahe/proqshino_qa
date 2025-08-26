@@ -27,11 +27,6 @@ public class OtpPageAndroid extends OtpPageBase {
     }
 
     @Override
-    public SelenideElement noAccessToPhoneButton() {
-        return $(MobileBy.AccessibilityId("Нет доступа к номеру телефона"));
-    }
-
-    @Override
     public SelenideElement backButton() {
         return $(MobileBy.AccessibilityId("Назад"));
     }
