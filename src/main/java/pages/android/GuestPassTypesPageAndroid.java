@@ -1,0 +1,32 @@
+package pages.android;
+
+import com.codeborne.selenide.SelenideElement;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
+import pages.base.GuestPassTypesPageBase;
+import pages.base.PersonalPassTypesPageBase;
+
+import static com.codeborne.selenide.Selenide.$;
+
+public class GuestPassTypesPageAndroid extends GuestPassTypesPageBase {
+    // Элементы страницы
+
+    @Override
+    public SelenideElement pageHeader() {
+        return $(MobileBy.AccessibilityId("Система контроля доступа"));
+    }
+
+    @Override
+    public SelenideElement qrPass() {
+        return $(MobileBy.xpath("//android.view.View[contains(@content-desc, 'QR')]"));
+    }
+
+    // Конструктор класса
+    public GuestPassTypesPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
+        super(appiumDriver);
+    }
+
+    // Методы класса
+
+}
