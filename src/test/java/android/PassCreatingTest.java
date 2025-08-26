@@ -98,4 +98,30 @@ public class PassCreatingTest extends BaseAndroidTest {
 
         myPassesPageAndroid.checkQROnApprovalStatus();
     }
+    @Test
+    @DisplayName("Выпуск гостевого QR-пропуска через Профиль-Мои пропуска")
+    public void creatingGuestQRPassFromProfilePage() throws Exception {
+        loginPageAndroid
+                .waitUntilLoaded()
+                .login(
+                        Data.UserTypes.APPROVED_USER.phoneValidValue(),
+                        Data.UserTypes.APPROVED_USER.passwordValidValue(),
+                        false
+                );
+
+        mainPageAndroid.openProfile();
+        profilePageAndroid.clickToMyPassesButton();
+        myPassesPageAndroid.clickToGuestTab();
+        myPassesPageAndroid.clickToCreateNewGuestPassButton();
+        guestPassTypesPageAndroid.clickToQRPassButton();
+        qrGuestPassPageAndroid.fillingDataForTheGuestPass(
+                "Test",
+                "Test",
+                "Test",
+                "test@test.com",
+                "79333333333",
+                2);
+
+
+    }
 }
