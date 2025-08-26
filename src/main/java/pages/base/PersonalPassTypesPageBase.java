@@ -29,7 +29,7 @@ public abstract class PersonalPassTypesPageBase {
         return this;
     }
 
-    @Step("Перехожу в раздел 'Личные пропуска'")
+    @Step("Выбираю 'QR' пропуск")
     public void clickToQRPassButton(){
         qrPass()
                 .shouldBe(visible, Duration.ofSeconds(10))
