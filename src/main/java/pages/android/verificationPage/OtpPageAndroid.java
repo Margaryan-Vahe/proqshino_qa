@@ -22,11 +22,6 @@ public class OtpPageAndroid extends OtpPageBase {
     }
 
     @Override
-    public SelenideElement resendOtpButton() {
-        return $(MobileBy.AccessibilityId("Повторно отправить смс-код"));
-    }
-
-    @Override
     public SelenideElement backButton() {
         return $(MobileBy.AccessibilityId("Назад"));
     }

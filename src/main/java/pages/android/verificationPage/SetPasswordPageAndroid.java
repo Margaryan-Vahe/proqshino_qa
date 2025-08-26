@@ -30,13 +30,6 @@ public class SetPasswordPageAndroid extends SetPasswordPageBase {
     }
 
     @Override
-    public SelenideElement eayButton() {
-        return $(MobileBy.AndroidUIAutomator(
-                "new UiSelector().className(\"android.view.View\").instance(8)"
-        ));
-    }
-
-    @Override
     public SelenideElement passIsMatchMessage() {
         return $(MobileBy.AccessibilityId("Пароли совпадают"));
     }

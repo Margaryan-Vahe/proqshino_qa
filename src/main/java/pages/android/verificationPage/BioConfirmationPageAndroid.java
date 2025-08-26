@@ -19,11 +19,6 @@ public class BioConfirmationPageAndroid extends BioConfirmationPageBase {
     }
 
     @Override
-    public SelenideElement confirmBiometricButton(){
-        return $(MobileBy.AccessibilityId("Подключить вход по биометрии"));
-    }
-
-    @Override
     public SelenideElement refuseBiometricButton(){
         return $(MobileBy.AccessibilityId("Я хочу отказаться от биометрического доступа"));
     }
