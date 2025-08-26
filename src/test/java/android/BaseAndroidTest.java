@@ -26,6 +26,8 @@ public class BaseAndroidTest {
     protected QrPassMainPageAndroid qrPassMainPageAndroid;
     protected MyPassesPageAndroid myPassesPageAndroid;
     protected ProfilePageAndroid profilePageAndroid;
+    protected GuestPassTypesPageAndroid guestPassTypesPageAndroid;
+    protected QrGuestPassPageAndroid qrGuestPassPageAndroid;
 
     @BeforeEach
     public void initPages() throws Exception {
@@ -51,6 +53,8 @@ public class BaseAndroidTest {
         qrPassMainPageAndroid = new QrPassMainPageAndroid(appiumDriver);
         myPassesPageAndroid = new MyPassesPageAndroid(appiumDriver);
         profilePageAndroid = new ProfilePageAndroid(appiumDriver);
+        guestPassTypesPageAndroid = new GuestPassTypesPageAndroid(appiumDriver);
+        qrGuestPassPageAndroid = new QrGuestPassPageAndroid(appiumDriver);
     }
 
     @AfterEach
