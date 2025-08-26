@@ -53,11 +53,6 @@ public class QrGuestPassPageAndroid extends QrGuestPassPageBase {
 
     @Override
     public SelenideElement saveButton() {
-        return null;
-    }
-
-    @Override
-    public SelenideElement generateButton() {
         return $(MobileBy.AccessibilityId("Сохранить"));
     }
 
