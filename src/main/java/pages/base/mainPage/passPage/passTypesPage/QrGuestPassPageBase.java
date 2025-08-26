@@ -1,11 +1,10 @@
-package pages.base;
+package pages.base.mainPage.passPage.passTypesPage;
 
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.qameta.allure.Step;
-import org.openqa.selenium.Keys;
 
 import java.time.Duration;
 import java.time.LocalDate;

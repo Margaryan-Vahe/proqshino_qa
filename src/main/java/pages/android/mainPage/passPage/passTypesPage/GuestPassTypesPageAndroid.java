@@ -1,14 +1,14 @@
-package pages.android;
+package pages.android.mainPage.passPage.passTypesPage;
 
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
-import pages.base.PersonalPassTypesPageBase;
+import pages.base.mainPage.passPage.passTypesPage.GuestPassTypesPageBase;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class PersonalPassTypesPageAndroid extends PersonalPassTypesPageBase {
+public class GuestPassTypesPageAndroid extends GuestPassTypesPageBase {
     // Элементы страницы
 
     @Override
@@ -22,7 +22,7 @@ public class PersonalPassTypesPageAndroid extends PersonalPassTypesPageBase {
     }
 
     // Конструктор класса
-    public PersonalPassTypesPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
+    public GuestPassTypesPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);
     }
 

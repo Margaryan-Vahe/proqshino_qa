@@ -1,4 +1,4 @@
-package pages.base;
+package pages.base.verificationPage.pinPage;
 
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;

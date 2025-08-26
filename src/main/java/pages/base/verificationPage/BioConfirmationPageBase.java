@@ -1,5 +1,5 @@
-// pages.base.BioConfirmationPageBase — ИЗМЕНЁННЫЙ КОД
-package pages.base;
+// pages.base.verificationPage.BioConfirmationPageBase — ИЗМЕНЁННЫЙ КОД
+package pages.base.verificationPage;
 
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;

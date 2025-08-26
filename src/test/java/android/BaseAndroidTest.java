@@ -5,6 +5,16 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import pages.android.*;
+import pages.android.mainPage.MainPageAndroid;
+import pages.android.mainPage.passPage.*;
+import pages.android.mainPage.passPage.passTypesPage.GuestPassTypesPageAndroid;
+import pages.android.mainPage.passPage.passTypesPage.PersonalPassTypesPageAndroid;
+import pages.android.mainPage.passPage.passTypesPage.QrGuestPassPageAndroid;
+import pages.android.mainPage.passPage.passTypesPage.QrPassMainPageAndroid;
+import pages.android.verificationPage.*;
+import pages.android.verificationPage.pinPage.InputPinPageAndroid;
+import pages.android.verificationPage.pinPage.RepeatPinPageAndroid;
+import pages.android.verificationPage.pinPage.SetPinPageAndroid;
 
 import static baseUtils.SetupCapabilities.appiumDriver;
 import static com.codeborne.selenide.logevents.SelenideLogger.addListener;

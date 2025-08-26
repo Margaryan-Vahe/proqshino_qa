@@ -1,10 +1,10 @@
-package pages.android;
+package pages.android.mainPage;
 
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
-import pages.base.MainPageBase;
+import pages.base.mainPage.MainPageBase;
 
 import static com.codeborne.selenide.Selenide.$;
 

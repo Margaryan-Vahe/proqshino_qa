@@ -5,11 +5,15 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.qameta.allure.Step;
+import pages.android.mainPage.MainPageAndroid;
+import pages.android.verificationPage.BioConfirmationPageAndroid;
+import pages.android.verificationPage.pinPage.InputPinPageAndroid;
+import pages.android.verificationPage.pinPage.RepeatPinPageAndroid;
+import pages.android.verificationPage.pinPage.SetPinPageAndroid;
 import pages.base.LoginPageBase;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Condition.enabled;
 
 public class LoginPageAndroid extends LoginPageBase {
 

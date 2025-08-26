@@ -1,12 +1,12 @@
-// pages.android.BioConfirmationPageAndroid — ИЗМЕНЁННЫЙ КОД
-package pages.android;
+// pages.android.verificationPage.BioConfirmationPageAndroid — ИЗМЕНЁННЫЙ КОД
+package pages.android.verificationPage;
 
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.qameta.allure.Step;
-import pages.base.BioConfirmationPageBase;
+import pages.base.verificationPage.BioConfirmationPageBase;
 
 import static com.codeborne.selenide.Selenide.$;
 

@@ -4,7 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
-import pages.base.InputPinPageBase;
+import pages.base.verificationPage.pinPage.InputPinPageBase;
 
 import static com.codeborne.selenide.Selenide.$;
 

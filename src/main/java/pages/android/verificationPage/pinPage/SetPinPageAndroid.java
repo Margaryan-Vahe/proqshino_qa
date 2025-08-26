@@ -1,12 +1,12 @@
-// pages.android.SetPinPageAndroid — ИЗМЕНЁННЫЙ КОД
-package pages.android;
+// pages.android.verificationPage.pinPage.SetPinPageAndroid — ИЗМЕНЁННЫЙ КОД
+package pages.android.verificationPage.pinPage;
 
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.qameta.allure.Step;
-import pages.base.SetPinPageBase;
+import pages.base.verificationPage.pinPage.SetPinPageBase;
 
 import static com.codeborne.selenide.Selenide.$;
 
