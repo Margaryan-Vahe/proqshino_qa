@@ -30,13 +30,6 @@ public abstract class BioConfirmationPageBase {
         return this;
     }
 
-    @Step("Подтверждаю вход по биометрии")
-    public void clickToConfirmButton() {
-        confirmBiometricButton()
-                .shouldBe(visible, Duration.ofSeconds(10))
-                .click();
-    }
-
     @Step("Отказываюсь от входа по биометрии")
     public void clickToRefuseButton() {
         refuseBiometricButton()

@@ -51,15 +51,13 @@ public class OtpPageAndroid extends OtpPageBase {
 
     @Override
     @Step("Ввожу корректный SMS-код (Android)")
-    public OtpPageAndroid typeCorrectOtp() {
+    public void typeCorrectOtp() {
         super.typeCorrectOtp();
-        return this;
     }
 
     @Override
     @Step("Назад со страницы OTP (Android)")
-    public OtpPageAndroid clickBack() {
+    public void clickBack() {
         super.clickBack();
-        return this;
     }
 }

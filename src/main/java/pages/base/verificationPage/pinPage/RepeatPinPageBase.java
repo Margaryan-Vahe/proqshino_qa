@@ -28,12 +28,12 @@ public abstract class RepeatPinPageBase {
     }
 
     @Step("Повторяю PIN: 1111")
-    public InputPinPageBase clickNum1(){
+    public void clickNum1(){
         num1().shouldBe(visible, Duration.ofSeconds(10));
         for (int i = 0; i < 4; i++){
             num1().click();
         }
-        return createInputPinPage();
+        createInputPinPage();
     }
 
     @Step("Повторяю PIN: 2222")

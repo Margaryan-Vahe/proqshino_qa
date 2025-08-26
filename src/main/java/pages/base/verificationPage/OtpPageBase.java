@@ -15,9 +15,11 @@ public abstract class OtpPageBase {
 
     // Локаторы экрана
     public abstract SelenideElement pageHeader();
+
     public abstract SelenideElement otpField();
+
     public abstract SelenideElement resendOtpButton();
-    public abstract SelenideElement noAccessToPhoneButton();
+
     public abstract SelenideElement backButton();
 
     public OtpPageBase(AppiumDriver<MobileElement> appiumDriver) {
@@ -31,26 +33,16 @@ public abstract class OtpPageBase {
     }
 
     @Step("Ввожу корректный SMS-код")
-    public OtpPageBase typeCorrectOtp() {
+    public void typeCorrectOtp() {
         waitUntilLoaded();
         otpField()
                 .shouldBe(visible, Duration.ofSeconds(10))
                 .click();
         otpField().sendKeys(CORRECT_OTP_VALUE);
-        return this;
-    }
-
-    @Step("Запрашиваю повторную отправку SMS-кода")
-    public void clickToResendOtpButton() throws InterruptedException { // оставлено по твоему правилу
-        Thread.sleep(1500);
-        resendOtpButton()
-                .shouldBe(visible, Duration.ofSeconds(10))
-                .click();
     }
 
     @Step("Возвращаюсь назад со страницы OTP")
-    public OtpPageBase clickBack() {
+    public void clickBack() {
         backButton().shouldBe(visible, Duration.ofSeconds(10)).click();
-        return this;
     }
 }

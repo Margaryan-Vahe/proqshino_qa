@@ -21,9 +21,6 @@ public abstract class SetPasswordPageBase {
     public abstract SelenideElement passIsMatchMessage();
     public abstract SelenideElement savePasswordButton();
 
-    // Доп. алиас, чтобы не путаться в названии (не ломает существующий код)
-    public SelenideElement eyeButton() { return eayButton(); }
-
     // Конструктор класса
     public SetPasswordPageBase(AppiumDriver<MobileElement> appiumDriver) {
         this.appiumDriver = appiumDriver;
