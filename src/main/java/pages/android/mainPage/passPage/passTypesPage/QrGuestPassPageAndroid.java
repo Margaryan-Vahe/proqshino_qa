@@ -56,6 +56,17 @@ public class QrGuestPassPageAndroid extends QrGuestPassPageBase {
         return $(MobileBy.AccessibilityId("Сохранить"));
     }
 
+    @Override
+    public SelenideElement qrCreatingSuccessModalWindow() {
+        return $(MobileBy.AccessibilityId("Успешно"));
+    }
+
+    @Override
+    public SelenideElement myPassesButton() {
+        return $(MobileBy.AccessibilityId("Мои пропуска"));
+    }
+
+
     // Конструктор класса
     public QrGuestPassPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);

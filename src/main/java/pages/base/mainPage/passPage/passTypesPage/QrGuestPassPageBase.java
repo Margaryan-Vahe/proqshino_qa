@@ -28,9 +28,17 @@ public abstract class QrGuestPassPageBase {
     public abstract SelenideElement emailField();
 
     public abstract SelenideElement phoneField();
+
     public abstract SelenideElement dateRangeField();
+
     public abstract SelenideElement selectDateRangeWindow();
+
     public abstract SelenideElement saveButton();
+
+    public abstract SelenideElement qrCreatingSuccessModalWindow();
+
+    public abstract SelenideElement myPassesButton();
+
     private static final Locale RU = new Locale("ru", "RU");
     private static final DateTimeFormatter A11Y = DateTimeFormatter.ofPattern("dd.MM.yyyy", RU);
 
@@ -42,6 +50,11 @@ public abstract class QrGuestPassPageBase {
     public QrGuestPassPageBase waitUntilLoaded() {
         pageHeader().shouldBe(visible, Duration.ofSeconds(10));
         return this;
+    }
+
+    @Step("Жду загрузки экрана 'Успешно'")
+    public void waitLoadedSuccessModalWindow() {
+        qrCreatingSuccessModalWindow().shouldBe(visible, Duration.ofSeconds(10));
     }
 
     @Step("Ввожу значение в поле 'Фамилия'")
@@ -170,5 +183,12 @@ public abstract class QrGuestPassPageBase {
         openDatePicker();
         selectRange(LocalDate.now(), days);
         saveDateRange();
+    }
+
+    @Step("Нажимаю на кнопку 'Мои пропуска'")
+    public void clickToMyPassesButton() {
+        waitLoadedSuccessModalWindow();
+        myPassesButton().shouldBe(visible, Duration.ofSeconds(10))
+                .click();
     }
 }
