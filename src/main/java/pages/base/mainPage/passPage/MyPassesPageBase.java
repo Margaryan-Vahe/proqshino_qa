@@ -37,7 +37,9 @@ public abstract class MyPassesPageBase {
     public abstract SelenideElement noActivePassMessage();
 
     public abstract SelenideElement createNewPersonalPassButton();
+
     public abstract SelenideElement createNewGuestPassButton();
+
     public abstract SelenideElement QR();
 
     // Конструктор класса
@@ -114,6 +116,7 @@ public abstract class MyPassesPageBase {
                 .shouldBe(visible)
                 .click();
     }
+
     @Step("Нажимаю на кнопку 'Создать личный пропуск': таб 'Гостевые'")
     public void clickToCreateNewGuestPassButton() {
         waitUntilLoadedNoActivePassMessage();
@@ -130,6 +133,7 @@ public abstract class MyPassesPageBase {
         clickToMyPassesButton();
         waitUntilLoadedNoActivePassMessage();
     }
+
     @Step("Открываю QR-пропуск")
     public void openQR() {
         waitUntilLoaded();

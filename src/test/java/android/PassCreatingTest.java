@@ -5,6 +5,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class PassCreatingTest extends BaseAndroidTest {
     @Override
@@ -98,9 +100,11 @@ public class PassCreatingTest extends BaseAndroidTest {
 
         myPassesPageAndroid.checkQROnApprovalStatus();
     }
-    @Test
-    @DisplayName("Выпуск гостевого QR-пропуска через Профиль-Мои пропуска")
-    public void creatingGuestQRPassFromProfilePage() throws Exception {
+
+    @ParameterizedTest(name = "Выпуск гостевого QR-пропуска через Профиль-Мои пропуска: на {0} дн.")
+    @ValueSource(ints = {2, 3})
+    @DisplayName("Выпуск гостевого QR-пропуска (профиль → мои пропуска)")
+    public void creatingGuestQRPassFromProfile(int days) throws Exception {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
@@ -114,14 +118,18 @@ public class PassCreatingTest extends BaseAndroidTest {
         myPassesPageAndroid.clickToGuestTab();
         myPassesPageAndroid.clickToCreateNewGuestPassButton();
         guestPassTypesPageAndroid.clickToQRPassButton();
+
         qrGuestPassPageAndroid.fillingDataForTheGuestPass(
                 "Test",
                 "Test",
                 "Test",
                 "test@test.com",
                 "79333333333",
-                2);
+                days
+        );
 
-
+        qrGuestPassPageAndroid.clickToMyPassesButton();
+        myPassesPageAndroid.clickToGuestTab();
     }
+
 }
