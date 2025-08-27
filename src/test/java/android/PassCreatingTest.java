@@ -132,4 +132,32 @@ public class PassCreatingTest extends BaseAndroidTest {
         myPassesPageAndroid.clickToGuestTab();
     }
 
+    @ParameterizedTest(name = "Выпуск гостевого QR-пропуска через Главная-Пропуска: на {0} дн.")
+    @ValueSource(ints = {2, 3})
+    @DisplayName("Выпуск гостевого QR-пропуска (Главная → Пропуска)")
+    public void creatingGuestQRPassFromMainPage(int days) throws Exception {
+        loginPageAndroid
+                .waitUntilLoaded()
+                .login(
+                        Data.UserTypes.APPROVED_USER.phoneValidValue(),
+                        Data.UserTypes.APPROVED_USER.passwordValidValue(),
+                        false
+                );
+
+        mainPageAndroid.openPassPage();
+        passCreationMainPageAndroid.clickToGuestPassButton();
+        guestPassTypesPageAndroid.clickToQRPassButton();
+        qrGuestPassPageAndroid.fillingDataForTheGuestPass(
+                "Test",
+                "Test",
+                "Test",
+                "test@test.com",
+                "79333333333",
+                days
+        );
+
+        qrGuestPassPageAndroid.clickToMyPassesButton();
+        myPassesPageAndroid.clickToGuestTab();
+    }
+
 }
