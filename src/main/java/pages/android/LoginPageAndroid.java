@@ -51,6 +51,11 @@ public class LoginPageAndroid extends LoginPageBase {
         return $(MobileBy.AccessibilityId("Забыл пароль"));
     }
 
+    @Override
+    public SelenideElement createNewAccountButton() {
+        return $(MobileBy.AccessibilityId("Нет аккаунта? Зарегистрируйтесь"));
+    }
+
     public LoginPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);
     }

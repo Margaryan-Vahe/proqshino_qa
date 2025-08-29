@@ -18,6 +18,7 @@ public abstract class LoginPageBase implements pages.BaseProfilePage {
     public abstract SelenideElement loginButton();
     public abstract SelenideElement incorrectDataErrorMessage();
     public abstract SelenideElement forgotPassButton();
+    public abstract SelenideElement createNewAccountButton();
 
     public LoginPageBase(AppiumDriver<MobileElement> appiumDriver) {
         this.appiumDriver = appiumDriver;
@@ -61,5 +62,10 @@ public abstract class LoginPageBase implements pages.BaseProfilePage {
     public void clickToForgotPassButton() {
         waitUntilLoaded();
         forgotPassButton().shouldBe(visible).click();
+    }
+    @Step("Нажимаю на кнопку 'Нет аккаунта? Зарегистрируйтесь'")
+    public void clickToCreateNewAccountButton() {
+        waitUntilLoaded();
+        createNewAccountButton().shouldBe(visible).click();
     }
 }
