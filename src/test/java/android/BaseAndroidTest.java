@@ -68,6 +68,7 @@ public class BaseAndroidTest {
         guestPassTypesPageAndroid = new GuestPassTypesPageAndroid(appiumDriver);
         qrGuestPassPageAndroid = new QrGuestPassPageAndroid(appiumDriver);
         recoverPageAndroid = new RecoverPageAndroid(appiumDriver);
+        registrationPageAndroid = new RegistrationPageAndroid(appiumDriver);
     }
 
     @AfterEach
