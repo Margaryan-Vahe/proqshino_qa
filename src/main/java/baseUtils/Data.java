@@ -1,6 +1,7 @@
 package baseUtils;
 
 public class Data {
+    public static final String SZ_A101_INN = "7751172550";
     public enum UserTypes {
         DEFAULT_USER {
             public String phoneValidValue() {
