@@ -61,6 +61,11 @@ public class LoginPageIOS extends LoginPageBase {
         return $(MobileBy.AccessibilityId("Забыл пароль"));
     }
 
+    @Override
+    public SelenideElement createNewAccountButton() {
+        return null;
+    }
+
     // Конструктор класса
     public LoginPageIOS(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);
