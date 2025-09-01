@@ -1,12 +1,10 @@
-package pages;
+package pages.android;
 
 import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
-import io.qameta.allure.Step;
 import pages.base.RegistrationPageBase;
-import pages.base.verificationPage.OtpPageBase;
 
 import static com.codeborne.selenide.Selenide.$;
 
