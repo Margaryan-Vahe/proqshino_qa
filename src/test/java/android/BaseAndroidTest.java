@@ -4,7 +4,7 @@ import baseUtils.SetupCapabilities;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import pages.RegistrationPageAndroid;
+import pages.android.RegistrationPageAndroid;
 import pages.android.*;
 import pages.android.mainPage.MainPageAndroid;
 import pages.android.mainPage.passPage.*;
@@ -40,6 +40,7 @@ public class BaseAndroidTest {
     protected GuestPassTypesPageAndroid guestPassTypesPageAndroid;
     protected QrGuestPassPageAndroid qrGuestPassPageAndroid;
     protected RegistrationPageAndroid registrationPageAndroid;
+    protected SetPersonalDataPageAndroid setPersonalDataPageAndroid;
 
     @BeforeEach
     public void initPages() throws Exception {
@@ -69,6 +70,7 @@ public class BaseAndroidTest {
         qrGuestPassPageAndroid = new QrGuestPassPageAndroid(appiumDriver);
         recoverPageAndroid = new RecoverPageAndroid(appiumDriver);
         registrationPageAndroid = new RegistrationPageAndroid(appiumDriver);
+        setPersonalDataPageAndroid = new SetPersonalDataPageAndroid(appiumDriver);
     }
 
     @AfterEach
