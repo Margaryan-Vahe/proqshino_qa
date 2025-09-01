@@ -31,11 +31,12 @@ public abstract class RegistrationPageBase {
         return this;
     }
     @Step("Ввожу номер телефона")
-    public void typePhoneNumber() {
+    public void typePhoneNumber(String phone) {
         waitUntilLoaded();
         phoneNumberField()
                 .shouldBe(visible)
                 .click();
+        phoneNumberField().sendKeys(phone);
     }
     @Step("Активирую чек-бокс согласия с политикой конфиденциальности")
     public void activateCheckBox() {
@@ -52,8 +53,8 @@ public abstract class RegistrationPageBase {
                 .click();
     }
     @Step("Успешно ввожу номер телефона -> активирую чек-бокс -> нажимаю на кнопку 'Продолжить'")
-    public void successTypePhoneNumber() {
-        typePhoneNumber();
+    public void successTypePhoneNumber(String phone) {
+        typePhoneNumber(phone);
         activateCheckBox();
         clickToContinueButton();
     }
