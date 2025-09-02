@@ -34,6 +34,16 @@ public class RegistrationPageAndroid extends RegistrationPageBase {
         return $(MobileBy.AccessibilityId("Продолжить"));
     }
 
+    @Override
+    public SelenideElement interruptRegistrationWindow() {
+        return $(MobileBy.xpath("//android.view.View[contains(@content-desc, 'прервать регистрацию')]"));
+    }
+
+    @Override
+    public SelenideElement interruptRegistrationButton() {
+        return $(MobileBy.AccessibilityId("Прервать регистрацию"));
+    }
+
     // Конструктор класса
     public RegistrationPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);

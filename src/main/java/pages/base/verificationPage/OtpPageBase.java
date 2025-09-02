@@ -40,7 +40,7 @@ public abstract class OtpPageBase {
     }
 
     @Step("Возвращаюсь назад со страницы OTP")
-    public void clickBack() {
+    public void clickBackButton() {
         backButton().shouldBe(visible, Duration.ofSeconds(10)).click();
     }
 }

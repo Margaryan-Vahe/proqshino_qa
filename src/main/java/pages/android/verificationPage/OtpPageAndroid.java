@@ -47,7 +47,7 @@ public class OtpPageAndroid extends OtpPageBase {
 
     @Override
     @Step("Назад со страницы OTP (Android)")
-    public void clickBack() {
-        super.clickBack();
+    public void clickBackButton() {
+        super.clickBackButton();
     }
 }

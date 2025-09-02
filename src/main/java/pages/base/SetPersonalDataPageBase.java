@@ -123,6 +123,12 @@ public abstract class SetPersonalDataPageBase {
                 .shouldBe(visible)
                 .click();
     }
+    @Step("Нажимаю на кнпоку 'На главный экран'")
+    public void clickToMainPageButton_() {
+        toMainPageButton()
+                .shouldBe(visible)
+                .click();
+    }
 
     @Step("Нажимаю на кнпоку 'На главный экран'")
     public void clickToMainPageButtonForUserCase() {

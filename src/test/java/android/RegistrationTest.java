@@ -22,7 +22,9 @@ public class RegistrationTest extends BaseAndroidTest {
     @Override
     @AfterEach
     public void tearDown() {
-        DataBaseRequests.deleteUserWithData(phone, false);
+        if (!DataBaseRequests.getUserId(phone, false).isEmpty()) {
+            DataBaseRequests.deleteUserWithData(phone, false);
+        }
         super.tearDown();
     }
 
@@ -49,6 +51,7 @@ public class RegistrationTest extends BaseAndroidTest {
 
         mainPageAndroid.waitUntilLoaded();
     }
+
     @Test
     @DisplayName("Регистрация простого пользователя")
     public void simpleUserRegistration() throws InterruptedException {
@@ -68,6 +71,57 @@ public class RegistrationTest extends BaseAndroidTest {
         repeatPinPageAndroid.clickNum1();
         bioConfirmationPageAndroid.clickToRefuseButton();
         inputPinPageAndroid.clickNum1();
+
+        mainPageAndroid.waitUntilLoaded();
+    }
+
+    @Test
+    @DisplayName("Прерывание регистрации: на шаге ввода ОТП-кода")
+    public void interruptRegistrationOnOTPPage() {
+        phone = Data.UserTypes.FOR_SIMPLE_REGISTRATION_USER.phoneValidValue();
+        registrationPageAndroid.successTypePhoneNumber(phone);
+        otpPageAndroid.clickBackButton();
+        registrationPageAndroid.clickToInterruptButton();
+
+        registrationPageAndroid.waitUntilLoaded();
+    }
+
+    @Test
+    @DisplayName("Прерывание регистрации: на шаге установки пароля")
+    public void interruptRegistrationOnSetPasswordPage() {
+        phone = Data.UserTypes.FOR_SIMPLE_REGISTRATION_USER.phoneValidValue();
+        registrationPageAndroid.successTypePhoneNumber(phone);
+        otpPageAndroid.typeCorrectOtp();
+        otpPageAndroid.clickBackButton();
+        registrationPageAndroid.clickToInterruptButton();
+
+        registrationPageAndroid.waitUntilLoaded();
+    }
+
+    @Test
+    @DisplayName("Прерывание регистрации: на шаге заполнения данных - через кнопку 'Назад'")
+    public void interruptRegistrationOnSetPersonalDataPage() {
+        phone = Data.UserTypes.FOR_SIMPLE_REGISTRATION_USER.phoneValidValue();
+        registrationPageAndroid.successTypePhoneNumber(phone);
+        otpPageAndroid.typeCorrectOtp();
+        setPasswordPageAndroid.inputPassword(
+                Data.UserTypes.FOR_SIMPLE_REGISTRATION_USER.passwordValidValue());
+        otpPageAndroid.clickBackButton();
+        registrationPageAndroid.clickToInterruptButton();
+
+        registrationPageAndroid.waitUntilLoaded();
+    }
+
+    @Test
+    @DisplayName("Прерывание регистрации: на шаге заполнения данных - через кнопку 'На главный экран'")
+    public void interruptRegistrationOnSetPersonalDataPageBackToMainPage() {
+        phone = Data.UserTypes.FOR_SIMPLE_REGISTRATION_USER.phoneValidValue();
+        registrationPageAndroid.successTypePhoneNumber(phone);
+        otpPageAndroid.typeCorrectOtp();
+        setPasswordPageAndroid.inputPassword(
+                Data.UserTypes.FOR_SIMPLE_REGISTRATION_USER.passwordValidValue());
+        setPersonalDataPageAndroid.clickToMainPageButton_();
+        registrationPageAndroid.clickToInterruptButton();
 
         mainPageAndroid.waitUntilLoaded();
     }

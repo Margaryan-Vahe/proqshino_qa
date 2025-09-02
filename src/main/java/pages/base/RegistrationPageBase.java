@@ -20,6 +20,9 @@ public abstract class RegistrationPageBase {
 
     public abstract SelenideElement continueButton();
 
+    public abstract SelenideElement interruptRegistrationWindow();
+    public abstract SelenideElement interruptRegistrationButton();
+
 
     public RegistrationPageBase(AppiumDriver<MobileElement> appiumDriver) {
         this.appiumDriver = appiumDriver;
@@ -29,6 +32,10 @@ public abstract class RegistrationPageBase {
     public RegistrationPageBase waitUntilLoaded() {
         pageHeader().shouldBe(visible, Duration.ofSeconds(10));
         return this;
+    }
+    @Step("Жду загрузки экрана предупреждения прерывания регистрации")
+    public void waitUntilLoadedInterruptRegistrationWindow() {
+        interruptRegistrationWindow().shouldBe(visible, Duration.ofSeconds(10));
     }
     @Step("Ввожу номер телефона")
     public void typePhoneNumber(String phone) {
@@ -57,6 +64,11 @@ public abstract class RegistrationPageBase {
         typePhoneNumber(phone);
         activateCheckBox();
         clickToContinueButton();
+    }
+    @Step("Нажимаю на кнопку 'Прервать регистрацию'")
+    public void clickToInterruptButton() {
+        waitUntilLoadedInterruptRegistrationWindow();
+        interruptRegistrationButton().shouldBe(visible).click();
     }
 
 }
