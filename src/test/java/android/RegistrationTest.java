@@ -1,23 +1,36 @@
 package android;
 
 import baseUtils.Data;
+import baseUtils.DataBaseRequests;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class RegistrationTest extends BaseAndroidTest {
+    String phone;
+
     @Override
     @BeforeEach
     public void initPages() throws Exception {
         super.initPages();
         mainPageAndroid.openProfile();
         loginPageAndroid.clickToCreateNewAccountButton();
+
+    }
+
+    @Override
+    @AfterEach
+    public void tearDown() {
+        DataBaseRequests.deleteUserWithData(phone, false);
+        super.tearDown();
     }
 
     @Test
     @DisplayName("Регистрация сотрудника: прямая регистрация")
     public void simpleEmployeeRegistration() throws InterruptedException {
-        registrationPageAndroid.successTypePhoneNumber(Data.UserTypes.FOR_SIMPLE_REGISTRATION_EMPLOYEE.phoneValidValue());
+        phone = Data.UserTypes.FOR_SIMPLE_REGISTRATION_EMPLOYEE.phoneValidValue();
+        registrationPageAndroid.successTypePhoneNumber(phone);
         otpPageAndroid.typeCorrectOtp();
         setPasswordPageAndroid.inputPassword(
                 Data.UserTypes.FOR_SIMPLE_REGISTRATION_EMPLOYEE.passwordValidValue());
