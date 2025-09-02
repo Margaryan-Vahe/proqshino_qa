@@ -2,6 +2,13 @@ package baseUtils;
 
 public class Data {
     public static final String SZ_A101_INN = "7751172550";
+    protected final static String MS_DB_DEV_URL = "jdbc:postgresql://rc1b-crt97mlp0v7r0ba5.mdb.yandexcloud.net:6432/master_system_dev?targetServerType=master&ssl=true&sslmode=verify-full";
+    protected final static String MS_DB_DEV_USER = "master_system_dev";
+    protected final static String MS_DB_DEV_PASSWORD = "sewjTCpbJ9ZS";
+
+    protected final static String MS_DB_PROD_URL = "jdbc:postgresql://rc1b-crt97mlp0v7r0ba5.mdb.yandexcloud.net:6432/master_system_prod?targetServerType=master&ssl=true&sslmode=verify-full";
+    protected final static String MS_DB_PROD_USER = "master_system_prod";
+    protected final static String MS_DB_PROD_PASSWORD = "Cz3Yf*NW?TUU\\4t?%FQq";
     public enum UserTypes {
         DEFAULT_USER {
             public String phoneValidValue() {
