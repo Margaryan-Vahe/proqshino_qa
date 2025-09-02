@@ -34,12 +34,34 @@ public class RegistrationTest extends BaseAndroidTest {
         otpPageAndroid.typeCorrectOtp();
         setPasswordPageAndroid.inputPassword(
                 Data.UserTypes.FOR_SIMPLE_REGISTRATION_EMPLOYEE.passwordValidValue());
-        setPersonalDataPageAndroid.typeAllData(
+        setPersonalDataPageAndroid.typeAllDataForEmployee(
                 Data.UserTypes.FOR_SIMPLE_REGISTRATION_EMPLOYEE.userLastName(),
                 Data.UserTypes.FOR_SIMPLE_REGISTRATION_EMPLOYEE.userFirstName(),
                 Data.UserTypes.FOR_SIMPLE_REGISTRATION_EMPLOYEE.userSecondName(),
                 Data.UserTypes.FOR_SIMPLE_REGISTRATION_EMPLOYEE.userEmail(),
                 Data.SZ_A101_INN
+        );
+
+        setPinPageAndroid.clickNum1();
+        repeatPinPageAndroid.clickNum1();
+        bioConfirmationPageAndroid.clickToRefuseButton();
+        inputPinPageAndroid.clickNum1();
+
+        mainPageAndroid.waitUntilLoaded();
+    }
+    @Test
+    @DisplayName("Регистрация простого пользователя")
+    public void simpleUserRegistration() throws InterruptedException {
+        phone = Data.UserTypes.FOR_SIMPLE_REGISTRATION_USER.phoneValidValue();
+        registrationPageAndroid.successTypePhoneNumber(phone);
+        otpPageAndroid.typeCorrectOtp();
+        setPasswordPageAndroid.inputPassword(
+                Data.UserTypes.FOR_SIMPLE_REGISTRATION_USER.passwordValidValue());
+        setPersonalDataPageAndroid.typeAllDataForUser(
+                Data.UserTypes.FOR_SIMPLE_REGISTRATION_USER.userLastName(),
+                Data.UserTypes.FOR_SIMPLE_REGISTRATION_USER.userFirstName(),
+                Data.UserTypes.FOR_SIMPLE_REGISTRATION_USER.userSecondName(),
+                Data.UserTypes.FOR_SIMPLE_REGISTRATION_USER.userEmail()
         );
 
         setPinPageAndroid.clickNum1();
