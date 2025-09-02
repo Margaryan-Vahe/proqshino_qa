@@ -66,6 +66,11 @@ public class SetPersonalDataPageAndroid extends SetPersonalDataPageBase {
         return $(MobileBy.AccessibilityId("На главный экран"));
     }
 
+    @Override
+    public SelenideElement regSuccessWindowUserCase() {
+        return $(MobileBy.AccessibilityId("Вы успешно зарегистрировались"));
+    }
+
     // Конструктор класса
     public SetPersonalDataPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);

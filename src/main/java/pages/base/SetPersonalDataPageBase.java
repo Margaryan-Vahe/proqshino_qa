@@ -14,17 +14,28 @@ public abstract class SetPersonalDataPageBase {
 
     // Локаторы экрана
     public abstract SelenideElement pageHeader();
+
     public abstract SelenideElement employeeRadioButton();
+
     public abstract SelenideElement lastNameField();
+
     public abstract SelenideElement firstNameField();
+
     public abstract SelenideElement secondNameField();
+
     public abstract SelenideElement emailField();
+
     public abstract SelenideElement innField();
+
     public abstract SelenideElement continueButton();
 
     public abstract SelenideElement regSuccessWindowNotApprovedCase();
+
     public abstract SelenideElement reviewedCheckBox();
+
     public abstract SelenideElement toMainPageButton();
+
+    public abstract SelenideElement regSuccessWindowUserCase();
 
 
     public SetPersonalDataPageBase(AppiumDriver<MobileElement> appiumDriver) {
@@ -36,15 +47,23 @@ public abstract class SetPersonalDataPageBase {
         pageHeader().shouldBe(visible, Duration.ofSeconds(10));
         return this;
     }
+
     @Step("Жду загрузки модального окна 'Вы успешно зарегистрировались'")
     public void waitUntilLoadedSuccessModalWindow() {
         regSuccessWindowNotApprovedCase().shouldBe(visible, Duration.ofSeconds(10));
     }
+
+    @Step("Жду загрузки модального окна 'Вы успешно зарегистрировались'")
+    public void waitUntilLoadedSuccessModalWindowForUser() {
+        regSuccessWindowUserCase().shouldBe(visible, Duration.ofSeconds(10));
+    }
+
     @Step("Нажимаю на радио-батон 'Я сотрудник компании'")
     public void clickToRadioButton() {
-       waitUntilLoaded();
-       employeeRadioButton().click();
+        waitUntilLoaded();
+        employeeRadioButton().click();
     }
+
     @Step("Ввожу данные в поле 'Фамилия'")
     public void typeLastName(String lastName) {
         waitUntilLoaded();
@@ -53,6 +72,7 @@ public abstract class SetPersonalDataPageBase {
         lastName_.sendKeys(lastName);
         appiumDriver.hideKeyboard();
     }
+
     @Step("Ввожу данные в поле 'Имя'")
     public void typeFirstName(String firstName) {
         waitUntilLoaded();
@@ -61,6 +81,7 @@ public abstract class SetPersonalDataPageBase {
         firstName_.sendKeys(firstName);
         appiumDriver.hideKeyboard();
     }
+
     @Step("Ввожу данные в поле 'Отчество'")
     public void typeSecondName(String secondName) {
         waitUntilLoaded();
@@ -69,6 +90,7 @@ public abstract class SetPersonalDataPageBase {
         secondName_.sendKeys(secondName);
         appiumDriver.hideKeyboard();
     }
+
     @Step("Ввожу данные в поле 'Email'")
     public void typeEmail(String email) {
         waitUntilLoaded();
@@ -77,6 +99,7 @@ public abstract class SetPersonalDataPageBase {
         email_.sendKeys(email);
         appiumDriver.hideKeyboard();
     }
+
     @Step("Ввожу данные в поле 'ИНН'")
     public void typeInn(String inn) {
         SelenideElement inn_ = innField();
@@ -84,6 +107,7 @@ public abstract class SetPersonalDataPageBase {
         inn_.sendKeys(inn);
         appiumDriver.hideKeyboard();
     }
+
     @Step("Активирую чек-бокс 'Я ознакомился с указанной информацией'")
     public void clickToCheckBox() {
         waitUntilLoadedSuccessModalWindow();
@@ -91,6 +115,7 @@ public abstract class SetPersonalDataPageBase {
                 .shouldBe(visible)
                 .click();
     }
+
     @Step("Нажимаю на кнпоку 'На главный экран'")
     public void clickToMainPageButton() {
         waitUntilLoadedSuccessModalWindow();
@@ -98,8 +123,17 @@ public abstract class SetPersonalDataPageBase {
                 .shouldBe(visible)
                 .click();
     }
-    @Step("Успешно ввожу все данные")
-    public void typeAllData(
+
+    @Step("Нажимаю на кнпоку 'На главный экран'")
+    public void clickToMainPageButtonForUserCase() {
+        waitUntilLoadedSuccessModalWindowForUser();
+        toMainPageButton()
+                .shouldBe(visible)
+                .click();
+    }
+
+    @Step("Успешно ввожу все данные для сотрудника")
+    public void typeAllDataForEmployee(
             String lastName,
             String firstName,
             String secondName,
@@ -114,8 +148,27 @@ public abstract class SetPersonalDataPageBase {
         typeInn(inn);
 
         Thread.sleep(1500);
+
         continueButton().click();
         clickToCheckBox();
         clickToMainPageButton();
+    }
+
+    @Step("Успешно ввожу все данные для сотрудника")
+    public void typeAllDataForUser(
+            String lastName,
+            String firstName,
+            String secondName,
+            String email) throws InterruptedException {
+
+        typeLastName(lastName);
+        typeFirstName(firstName);
+        typeEmail(email);
+        typeSecondName(secondName);
+
+        Thread.sleep(1500);
+
+        continueButton().click();
+        clickToMainPageButtonForUserCase();
     }
 }
