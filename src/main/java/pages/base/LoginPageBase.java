@@ -37,6 +37,7 @@ public abstract class LoginPageBase implements pages.BaseProfilePage {
 
     @Step("Ввожу номер телефона: {phoneNumber}")
     public void typePhoneNumber(String phoneNumber) {
+        waitUntilLoaded();
         SelenideElement phone = phoneNumberField().shouldBe(visible).shouldBe(enabled);
 
         phone.click();
