@@ -159,6 +159,25 @@ public abstract class SetPersonalDataPageBase {
         clickToCheckBox();
         clickToMainPageButton();
     }
+    @Step("Ввожу все данные с указанием уже имеющейся в системе почты")
+    public void typeAllDataForValidationTest(
+            String lastName,
+            String firstName,
+            String secondName,
+            String email,
+            String inn) throws InterruptedException {
+        clickToRadioButton();
+
+        typeLastName(lastName);
+        typeFirstName(firstName);
+        typeSecondName(secondName);
+        typeEmail(email);
+        typeInn(inn);
+
+        Thread.sleep(1500);
+
+        continueButton().click();
+    }
 
     @Step("Успешно ввожу все данные для сотрудника")
     public void typeAllDataForUser(

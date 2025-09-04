@@ -28,6 +28,7 @@ public abstract class RegistrationPageBase {
     public abstract SelenideElement interruptRegistrationButton();
 
     public abstract SelenideElement alreadyRegisteredPhoneErrorMessage();
+    public abstract SelenideElement alreadyRegisteredEmailErrorMessage();
 
 
     public RegistrationPageBase(AppiumDriver<MobileElement> appiumDriver) {
@@ -46,8 +47,12 @@ public abstract class RegistrationPageBase {
     }
 
     @Step("Жду отображения ошибки 'Данный номер уже зарегистрирован'")
-    public void waitUntilLoadedAlreadyRegisteredMessage() {
+    public void waitUntilLoadedAlreadyRegisteredPhoneMessage() {
         alreadyRegisteredPhoneErrorMessage().shouldBe(visible, Duration.ofSeconds(10));
+    }
+    @Step("Жду отображения ошибки 'Данный Email уже используется, пожалуйста, введите другой'")
+    public void waitUntilLoadedAlreadyRegisteredEmailMessage() {
+        alreadyRegisteredEmailErrorMessage().shouldBe(visible, Duration.ofSeconds(10));
     }
 
     @Step("Ввожу номер телефона")
