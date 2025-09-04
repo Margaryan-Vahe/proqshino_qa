@@ -37,6 +37,11 @@ public class RecoverPageAndroid extends RecoveryPageBase {
         return $(MobileBy.AccessibilityId("Уже есть аккаунт? Войдите"));
     }
 
+    @Override
+    public SelenideElement alreadyExistButNotActivatedPhoneErrorMessage() {
+        return $(MobileBy.AccessibilityId("Пользователь с указанным номером не активирован, пройдите регистрацию"));
+    }
+
     // Конструктор класса
     public RecoverPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);

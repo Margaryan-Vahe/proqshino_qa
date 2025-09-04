@@ -19,6 +19,8 @@ public abstract class RecoveryPageBase {
     public abstract SelenideElement noAccessToPhoneButton();
     public abstract SelenideElement alreadyHaveAccountButton();
 
+    public abstract SelenideElement alreadyExistButNotActivatedPhoneErrorMessage();
+
     // Конструктор класса
     public RecoveryPageBase(AppiumDriver<MobileElement> appiumDriver) {
         this.appiumDriver = appiumDriver;
@@ -29,6 +31,10 @@ public abstract class RecoveryPageBase {
     public RecoveryPageBase waitUntilLoaded() {
         pageHeader().shouldBe(visible, Duration.ofSeconds(10));
         return this;
+    }
+    @Step("Жду загрузки экрана восстановления")
+    public void waitUntilLoadedNotActivatedPhoneErrorMessage() {
+        alreadyExistButNotActivatedPhoneErrorMessage().shouldBe(visible, Duration.ofSeconds(10));
     }
 
     @Step("Ввожу номер телефона для восстановления: {phoneNumber}")

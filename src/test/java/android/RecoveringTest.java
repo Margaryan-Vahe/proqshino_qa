@@ -66,4 +66,16 @@ public class RecoveringTest extends BaseAndroidTest {
 
         mainPageAndroid.waitUntilLoaded().mainPageHeaderShouldBeVisible();
     }
+    @Test
+    @DisplayName("Валидация при восстановлении пароля - отображение ошибки 'Пользователь с указанным номером не активирован, пройдите регистрацию'")
+    public void validationAlreadyRegisteredAndNotActivatedPhoneErrorMessage() throws InterruptedException {
+        loginPageAndroid.clickToForgotPassButton();
+
+        recoverPageAndroid.waitUntilLoaded();
+        recoverPageAndroid.inputDataForRecover(
+                Data.UserTypes.NOT_ACTIVATED_EMPLOYEE.phoneValidValue()
+        );
+
+        recoverPageAndroid.waitUntilLoadedNotActivatedPhoneErrorMessage();
+    }
 }
