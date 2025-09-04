@@ -255,6 +255,47 @@ public class Data {
             public String userEmail() {
                 return "9330000005@test.com";
             }
+        },
+        FOR_VALIDATION_TEST_USER {
+            public String phoneValidValue() {
+                return "79330000007";
+            }
+
+            public String phoneFullValue() {
+                return "+7 (933) 000-00-07";
+            }
+
+            public String phoneInvalidValue() {
+                return "793300000";
+            }
+
+            public String passwordValidValue() {
+                return "Password1";
+            }
+
+            public String passwordInvalidValue() {
+                return "Password123";
+            }
+
+            public String passwordIncorrectValue() {
+                return "Password";
+            }
+
+            public String userFirstName() {
+                return "VALIDATION";
+            }
+
+            public String userSecondName() {
+                return "TEST";
+            }
+
+            public String userLastName() {
+                return "USER";
+            }
+
+            public String userEmail() {
+                return "9330000005@test.com";
+            }
         };
 
         public String phoneValidValue() {
