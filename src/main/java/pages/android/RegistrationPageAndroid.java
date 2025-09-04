@@ -44,6 +44,11 @@ public class RegistrationPageAndroid extends RegistrationPageBase {
         return $(MobileBy.AccessibilityId("Прервать регистрацию"));
     }
 
+    @Override
+    public SelenideElement alreadyRegisteredPhoneErrorMessage() {
+        return $(MobileBy.AccessibilityId("Данный номер уже зарегистрирован"));
+    }
+
     // Конструктор класса
     public RegistrationPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);

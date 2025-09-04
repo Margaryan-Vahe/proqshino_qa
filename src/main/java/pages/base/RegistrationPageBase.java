@@ -14,14 +14,20 @@ public abstract class RegistrationPageBase {
 
     // Локаторы экрана
     public abstract SelenideElement pageHeader();
+
     public abstract SelenideElement phoneNumberField();
+
     public abstract SelenideElement mandatoryCheckBox();
+
     public abstract SelenideElement userAgreement();
 
     public abstract SelenideElement continueButton();
 
     public abstract SelenideElement interruptRegistrationWindow();
+
     public abstract SelenideElement interruptRegistrationButton();
+
+    public abstract SelenideElement alreadyRegisteredPhoneErrorMessage();
 
 
     public RegistrationPageBase(AppiumDriver<MobileElement> appiumDriver) {
@@ -33,10 +39,17 @@ public abstract class RegistrationPageBase {
         pageHeader().shouldBe(visible, Duration.ofSeconds(10));
         return this;
     }
+
     @Step("Жду загрузки экрана предупреждения прерывания регистрации")
     public void waitUntilLoadedInterruptRegistrationWindow() {
         interruptRegistrationWindow().shouldBe(visible, Duration.ofSeconds(10));
     }
+
+    @Step("Жду отображения ошибки 'Данный номер уже зарегистрирован'")
+    public void waitUntilLoadedAlreadyRegisteredMessage() {
+        alreadyRegisteredPhoneErrorMessage().shouldBe(visible, Duration.ofSeconds(10));
+    }
+
     @Step("Ввожу номер телефона")
     public void typePhoneNumber(String phone) {
         waitUntilLoaded();
@@ -45,6 +58,7 @@ public abstract class RegistrationPageBase {
                 .click();
         phoneNumberField().sendKeys(phone);
     }
+
     @Step("Активирую чек-бокс согласия с политикой конфиденциальности")
     public void activateCheckBox() {
         waitUntilLoaded();
@@ -52,6 +66,7 @@ public abstract class RegistrationPageBase {
                 .shouldBe(visible)
                 .click();
     }
+
     @Step("Нажимю на кнопку 'Продолжить'")
     public void clickToContinueButton() {
         waitUntilLoaded();
@@ -59,12 +74,14 @@ public abstract class RegistrationPageBase {
                 .shouldBe(visible)
                 .click();
     }
+
     @Step("Успешно ввожу номер телефона -> активирую чек-бокс -> нажимаю на кнопку 'Продолжить'")
     public void successTypePhoneNumber(String phone) {
         typePhoneNumber(phone);
         activateCheckBox();
         clickToContinueButton();
     }
+
     @Step("Нажимаю на кнопку 'Прервать регистрацию'")
     public void clickToInterruptButton() {
         waitUntilLoadedInterruptRegistrationWindow();
