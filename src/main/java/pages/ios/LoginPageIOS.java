@@ -89,7 +89,7 @@ public class LoginPageIOS extends LoginPageBase {
 
             phoneFiledText = phoneNumberField().getText();
             isFieldEmpty = phoneFiledText.isEmpty();
-            isFieldCorrect = phoneFiledText.equals(Data.UserTypes.DEFAULT_USER.phoneFullValue());
+            isFieldCorrect = phoneFiledText.equals(Data.UserTypes.DEFAULT_EMPLOYEE.phoneFullValue());
 
         } while (isFieldEmpty || isFieldCorrect);
     }

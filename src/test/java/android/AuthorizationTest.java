@@ -21,8 +21,8 @@ public class AuthorizationTest extends BaseAndroidTest {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
-                        Data.UserTypes.DEFAULT_USER.phoneValidValue(),
-                        Data.UserTypes.DEFAULT_USER.passwordValidValue(),
+                        Data.UserTypes.DEFAULT_EMPLOYEE.phoneValidValue(),
+                        Data.UserTypes.DEFAULT_EMPLOYEE.passwordValidValue(),
                         false
                 );
 
@@ -36,8 +36,8 @@ public class AuthorizationTest extends BaseAndroidTest {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
-                        Data.UserTypes.DEFAULT_USER.phoneValidValue(),
-                        Data.UserTypes.DEFAULT_USER.passwordInvalidValue(),
+                        Data.UserTypes.DEFAULT_EMPLOYEE.phoneValidValue(),
+                        Data.UserTypes.DEFAULT_EMPLOYEE.passwordInvalidValue(),
                         true
                 );
 
@@ -50,8 +50,8 @@ public class AuthorizationTest extends BaseAndroidTest {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
-                        Data.UserTypes.DEFAULT_USER.phoneValidValue(),
-                        Data.UserTypes.DEFAULT_USER.passwordValidValue(),
+                        Data.UserTypes.DEFAULT_EMPLOYEE.phoneValidValue(),
+                        Data.UserTypes.DEFAULT_EMPLOYEE.passwordValidValue(),
                         false
                 );
 
@@ -66,8 +66,8 @@ public class AuthorizationTest extends BaseAndroidTest {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
-                        Data.UserTypes.DEFAULT_USER.phoneValidValue(),
-                        Data.UserTypes.DEFAULT_USER.passwordValidValue(),
+                        Data.UserTypes.DEFAULT_EMPLOYEE.phoneValidValue(),
+                        Data.UserTypes.DEFAULT_EMPLOYEE.passwordValidValue(),
                         false
                 );
 
@@ -83,8 +83,8 @@ public class AuthorizationTest extends BaseAndroidTest {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
-                        Data.UserTypes.DEFAULT_USER.phoneValidValue(),
-                        Data.UserTypes.DEFAULT_USER.passwordValidValue(),
+                        Data.UserTypes.DEFAULT_EMPLOYEE.phoneValidValue(),
+                        Data.UserTypes.DEFAULT_EMPLOYEE.passwordValidValue(),
                         false
                 );
 

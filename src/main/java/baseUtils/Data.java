@@ -10,7 +10,7 @@ public class Data {
     protected final static String MS_DB_PROD_USER = "master_system_prod";
     protected final static String MS_DB_PROD_PASSWORD = "Cz3Yf*NW?TUU\\4t?%FQq";
     public enum UserTypes {
-        DEFAULT_USER {
+        DEFAULT_EMPLOYEE {
             public String phoneValidValue() {
                 return "79330000000";
             }
@@ -51,7 +51,7 @@ public class Data {
                 return "9330000000@test.com";
             }
         },
-        NOT_APPROVED_USER {
+        NOT_APPROVED_EMPLOYEE {
             public String phoneValidValue() {
                 return "79330000001";
             }
@@ -92,7 +92,7 @@ public class Data {
                 return "9330000001@test.com";
             }
         },
-        APPROVED_USER {
+        APPROVED_EMPLOYEE {
             public String phoneValidValue() {
                 return "79330000002";
             }
@@ -133,7 +133,7 @@ public class Data {
                 return "9330000002@test.com";
             }
         },
-        WITH_QR_USER {
+        WITH_QR_EMPLOYEE {
             public String phoneValidValue() {
                 return "79330000003";
             }

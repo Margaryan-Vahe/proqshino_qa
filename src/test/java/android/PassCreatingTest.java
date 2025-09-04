@@ -29,8 +29,8 @@ public class PassCreatingTest extends BaseAndroidTest {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
-                        Data.UserTypes.APPROVED_USER.phoneValidValue(),
-                        Data.UserTypes.APPROVED_USER.passwordValidValue(),
+                        Data.UserTypes.APPROVED_EMPLOYEE.phoneValidValue(),
+                        Data.UserTypes.APPROVED_EMPLOYEE.passwordValidValue(),
                         false
                 );
 
@@ -48,8 +48,8 @@ public class PassCreatingTest extends BaseAndroidTest {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
-                        Data.UserTypes.NOT_APPROVED_USER.phoneValidValue(),
-                        Data.UserTypes.NOT_APPROVED_USER.passwordValidValue(),
+                        Data.UserTypes.NOT_APPROVED_EMPLOYEE.phoneValidValue(),
+                        Data.UserTypes.NOT_APPROVED_EMPLOYEE.passwordValidValue(),
                         false
                 );
 
@@ -67,8 +67,8 @@ public class PassCreatingTest extends BaseAndroidTest {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
-                        Data.UserTypes.APPROVED_USER.phoneValidValue(),
-                        Data.UserTypes.APPROVED_USER.passwordValidValue(),
+                        Data.UserTypes.APPROVED_EMPLOYEE.phoneValidValue(),
+                        Data.UserTypes.APPROVED_EMPLOYEE.passwordValidValue(),
                         false
                 );
 
@@ -87,8 +87,8 @@ public class PassCreatingTest extends BaseAndroidTest {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
-                        Data.UserTypes.NOT_APPROVED_USER.phoneValidValue(),
-                        Data.UserTypes.NOT_APPROVED_USER.passwordValidValue(),
+                        Data.UserTypes.NOT_APPROVED_EMPLOYEE.phoneValidValue(),
+                        Data.UserTypes.NOT_APPROVED_EMPLOYEE.passwordValidValue(),
                         false
                 );
 
@@ -108,8 +108,8 @@ public class PassCreatingTest extends BaseAndroidTest {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
-                        Data.UserTypes.APPROVED_USER.phoneValidValue(),
-                        Data.UserTypes.APPROVED_USER.passwordValidValue(),
+                        Data.UserTypes.APPROVED_EMPLOYEE.phoneValidValue(),
+                        Data.UserTypes.APPROVED_EMPLOYEE.passwordValidValue(),
                         false
                 );
 
@@ -139,8 +139,8 @@ public class PassCreatingTest extends BaseAndroidTest {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
-                        Data.UserTypes.APPROVED_USER.phoneValidValue(),
-                        Data.UserTypes.APPROVED_USER.passwordValidValue(),
+                        Data.UserTypes.APPROVED_EMPLOYEE.phoneValidValue(),
+                        Data.UserTypes.APPROVED_EMPLOYEE.passwordValidValue(),
                         false
                 );
 

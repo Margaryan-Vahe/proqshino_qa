@@ -14,8 +14,8 @@ public class PassViewingTest extends BaseAndroidTest {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
-                        Data.UserTypes.WITH_QR_USER.phoneValidValue(),
-                        Data.UserTypes.WITH_QR_USER.passwordValidValue(),
+                        Data.UserTypes.WITH_QR_EMPLOYEE.phoneValidValue(),
+                        Data.UserTypes.WITH_QR_EMPLOYEE.passwordValidValue(),
                         false
                 );
     }

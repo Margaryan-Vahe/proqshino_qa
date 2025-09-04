@@ -21,7 +21,7 @@ public class RecoveringTest extends BaseAndroidTest {
 
         recoverPageAndroid.waitUntilLoaded();
         recoverPageAndroid.inputDataForRecover(
-                Data.UserTypes.DEFAULT_USER.phoneValidValue()
+                Data.UserTypes.DEFAULT_EMPLOYEE.phoneValidValue()
         );
 
         otpPageAndroid
@@ -31,7 +31,7 @@ public class RecoveringTest extends BaseAndroidTest {
         setPasswordPageAndroid
                 .waitUntilLoaded();
         setPasswordPageAndroid.inputPassword(
-                Data.UserTypes.DEFAULT_USER.passwordValidValue()
+                Data.UserTypes.DEFAULT_EMPLOYEE.passwordValidValue()
         );
 
         setPinPageAndroid.waitUntilLoaded().clickNum1();
@@ -48,8 +48,8 @@ public class RecoveringTest extends BaseAndroidTest {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
-                        Data.UserTypes.DEFAULT_USER.phoneValidValue(),
-                        Data.UserTypes.DEFAULT_USER.passwordValidValue(),
+                        Data.UserTypes.DEFAULT_EMPLOYEE.phoneValidValue(),
+                        Data.UserTypes.DEFAULT_EMPLOYEE.passwordValidValue(),
                         false
                 );
 
@@ -59,8 +59,8 @@ public class RecoveringTest extends BaseAndroidTest {
         loginPageAndroid
                 .waitUntilLoaded()
                 .login(
-                        Data.UserTypes.DEFAULT_USER.phoneValidValue(),
-                        Data.UserTypes.DEFAULT_USER.passwordValidValue(),
+                        Data.UserTypes.DEFAULT_EMPLOYEE.phoneValidValue(),
+                        Data.UserTypes.DEFAULT_EMPLOYEE.passwordValidValue(),
                         false
                 );
 
