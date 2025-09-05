@@ -9,6 +9,7 @@ public class Data {
     protected final static String MS_DB_PROD_URL = "jdbc:postgresql://rc1b-crt97mlp0v7r0ba5.mdb.yandexcloud.net:6432/master_system_prod?targetServerType=master&ssl=true&sslmode=verify-full";
     protected final static String MS_DB_PROD_USER = "master_system_prod";
     protected final static String MS_DB_PROD_PASSWORD = "Cz3Yf*NW?TUU\\4t?%FQq";
+
     public enum UserTypes {
         DEFAULT_EMPLOYEE {
             public String phoneValidValue() {
@@ -336,6 +337,15 @@ public class Data {
 
             public String userEmail() {
                 return "9330000000@test.com";
+            }
+        },
+        NOT_REGISTERED_PHONE {
+            public String phoneValidValue() {
+                return "79330000008";
+            }
+
+            public String passwordValidValue() {
+                return "Password1";
             }
         };
 
