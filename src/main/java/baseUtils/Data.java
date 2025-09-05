@@ -2,6 +2,7 @@ package baseUtils;
 
 public class Data {
     public static final String SZ_A101_INN = "7751172550";
+    public static final String COMPANY_ID = "b4246903-c11e-11ef-aa27-c4346bb2ae00";
     protected final static String MS_DB_DEV_URL = "jdbc:postgresql://rc1b-crt97mlp0v7r0ba5.mdb.yandexcloud.net:6432/master_system_dev?targetServerType=master&ssl=true&sslmode=verify-full";
     protected final static String MS_DB_DEV_USER = "master_system_dev";
     protected final static String MS_DB_DEV_PASSWORD = "sewjTCpbJ9ZS";
