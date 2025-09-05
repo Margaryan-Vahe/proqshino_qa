@@ -4,6 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.qameta.allure.Step;
+import org.openqa.selenium.Keys;
 
 import static com.codeborne.selenide.Condition.*;
 
@@ -37,11 +38,19 @@ public abstract class LoginPageBase implements pages.BaseProfilePage {
 
     @Step("Ввожу номер телефона: {phoneNumber}")
     public void typePhoneNumber(String phoneNumber) {
+        String phoneValue;
+        String clnPhone;
         waitUntilLoaded();
-        SelenideElement phone = phoneNumberField().shouldBe(visible).shouldBe(enabled);
+        SelenideElement phone = phoneNumberField().shouldBe(visible, enabled);
 
-        phone.click();
-        phone.sendKeys(phoneNumber);
+        do {
+            phone.click();
+            phone.sendKeys(Keys.DELETE);
+            phone.sendKeys(phoneNumber);
+            phoneValue = phone.getText();
+            clnPhone = phoneValue.replaceAll("\\D", "");
+        } while (clnPhone.equals(phoneNumber));
+
     }
 
     @Step("Ввожу пароль")
