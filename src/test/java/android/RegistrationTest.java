@@ -2,6 +2,8 @@ package android;
 
 import baseUtils.Data;
 import baseUtils.DataBaseRequests;
+import baseUtils.ms.ApiRequests;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -43,6 +45,32 @@ public class RegistrationTest extends BaseAndroidTest {
                 Data.UserTypes.FOR_SIMPLE_REGISTRATION_EMPLOYEE.userEmail(),
                 Data.SZ_A101_INN
         );
+
+        setPinPageAndroid.clickNum1();
+        repeatPinPageAndroid.clickNum1();
+        bioConfirmationPageAndroid.clickToRefuseButton();
+        inputPinPageAndroid.clickNum1();
+
+        mainPageAndroid.waitUntilLoaded();
+    }
+    @Test
+    @DisplayName("Регистрация сотрудника: загруженного из файла")
+    public void employeeRegistrationFromMS() throws InterruptedException {
+        Response login = ApiRequests.login();
+        login.then().statusCode(200);
+        String token = login.then().extract().path("id_token");
+
+        Response upload = ApiRequests.loadFile(token, Data.COMPANY_ID);
+        upload.then().statusCode(200);
+
+        phone = Data.UserTypes.NOT_ACTIVATED_EMPLOYEE.phoneValidValue();
+        registrationPageAndroid.successTypePhoneNumber(phone);
+        otpPageAndroid.typeCorrectOtp();
+        setPasswordPageAndroid.inputPassword(
+                Data.UserTypes.NOT_ACTIVATED_EMPLOYEE.passwordValidValue());
+
+        setPersonalDataPageAndroid.clickToContinueButton();
+        setPersonalDataPageAndroid.clickToMainPageButton_();
 
         setPinPageAndroid.clickNum1();
         repeatPinPageAndroid.clickNum1();

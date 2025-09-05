@@ -123,9 +123,18 @@ public abstract class SetPersonalDataPageBase {
                 .shouldBe(visible)
                 .click();
     }
+
     @Step("Нажимаю на кнпоку 'На главный экран'")
     public void clickToMainPageButton_() {
         toMainPageButton()
+                .shouldBe(visible)
+                .click();
+    }
+
+    @Step("Нажимаю на кнпоку 'Продолжить'")
+    public void clickToContinueButton() throws InterruptedException {
+        Thread.sleep(1500);
+        continueButton()
                 .shouldBe(visible)
                 .click();
     }
@@ -159,6 +168,7 @@ public abstract class SetPersonalDataPageBase {
         clickToCheckBox();
         clickToMainPageButton();
     }
+
     @Step("Ввожу все данные с указанием уже имеющейся в системе почты")
     public void typeAllDataForValidationTest(
             String lastName,
@@ -174,9 +184,7 @@ public abstract class SetPersonalDataPageBase {
         typeEmail(email);
         typeInn(inn);
 
-        Thread.sleep(1500);
-
-        continueButton().click();
+        clickToContinueButton();
     }
 
     @Step("Успешно ввожу все данные для сотрудника")
@@ -191,9 +199,7 @@ public abstract class SetPersonalDataPageBase {
         typeEmail(email);
         typeSecondName(secondName);
 
-        Thread.sleep(1500);
-
-        continueButton().click();
+        clickToContinueButton();
         clickToMainPageButtonForUserCase();
     }
 }
