@@ -45,6 +45,20 @@ public class AuthorizationTest extends BaseAndroidTest {
     }
 
     @Test
+    @DisplayName("Ошибка при входе с несуществующим номером")
+    public void authorizationWithNotRegisteredPhone() throws InterruptedException {
+        loginPageAndroid
+                .waitUntilLoaded()
+                .login(
+                        Data.UserTypes.NOT_REGISTERED_PHONE.phoneValidValue(),
+                        Data.UserTypes.NOT_REGISTERED_PHONE.passwordValidValue(),
+                        true
+                );
+
+        loginPageAndroid.incorrectDataErrorMessage().shouldBe(visible);
+    }
+
+    @Test
     @DisplayName("Повторный вход по PIN после перезапуска приложения")
     public void successAuthorizationByPin() throws InterruptedException {
         loginPageAndroid
