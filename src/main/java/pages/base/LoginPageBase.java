@@ -38,6 +38,8 @@ public abstract class LoginPageBase implements pages.BaseProfilePage {
 
     @Step("Ввожу номер телефона: {phoneNumber}")
     public void typePhoneNumber(String phoneNumber) {
+        waitUntilLoaded();
+
         String phoneValue;
         String clnPhone;
         waitUntilLoaded();

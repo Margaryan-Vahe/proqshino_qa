@@ -6,6 +6,7 @@ import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Condition.visible;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AuthorizationTest extends BaseAndroidTest {
 
     @Override
@@ -17,6 +18,7 @@ public class AuthorizationTest extends BaseAndroidTest {
 
     @Test
     @DisplayName("Успешный вход по логину/паролю")
+    @Order(1)
     public void successAuthorization() throws InterruptedException {
         loginPageAndroid
                 .waitUntilLoaded()
@@ -32,6 +34,7 @@ public class AuthorizationTest extends BaseAndroidTest {
 
     @Test
     @DisplayName("Ошибка при входе с неверным паролем")
+    @Order(2)
     public void incorrectAuthorization() throws InterruptedException {
         loginPageAndroid
                 .waitUntilLoaded()
@@ -46,6 +49,7 @@ public class AuthorizationTest extends BaseAndroidTest {
 
     @Test
     @DisplayName("Ошибка при входе с несуществующим номером")
+    @Order(3)
     public void authorizationWithNotRegisteredPhone() throws InterruptedException {
         loginPageAndroid
                 .waitUntilLoaded()
@@ -60,6 +64,7 @@ public class AuthorizationTest extends BaseAndroidTest {
 
     @Test
     @DisplayName("Повторный вход по PIN после перезапуска приложения")
+    @Order(4)
     public void successAuthorizationByPin() throws InterruptedException {
         loginPageAndroid
                 .waitUntilLoaded()
@@ -76,6 +81,7 @@ public class AuthorizationTest extends BaseAndroidTest {
 
     @Test
     @DisplayName("Неверный PIN — остаёмся на экране ввода PIN")
+    @Order(5)
     public void incorrectAuthorizationByPin() throws InterruptedException {
         loginPageAndroid
                 .waitUntilLoaded()
@@ -93,6 +99,7 @@ public class AuthorizationTest extends BaseAndroidTest {
 
     @Test
     @DisplayName("Вход по PIN без интернета — вижу модалку о проблемах с сетью")
+    @Order(6)
     public void authorizationByPinWithoutInternet() throws InterruptedException {
         loginPageAndroid
                 .waitUntilLoaded()
