@@ -2,6 +2,7 @@ package baseUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import static baseUtils.Data.*;
 
@@ -70,6 +71,62 @@ public class DataBaseRequests {
             logError("Ошибка удаления пользователя с userId: {}. Ошибка: {}", userId, e.getMessage());
             throw new RuntimeException("Ошибка удаления пользователя", e);
         }
+    }
+
+    public static List<String> getAuthority(boolean isProd) {
+        ArrayList<String> databaseCredentials = getMasterSystemDBCredentials(isProd);
+        List<String> authorityName = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(databaseCredentials.get(0), databaseCredentials.get(1), databaseCredentials.get(2));
+            // Запросы к базе данных
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(
+                        "select * " +
+                                "from jhi_authority " +
+                                "where description is not NULL");
+                while (resultSet.next()) {
+                    // Получение значений столбцов из текущей строки результата
+                    authorityName.add(resultSet.getString("name"));
+                }
+                resultSet.close();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return authorityName;
+    }
+
+    public static List<String> getUserTypeAuthority(int userTypeId, boolean isProd) {
+        ArrayList<String> databaseCredentials = getMasterSystemDBCredentials(isProd);
+        List<String> userTypeAuthority = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(databaseCredentials.get(0), databaseCredentials.get(1), databaseCredentials.get(2));
+            // Запросы к базе данных
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(
+                        "select * " +
+                                "from user_type_authority " +
+                                "where user_type_id = '" + userTypeId + "'");
+                while (resultSet.next()) {
+                    // Получение значений столбцов из текущей строки результата
+                    userTypeAuthority.add(resultSet.getString("authority_name"));
+                }
+                resultSet.close();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userTypeAuthority;
     }
 
     public static String getUserAuthority(String userId, boolean isProd) {
