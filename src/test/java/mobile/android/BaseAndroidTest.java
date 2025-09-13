@@ -1,4 +1,4 @@
-package android;
+package mobile.android;
 
 import baseUtils.SetupCapabilities;
 import io.qameta.allure.selenide.AllureSelenide;

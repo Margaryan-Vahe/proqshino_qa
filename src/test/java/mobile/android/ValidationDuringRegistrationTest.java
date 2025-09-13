@@ -1,4 +1,4 @@
-package android;
+package mobile.android;
 
 import baseUtils.Data;
 import org.junit.jupiter.api.BeforeEach;

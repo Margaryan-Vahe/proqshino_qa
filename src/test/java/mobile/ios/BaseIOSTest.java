@@ -1,4 +1,4 @@
-package ios;
+package mobile.ios;
 
 import baseUtils.SetupCapabilities;
 import org.junit.jupiter.api.AfterEach;
