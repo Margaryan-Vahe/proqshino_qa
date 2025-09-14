@@ -30,9 +30,9 @@ public class GetDataFromOneCTest {
 
         rentalObject
                 .then()
+                .log().all()
                 .statusCode(200)
-                .body(not(emptyOrNullString()))
-                .log().all();
+                .body(not(emptyOrNullString()));
     }
 
     @Test
@@ -42,9 +42,9 @@ public class GetDataFromOneCTest {
 
         rentalObject
                 .then()
+                .log().all()
                 .statusCode(200)
-                .body(not(emptyOrNullString()))
-                .log().all();
+                .body(not(emptyOrNullString()));
     }
 
     @Test
@@ -54,9 +54,9 @@ public class GetDataFromOneCTest {
 
         rentalObject
                 .then()
+                .log().all()
                 .statusCode(200)
-                .body(not(emptyOrNullString()))
-                .log().all();
+                .body(not(emptyOrNullString()));
     }
 
     @Test
@@ -66,9 +66,9 @@ public class GetDataFromOneCTest {
 
         rentalObject
                 .then()
+                .log().all()
                 .statusCode(200)
-                .body(not(emptyOrNullString()))
-                .log().all();
+                .body(not(emptyOrNullString()));
     }
 
     @Test
