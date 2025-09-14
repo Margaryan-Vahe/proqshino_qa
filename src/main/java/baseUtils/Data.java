@@ -348,6 +348,19 @@ public class Data {
             public String passwordValidValue() {
                 return "Password1";
             }
+        },
+        FOR_PROD_TEST_USER {
+            public String phoneValidValue() {
+                return "79331000001";
+            }
+
+            public String phoneFullValue() {
+                return "+7(933) 100-00-01";
+            }
+
+            public String passwordValidValue() {
+                return "Password1";
+            }
         };
 
         public String phoneValidValue() {
