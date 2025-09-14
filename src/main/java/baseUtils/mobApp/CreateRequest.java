@@ -1,7 +1,5 @@
 package baseUtils.mobApp;
 
-import java.time.Instant;
-
 public class CreateRequest {
     public String requestId;
     public String userId;
@@ -14,9 +12,6 @@ public class CreateRequest {
     public Boolean sentToOneC;
     public String oneCNumber;
     public String photos;
-
-    public CreateRequest() {
-    }
 
     public CreateRequest(String requestId, String userId, String placeId, String createdAt,
                          String title, String subject, String status, Boolean isUrgent, Boolean sentToOneC,
