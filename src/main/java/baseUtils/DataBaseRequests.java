@@ -50,29 +50,6 @@ public class DataBaseRequests {
         return idColumn;
     }
 
-    public static void deleteUser(String userId, boolean isProd) {
-        ArrayList<String> databaseCredentials = getMasterSystemDBCredentials(isProd);
-        logInfo("Попытка удаления записей из jhi_user для userId: {}", userId);
-        try (Connection connection = DriverManager.getConnection(
-                databaseCredentials.get(0),
-                databaseCredentials.get(1),
-                databaseCredentials.get(2));
-             Statement statement = connection.createStatement()) {
-
-            String sql = "DELETE FROM public.jhi_user WHERE id = '" + userId + "'";
-            int rowsAffected = statement.executeUpdate(sql);
-
-            if (rowsAffected > 0) {
-                logInfo("Пользователь с userId: {} успешно удалён", userId);
-            } else {
-                logError("Пользователь с userId: {} не найден для удаления", userId);
-            }
-        } catch (SQLException e) {
-            logError("Ошибка удаления пользователя с userId: {}. Ошибка: {}", userId, e.getMessage());
-            throw new RuntimeException("Ошибка удаления пользователя", e);
-        }
-    }
-
     public static List<String> getAuthority(boolean isProd) {
         ArrayList<String> databaseCredentials = getMasterSystemDBCredentials(isProd);
         List<String> authorityName = new ArrayList<>();
@@ -237,6 +214,80 @@ public class DataBaseRequests {
         } catch (SQLException e) {
             logError("Ошибка удаления записей из таблицы user_place для userId: {}. Ошибка: {}", userId, e.getMessage());
             throw new RuntimeException("Ошибка удаления записей из таблицы user_place", e);
+        }
+    }
+
+    public static String getUserRequests(String userId, boolean isProd) {
+        ArrayList<String> databaseCredentials = getMasterSystemDBCredentials(isProd);
+        String idColumn = "";
+        try {
+            Connection connection = DriverManager.getConnection(databaseCredentials.get(0), databaseCredentials.get(1), databaseCredentials.get(2));
+            // Запросы к базе данных
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(
+                        "select * " +
+                                "from public.user_request " +
+                                "where user_id = '" + userId + "'");
+                while (resultSet.next()) {
+                    // Получение значений столбцов из текущей строки результата
+                    idColumn = resultSet.getString("id");
+                }
+                resultSet.close();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return idColumn;
+    }
+
+    public static void deleteUserRequest(String userId, boolean isProd) {
+        ArrayList<String> databaseCredentials = getMasterSystemDBCredentials(isProd);
+        logInfo("Попытка удаления записей из user_request для userId: {}", userId);
+        try (Connection connection = DriverManager.getConnection(
+                databaseCredentials.get(0),
+                databaseCredentials.get(1),
+                databaseCredentials.get(2));
+             Statement statement = connection.createStatement()) {
+
+            String sql = "DELETE FROM public.user_request WHERE user_id = '" + userId + "'";
+            int rowsAffected = statement.executeUpdate(sql);
+
+            if (rowsAffected > 0) {
+                logInfo("Удалено {} записей из таблицы user_request для userId: {}", rowsAffected, userId);
+            } else {
+                logError("Нет записей для удаления из таблицы user_request для userId: {}", userId);
+            }
+        } catch (SQLException e) {
+            logError("Ошибка удаления записей из таблицы user_request для userId: {}. Ошибка: {}", userId, e.getMessage());
+            throw new RuntimeException("Ошибка удаления записей из таблицы user_request", e);
+        }
+    }
+
+    public static void deleteUser(String userId, boolean isProd) {
+        ArrayList<String> databaseCredentials = getMasterSystemDBCredentials(isProd);
+        logInfo("Попытка удаления записей из jhi_user для userId: {}", userId);
+        try (Connection connection = DriverManager.getConnection(
+                databaseCredentials.get(0),
+                databaseCredentials.get(1),
+                databaseCredentials.get(2));
+             Statement statement = connection.createStatement()) {
+
+            String sql = "DELETE FROM public.jhi_user WHERE id = '" + userId + "'";
+            int rowsAffected = statement.executeUpdate(sql);
+
+            if (rowsAffected > 0) {
+                logInfo("Пользователь с userId: {} успешно удалён", userId);
+            } else {
+                logError("Пользователь с userId: {} не найден для удаления", userId);
+            }
+        } catch (SQLException e) {
+            logError("Ошибка удаления пользователя с userId: {}. Ошибка: {}", userId, e.getMessage());
+            throw new RuntimeException("Ошибка удаления пользователя", e);
         }
     }
 
