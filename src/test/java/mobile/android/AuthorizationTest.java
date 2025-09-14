@@ -28,7 +28,6 @@ public class AuthorizationTest extends BaseAndroidTest {
                         false
                 );
 
-        // Предпочтительный для диплома стиль: проверка через шаг страницы
         mainPageAndroid.mainPageHeaderShouldBeVisible();
     }
 
@@ -74,7 +73,7 @@ public class AuthorizationTest extends BaseAndroidTest {
                         false
                 );
 
-        mainPageAndroid.closeAndRunApp();      // app.id можно переопределить через -Dapp.id
+        mainPageAndroid.closeAndRunApp();
         inputPinPageAndroid.clickNum1();
         mainPageAndroid.waitUntilLoaded().mainPageHeaderShouldBeVisible();
     }

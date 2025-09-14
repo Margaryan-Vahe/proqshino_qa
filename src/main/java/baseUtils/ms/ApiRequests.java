@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 public class ApiRequests {
     public static final String BASE_URL = "http://10.129.0.13:8090";
     public static final String ADD_FILE = "/api/admin/users/excel/company/";
-    public static final String LOGIN =  "/api/authenticate";
+    public static final String LOGIN = "/api/authenticate";
 
     @Step("Логин пользователя MS")
     public static Response login() {
@@ -40,7 +40,7 @@ public class ApiRequests {
                 .baseUri(BASE_URL)
                 .contentType(ContentType.MULTIPART)
                 .accept(ContentType.JSON)
-                .header("Authorization","Bearer " + token)
+                .header("Authorization", "Bearer " + token)
 
                 .multiPart("files", excelFile,
                         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
