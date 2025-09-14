@@ -10,6 +10,11 @@ public class ApiRequests {
     public static final String BASE_URL_PROD = "https://biznespro.a101.ru/prod_arenda/hs/RentalObject/";
     public static final String BASE_URL_PREPROD = "https://biznespro.a101.ru/preprod_arenda/hs/RentalObject/";
 
+    public static final String BASE_URL_MS = "http://10.129.0.10:8090/api/";
+    public static final String AUTHENTICATE = "authenticate";
+    public static final String RENT_SERVICE = "v1/one-c/rent/service/";
+
+
     public static final String RENTAL_OBJECT = "RentalObject/";
     public static final String NOMENCLATURE = "Nomenclature/";
     public static final String COUNTERPARTY = "Counterparty/";
@@ -17,6 +22,25 @@ public class ApiRequests {
 
     public static final String USER_NAME = "API_User";
     public static final String PASSWORD = "123456";
+
+    @Step("Авторизация в систему МС")
+    public static Response authenticate() {
+        baseUtils.oneC.Credentials credentials = new Credentials(
+                "+72222222222",
+                "user"
+        );
+
+        return given()
+                .baseUri(BASE_URL_MS)
+                .contentType(ContentType.JSON)
+                .body(credentials)
+                .when()
+                .log().all()
+                .post(AUTHENTICATE)
+                .then()
+                .log().all()
+                .extract().response();
+    }
 
     @Step("Получение данных по помещениям")
     public Response getRentalObjectData() {
