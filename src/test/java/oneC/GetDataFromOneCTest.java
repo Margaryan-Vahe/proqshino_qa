@@ -1,12 +1,14 @@
 package oneC;
 
+import baseUtils.Data;
 import baseUtils.oneC.ApiRequests;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.emptyOrNullString;
-import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class GetDataFromOneCTest {
 
@@ -56,5 +58,21 @@ public class GetDataFromOneCTest {
                 .statusCode(200)
                 .body(not(emptyOrNullString()))
                 .log().all();
+    }
+
+    @Test
+    @DisplayName("Проверка получения номера технической заявки из 1С")
+    public void checkOrderedOneCNumber() {
+        baseUtils.mobApp.ApiRequests.makeRequestOrder(
+                Data.UserTypes.FOR_PROD_TEST_USER.phoneFullValue(),
+                Data.UserTypes.FOR_PROD_TEST_USER.passwordValidValue());
+
+        Response orderedRequest = baseUtils.ms.ApiRequests.getOrderedOneCNumber();
+        String oneCNumber = orderedRequest.then()
+                .statusCode(200)
+                .extract()
+                .path("[0].oneCNumber");
+
+        assertNotNull(oneCNumber, "oneCNumber у первой заявки не должен быть null");
     }
 }

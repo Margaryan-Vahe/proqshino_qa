@@ -30,7 +30,7 @@ public class ApiRequests {
                 .when()
                 .post(AUTHORIZE)
                 .then()
-                .log().all()
+                .log().status()
                 .extract().response();
     }
 
@@ -69,7 +69,7 @@ public class ApiRequests {
                 .when()
                 .post(REQUEST_ORDER)
                 .then()
-                .log().all()
-                .statusCode(200);
+                .log().status()
+                .statusCode(201);
     }
 }
