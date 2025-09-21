@@ -26,7 +26,6 @@ public class ApiRequests {
 
     public static final String USER_NAME = "API_User";
     public static final String PASSWORD = "123456";
-    private RentService rentService;
 
     @Step("Авторизация в систему МС")
     public static Response authenticate() {
