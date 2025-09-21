@@ -228,10 +228,42 @@ public class DataBaseRequests {
                 ResultSet resultSet = statement.executeQuery(
                         "select * " +
                                 "from public.user_request " +
-                                "where user_id = '" + userId + "'");
+                                "where user_id = '" + userId + "' " +
+                                "order by created_at DESC " +
+                                "limit 1");
                 while (resultSet.next()) {
                     // Получение значений столбцов из текущей строки результата
                     idColumn = resultSet.getString("id");
+                }
+                resultSet.close();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return idColumn;
+    }
+
+    public static String getUserRequestsOneCNumber(String userId, boolean isProd) {
+        ArrayList<String> databaseCredentials = getMasterSystemDBCredentials(isProd);
+        String idColumn = "";
+        try {
+            Connection connection = DriverManager.getConnection(databaseCredentials.get(0), databaseCredentials.get(1), databaseCredentials.get(2));
+            // Запросы к базе данных
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(
+                        "select * " +
+                                "from public.user_request " +
+                                "where user_id = '" + userId + "' " +
+                                "order by created_at DESC " +
+                                "limit 1");
+                while (resultSet.next()) {
+                    // Получение значений столбцов из текущей строки результата
+                    idColumn = resultSet.getString("one_c_number");
                 }
                 resultSet.close();
                 statement.close();

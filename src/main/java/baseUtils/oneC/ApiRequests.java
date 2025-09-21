@@ -4,6 +4,10 @@ import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+
 import static io.restassured.RestAssured.given;
 
 public class ApiRequests {
@@ -22,6 +26,7 @@ public class ApiRequests {
 
     public static final String USER_NAME = "API_User";
     public static final String PASSWORD = "123456";
+    private RentService rentService;
 
     @Step("Авторизация в систему МС")
     public static Response authenticate() {
@@ -35,11 +40,37 @@ public class ApiRequests {
                 .contentType(ContentType.JSON)
                 .body(credentials)
                 .when()
-                .log().all()
                 .post(AUTHENTICATE)
                 .then()
-                .log().all()
+                .log().status()
                 .extract().response();
+    }
+
+    @Step("Запрос на изменение статуса")
+    public static Response changeRentServiceStatus(
+            String token,
+            String orderId,
+            String orderNumber,
+            String status) {
+        String updated = OffsetDateTime.now(ZoneOffset.UTC)
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+
+        RentService rentService = new RentService(
+                orderId,
+                updated,
+                orderNumber,
+                false,
+                status
+        );
+
+        return given()
+                .baseUri(BASE_URL_MS)
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + token)
+                .body(rentService)
+                .log().all()
+                .when()
+                .post(RENT_SERVICE);
     }
 
     @Step("Получение данных по помещениям")
