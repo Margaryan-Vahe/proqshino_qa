@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: write   # нужно для gh-pages публикации
 
 jobs:
   test-allure-email:
@@ -34,7 +34,6 @@ jobs:
         continue-on-error: true
         run: mvn -B -e -Dmaven.test.failure.ignore=true -Dtest="oneC.*" test
 
-      # Allure CLI через npm + проверка, что команда доступна
       - name: Set up Node (for Allure CLI)
         uses: actions/setup-node@v4
         with:
@@ -48,12 +47,31 @@ jobs:
           which allure
           allure --version
 
+      # (опционально) быстрый чек, что в results что-то есть
+      - name: Check allure results count
+        if: always()
+        run: |
+          echo "Files in target/allure-results:"
+          ls -la target/allure-results || true
+          echo "Count:"
+          find target/allure-results -type f | wc -l || true
+
       - name: Generate Allure report (static)
         if: always()
         run: |
           rm -rf allure-report
           allure generate target/allure-results -o allure-report --clean
           zip -r allure-report.zip allure-report
+
+      # Публикация статического отчёта на GitHub Pages (ветка gh-pages)
+      - name: Publish Allure to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-report
+          # по желанию: keep_files: true
 
       - name: Upload artifacts (Allure + Surefire)
         if: always()
@@ -68,23 +86,26 @@ jobs:
           retention-days: 14
 
       # Для Gmail c портом 465 (SSL): secure: true
-      # Если используешь 587 (STARTTLS), поменяй на:
-      #   secure: false
-      #   tls: true
+      # Если используешь 587 (STARTTLS), замени на: secure: false и tls: true
       - name: Send report by email
         if: always()
         uses: dawidd6/action-send-mail@v6
         with:
           server_address: smtp.gmail.com
-          server_port: 465  # 465 (SSL) или 587 (STARTTLS)
-          secure: true                            # true для 465/SSL; для 587 см. комментарий выше
-          # tls: true                             # раскомментируй вместе с secure:false для 587
-          username: ${{ secrets.MAIL_USERNAME }}  # полный email-логин
-          password: ${{ secrets.MAIL_PASSWORD }}  # App Password (для Gmail/O365)
-          from: ${{ secrets.MAIL_FROM }}          # лучше тот же адрес, что и username
+          server_port: 465
+          secure: true
+          # tls: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          from: ${{ secrets.MAIL_FROM }}
           to: ${{ secrets.MAIL_TO }}
           subject: "Nightly oneC: ${{ github.repository }} • ${{ job.status }}"
           html_body: |
             <p>Ночной прогон (oneC.*) завершился со статусом: <b>${{ job.status }}</b>.</p>
-            <p>Скачать артефакты: <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">ссылка</a>.</p>
-            <
+            <p>Allure отчёт: 
+              <a href="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/">открыть</a>
+            </p>
+            <p>Артефакты рана: 
+              <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">ссылка</a>
+            </p>
+          attachments: allure-report.zip
