@@ -30,7 +30,7 @@ public class ApiRequests {
                 .when()
                 .post(AUTHORIZE)
                 .then()
-                .log().status()
+                .log().all()
                 .extract().response();
     }
 
