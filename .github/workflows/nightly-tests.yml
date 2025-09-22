@@ -2,7 +2,7 @@ name: Nightly tests (oneC only) — Allure + Pages + Email (smart filter, no jek
 
 on:
   schedule:
-    - cron: '0 21 * * *'   # 01:00 Asia/Yerevan (UTC+4) = 21:00 UTC
+    - cron: '0 */3 * * *'
   workflow_dispatch:
 
 permissions:
