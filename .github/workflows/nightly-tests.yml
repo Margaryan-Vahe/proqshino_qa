@@ -1,12 +1,12 @@
-name: Nightly tests (oneC only) — Allure + Pages + Email (smart filter, no jekyll)
+name: Nightly tests (oneC only) — Allure + Pages + Email (smart filter)
 
 on:
   schedule:
-    - cron: '0 */3 * * *'
+    - cron: '0 21 * * *'   # 01:00 Asia/Yerevan (UTC+4) = 21:00 UTC
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: write   # нужно для публикации в gh-pages
 
 jobs:
   test-allure-email:
@@ -29,7 +29,8 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
 
-      # Фильтр по oneC.*Test, при пустых результатах — fallback без фильтра
+      # 1) Пытаемся запустить только oneC.*Test
+      # 2) Если allure-results пуст, делаем fallback: прогон всех тестов
       - name: Run tests (oneC.*Test with fallback)
         continue-on-error: true
         run: |
@@ -54,6 +55,7 @@ jobs:
           npm i -g allure-commandline@latest
           allure --version
 
+      # Диагностика: убедимся, что результаты есть
       - name: Debug surefire & allure results
         if: always()
         run: |
@@ -71,16 +73,6 @@ jobs:
           rm -rf allure-report
           allure generate target/allure-results -o allure-report --clean
 
-      # >>> ключ: добавить .nojekyll и убедиться, что widgets/data на месте
-      - name: Prepare report for GitHub Pages
-        if: always()
-        run: |
-          touch allure-report/.nojekyll
-          echo "===== allure-report/widgets ====="
-          ls -la allure-report/widgets || true
-          echo "===== allure-report/data ====="
-          ls -la allure-report/data || true
-
       - name: Publish Allure to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
@@ -88,7 +80,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-report
-          # по желанию: keep_files: true
 
       - name: Upload artifacts (Allure + Surefire)
         if: always()
@@ -110,7 +101,7 @@ jobs:
           secure: true
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          from: ${{ secrets.MAIL_FROM }}
+          from: ${{ secrets.MAIL_FROM }}   # тот же адрес, что и username
           to: ${{ secrets.MAIL_TO }}
           subject: "Nightly oneC: ${{ github.repository }} • ${{ job.status }}"
           html_body: |
