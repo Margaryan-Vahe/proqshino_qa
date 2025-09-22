@@ -44,13 +44,13 @@ jobs:
           npm i -g allure-commandline@latest
           allure --version
 
-      # Быстрая диагностика — убедимся, что результаты есть
-      - name: Check allure results count
+      # Диагностика: убедимся, что в results есть файлы
+      - name: Debug allure results
         if: always()
         run: |
-          echo "Files in target/allure-results:"
+          echo "Contents of target/allure-results:"
           ls -la target/allure-results || true
-          echo "Count:" && (find target/allure-results -type f | wc -l || true)
+          echo "Total files:" && (find target/allure-results -type f | wc -l || true)
 
       - name: Generate Allure report (static)
         if: always()
@@ -79,7 +79,7 @@ jobs:
             allure-report/**
           retention-days: 14
 
-      # Письмо БЕЗ вложений (Gmail не блокирует)
+      # Письмо БЕЗ вложений (Gmail ничего не блокирует)
       - name: Send report by email (links only)
         if: always()
         uses: dawidd6/action-send-mail@v6
@@ -89,7 +89,7 @@ jobs:
           secure: true
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          from: ${{ secrets.MAIL_FROM }}         # тот же email, что и username
+          from: ${{ secrets.MAIL_FROM }}         # тот же адрес, что и username
           to: ${{ secrets.MAIL_TO }}
           subject: "Nightly oneC: ${{ github.repository }} • ${{ job.status }}"
           html_body: |
