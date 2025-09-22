@@ -75,8 +75,8 @@ jobs:
         if: always()
         uses: dawidd6/action-send-mail@v6
         with:
-          server_address: ${{ secrets.MAIL_SERVER }}
-          server_port: ${{ secrets.MAIL_PORT }}   # 465 (SSL) или 587 (STARTTLS)
+          server_address: smtp.gmail.com
+          server_port: 465  # 465 (SSL) или 587 (STARTTLS)
           secure: true                            # true для 465/SSL; для 587 см. комментарий выше
           # tls: true                             # раскомментируй вместе с secure:false для 587
           username: ${{ secrets.MAIL_USERNAME }}  # полный email-логин
