@@ -1,12 +1,12 @@
-name: Nightly tests (oneC only) — Allure + Email
+name: Nightly tests (oneC only) — Allure + Pages + Email (no attachments)
 
 on:
   schedule:
-    - cron: '*/15 * * * *'   # Временно: каждые 15 минут для проверки
+    - cron: '0 21 * * *'   # 01:00 Asia/Yerevan (UTC+4) = 21:00 UTC
   workflow_dispatch:
 
 permissions:
-  contents: write   # нужно для gh-pages публикации
+  contents: write   # нужно для публикации в gh-pages
 
 jobs:
   test-allure-email:
@@ -29,7 +29,7 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
 
-      # Запускаем только oneC.* и НЕ валим джобу при фейлах тестов
+      # Запускаем только oneC.* и не валим джобу из-за фейлов тестов
       - name: Run only oneC tests
         continue-on-error: true
         run: mvn -B -e -Dmaven.test.failure.ignore=true -Dtest="oneC.*" test
@@ -41,27 +41,22 @@ jobs:
 
       - name: Install Allure CLI
         run: |
-          node -v
-          npm -v
           npm i -g allure-commandline@latest
-          which allure
           allure --version
 
-      # (опционально) быстрый чек, что в results что-то есть
+      # Быстрая диагностика — убедимся, что результаты есть
       - name: Check allure results count
         if: always()
         run: |
           echo "Files in target/allure-results:"
           ls -la target/allure-results || true
-          echo "Count:"
-          find target/allure-results -type f | wc -l || true
+          echo "Count:" && (find target/allure-results -type f | wc -l || true)
 
       - name: Generate Allure report (static)
         if: always()
         run: |
           rm -rf allure-report
           allure generate target/allure-results -o allure-report --clean
-          zip -r allure-report.zip allure-report
 
       # Публикация статического отчёта на GitHub Pages (ветка gh-pages)
       - name: Publish Allure to GitHub Pages
@@ -71,8 +66,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-report
-          # по желанию: keep_files: true
 
+      # Сохраняем артефакты (на всякий случай)
       - name: Upload artifacts (Allure + Surefire)
         if: always()
         uses: actions/upload-artifact@v4
@@ -82,30 +77,22 @@ jobs:
             target/surefire-reports/**
             target/allure-results/**
             allure-report/**
-            allure-report.zip
           retention-days: 14
 
-      # Для Gmail c портом 465 (SSL): secure: true
-      # Если используешь 587 (STARTTLS), замени на: secure: false и tls: true
-      - name: Send report by email
+      # Письмо БЕЗ вложений (Gmail не блокирует)
+      - name: Send report by email (links only)
         if: always()
         uses: dawidd6/action-send-mail@v6
         with:
           server_address: smtp.gmail.com
           server_port: 465
           secure: true
-          # tls: true
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          from: ${{ secrets.MAIL_FROM }}
+          from: ${{ secrets.MAIL_FROM }}         # тот же email, что и username
           to: ${{ secrets.MAIL_TO }}
           subject: "Nightly oneC: ${{ github.repository }} • ${{ job.status }}"
           html_body: |
             <p>Ночной прогон (oneC.*) завершился со статусом: <b>${{ job.status }}</b>.</p>
-            <p>Allure отчёт: 
-              <a href="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/">открыть</a>
-            </p>
-            <p>Артефакты рана: 
-              <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">ссылка</a>
-            </p>
-          attachments: allure-report.zip
+            <p>Allure отчёт: <a href="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/">открыть</a></p>
+            <p>Артефакты рана: <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">скачать</a></p>
