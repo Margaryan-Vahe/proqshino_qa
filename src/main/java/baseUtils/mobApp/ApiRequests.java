@@ -28,6 +28,7 @@ public class ApiRequests {
                 .contentType(ContentType.JSON)
                 .body(credentials)
                 .when()
+                .log().all()
                 .post(AUTHORIZE)
                 .then()
                 .log().all()
