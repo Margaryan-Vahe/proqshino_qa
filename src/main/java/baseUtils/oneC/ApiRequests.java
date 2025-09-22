@@ -8,6 +8,8 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
+import io.qameta.allure.restassured.AllureRestAssured;
+
 import static io.restassured.RestAssured.given;
 
 public class ApiRequests {
@@ -63,6 +65,7 @@ public class ApiRequests {
         );
 
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(BASE_URL_MS)
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token)
