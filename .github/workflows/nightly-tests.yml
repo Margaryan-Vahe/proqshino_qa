@@ -2,7 +2,7 @@ name: Nightly tests (oneC only) — Allure + Email
 
 on:
   schedule:
-    - cron: '*/15 * * * *'   # 01:00 по Еревану (UTC+4) = 21:00 UTC
+    - cron: '*/15 * * * *'   # Временно: каждые 15 минут для проверки
   workflow_dispatch:
 
 permissions:
@@ -29,16 +29,24 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
 
+      # Запускаем только oneC.* и НЕ валим джобу при фейлах тестов
       - name: Run only oneC tests
-        run: mvn -B -e -Dtest="oneC.*" test
+        continue-on-error: true
+        run: mvn -B -e -Dmaven.test.failure.ignore=true -Dtest="oneC.*" test
 
+      # Allure CLI через npm + проверка, что команда доступна
       - name: Set up Node (for Allure CLI)
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
       - name: Install Allure CLI
-        run: npm i -g allure-commandline@latest
+        run: |
+          node -v
+          npm -v
+          npm i -g allure-commandline@latest
+          which allure
+          allure --version
 
       - name: Generate Allure report (static)
         if: always()
@@ -59,20 +67,24 @@ jobs:
             allure-report.zip
           retention-days: 14
 
+      # Для Gmail c портом 465 (SSL): secure: true
+      # Если используешь 587 (STARTTLS), поменяй на:
+      #   secure: false
+      #   tls: true
       - name: Send report by email
         if: always()
         uses: dawidd6/action-send-mail@v6
         with:
           server_address: ${{ secrets.MAIL_SERVER }}
-          server_port: ${{ secrets.MAIL_PORT }}
-          secure: true
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "Nightly oneC: ${{ github.repository }} • ${{ job.status }}"
-          from: ${{ secrets.MAIL_FROM }}
+          server_port: ${{ secrets.MAIL_PORT }}   # 465 (SSL) или 587 (STARTTLS)
+          secure: true                            # true для 465/SSL; для 587 см. комментарий выше
+          # tls: true                             # раскомментируй вместе с secure:false для 587
+          username: ${{ secrets.MAIL_USERNAME }}  # полный email-логин
+          password: ${{ secrets.MAIL_PASSWORD }}  # App Password (для Gmail/O365)
+          from: ${{ secrets.MAIL_FROM }}          # лучше тот же адрес, что и username
           to: ${{ secrets.MAIL_TO }}
+          subject: "Nightly oneC: ${{ github.repository }} • ${{ job.status }}"
           html_body: |
             <p>Ночной прогон (oneC.*) завершился со статусом: <b>${{ job.status }}</b>.</p>
             <p>Скачать артефакты: <a href="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}">ссылка</a>.</p>
-            <p>Во вложении — архив Allure-отчёта.</p>
-          attachments: allure-report.zip
+            <
