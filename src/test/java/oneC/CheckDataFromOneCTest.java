@@ -3,6 +3,7 @@ package oneC;
 import baseUtils.Data;
 import baseUtils.DataBaseRequests;
 import baseUtils.oneC.ApiRequests;
+import io.qameta.allure.Allure;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -80,5 +81,14 @@ public class CheckDataFromOneCTest {
                 oneCNumber,
                 status);
         response_.then().statusCode(200).log().all();
+
+        Allure.step("Response for status = " + status, () -> {
+            Allure.addAttachment(
+                    "Body",
+                    "application/json",
+                    response_.asPrettyString(),
+                    ".json"
+            );
+        });
     }
 }
