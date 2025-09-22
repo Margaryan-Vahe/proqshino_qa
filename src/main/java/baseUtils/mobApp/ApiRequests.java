@@ -19,6 +19,8 @@ public class ApiRequests {
     public static final String BASE_URL_2 = "https://app-services.biznespro.info/";
     public static final String REQUEST_ORDER = "api/v1/requests/api/request ";
 
+    String userId = "2811c034-e77e-4faf-98a5-0dfed970935f";
+
 
     @Step("Получить токен авторизации для зарегистрированного пользователя")
     public static Response getToken(String login, String password) {
@@ -43,7 +45,7 @@ public class ApiRequests {
         String token = getUserToken.then().extract().path("token");
 
         String phone = login.replaceAll("\\D", "");
-        String userId = DataBaseRequests.getUserId(phone, true);
+        String userId = "2811c034-e77e-4faf-98a5-0dfed970935f";
 
         String createdAt = OffsetDateTime.now(ZoneOffset.UTC)
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"));
