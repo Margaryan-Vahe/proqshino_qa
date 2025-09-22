@@ -2,9 +2,9 @@ name: Nightly tests (oneC only) — Allure + Pages + Email (smart filter)
 
 on:
   schedule:
-    - cron: '0 21 * * *'   # 01:00 Asia/Yerevan (UTC+4) = 21:00 UTC
+    - cron: '0 5 * * *'   # 08:00 MSK (05:00 UTC)
+    - cron: '0 13 * * *'  # 16:00 MSK (13:00 UTC)
   workflow_dispatch:
-
 
 permissions:
   contents: write   # нужно для публикации в gh-pages
