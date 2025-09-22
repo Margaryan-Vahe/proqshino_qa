@@ -2,6 +2,7 @@ package baseUtils.mobApp;
 
 import baseUtils.DataBaseRequests;
 import io.qameta.allure.Step;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
@@ -24,6 +25,7 @@ public class ApiRequests {
         Credentials credentials = new Credentials(login, password);
 
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(BASE_URL)
                 .contentType(ContentType.JSON)
                 .body(credentials)
@@ -36,7 +38,7 @@ public class ApiRequests {
     }
 
     @Step("Создание технической заявки")
-    public static void makeRequestOrder(String login, String password) {
+    public static Response makeRequestOrder(String login, String password) {
         Response getUserToken = getToken(login, password);
         String token = getUserToken.then().extract().path("token");
 
@@ -61,7 +63,8 @@ public class ApiRequests {
         );
 
 
-        given()
+        return given()
+                .filter(new AllureRestAssured())
                 .baseUri(BASE_URL_2)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
@@ -71,6 +74,7 @@ public class ApiRequests {
                 .post(REQUEST_ORDER)
                 .then()
                 .log().status()
-                .statusCode(201);
+                .statusCode(201)
+                .extract().response();
     }
 }

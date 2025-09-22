@@ -22,9 +22,12 @@ public class CheckDataFromOneCTest {
         phone = Data.UserTypes.FOR_PROD_TEST_USER.phoneValidValue();
         userId = DataBaseRequests.getUserId(phone, true);
 
-        baseUtils.mobApp.ApiRequests.makeRequestOrder(
+        Response createResp = baseUtils.mobApp.ApiRequests.makeRequestOrder(
                 Data.UserTypes.FOR_PROD_TEST_USER.phoneFullValue(),
                 Data.UserTypes.FOR_PROD_TEST_USER.passwordValidValue());
+
+        Allure.addAttachment("Create request response", "application/json", createResp.asPrettyString());
+        createResp.then().statusCode(201);
 
         Response orderedRequest = baseUtils.ms.ApiRequests.getOrderedOneCNumber();
         orderedRequest.then().log().status().statusCode(200);
