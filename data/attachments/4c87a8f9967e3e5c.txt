@@ -1,0 +1,15 @@
+{
+    "requestId": "b17a203c-0ca4-405a-9883-f371cbeb1a24",
+    "userId": "2811c034-e77e-4faf-98a5-0dfed970935f",
+    "placeId": null,
+    "createdAt": "2025-09-23T05:17:02.711661Z",
+    "title": "Общие вопросы",
+    "subject": "тестовая заявка ",
+    "status": "IN_REVIEW",
+    "isUrgent": null,
+    "sentToOneC": false,
+    "oneCNumber": null,
+    "photos": [
+        
+    ]
+}
