@@ -1,6 +1,7 @@
 package baseUtils.oneC;
 
 import io.qameta.allure.Step;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
@@ -63,6 +64,7 @@ public class ApiRequests {
         );
 
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(BASE_URL_MS)
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token)
