@@ -36,6 +36,7 @@ public class ApiRequests {
         );
 
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(BASE_URL_MS)
                 .contentType(ContentType.JSON)
                 .body(credentials)
@@ -77,6 +78,7 @@ public class ApiRequests {
     @Step("Получение данных по помещениям")
     public Response getRentalObjectData() {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(BASE_URL_PROD)
                 .contentType(ContentType.JSON)
                 .auth().basic(USER_NAME, PASSWORD)
@@ -87,6 +89,7 @@ public class ApiRequests {
     @Step("Получение данных по номенклатуре")
     public Response getNomenclatureData() {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(BASE_URL_PROD)
                 .contentType(ContentType.JSON)
                 .auth().basic(USER_NAME, PASSWORD)
@@ -97,6 +100,7 @@ public class ApiRequests {
     @Step("Получение данных по контрагентам")
     public Response getCounterPartyData() {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(BASE_URL_PROD)
                 .contentType(ContentType.JSON)
                 .auth().basic(USER_NAME, PASSWORD)
@@ -107,6 +111,7 @@ public class ApiRequests {
     @Step("Получение данных по оборудованиям")
     public Response getEquipmentData() {
         return given()
+                .filter(new AllureRestAssured())
                 .baseUri(BASE_URL_PROD)
                 .contentType(ContentType.JSON)
                 .auth().basic(USER_NAME, PASSWORD)
