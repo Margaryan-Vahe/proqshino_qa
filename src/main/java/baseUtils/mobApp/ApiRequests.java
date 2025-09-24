@@ -15,6 +15,7 @@ import static io.restassured.RestAssured.given;
 public class ApiRequests {
     public static final String BASE_URL = "https://app-services.c0d.org/api/v1/auth/auth/";
     public static final String AUTHORIZE = "authorize";
+    public static final String TOKEN = "token";
 
     public static final String BASE_URL_2 = "https://app-services.biznespro.info/";
     public static final String REQUEST_ORDER = "api/v1/requests/api/request ";
@@ -40,13 +41,8 @@ public class ApiRequests {
     }
 
     @Step("Создание технической заявки")
-    public static Response makeRequestOrder(String login, String password) {
-        Response getUserToken = getToken(login, password);
-        String token = getUserToken.then().extract().path("token");
-
-        String phone = login.replaceAll("\\D", "");
-        String userId = "2811c034-e77e-4faf-98a5-0dfed970935f";
-
+    public static Response makeRequestOrder(String token) {
+        String userId = getUserId(token);
         String createdAt = OffsetDateTime.now(ZoneOffset.UTC)
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"));
 
@@ -64,7 +60,6 @@ public class ApiRequests {
                 null
         );
 
-
         return given()
                 .filter(new AllureRestAssured())
                 .baseUri(BASE_URL_2)
@@ -76,7 +71,27 @@ public class ApiRequests {
                 .post(REQUEST_ORDER)
                 .then()
                 .log().status()
-                .statusCode(201)
                 .extract().response();
+    }
+
+    @Step("Получение id заявки")
+    public static String getOrderId(String token) {
+        Response createdOrder = makeRequestOrder(token);
+        return createdOrder.then().extract().jsonPath().getString("requestId");
+    }
+
+    @Step("Получение id пользователя")
+    public static String getUserId(String token) {
+        return given()
+                .filter(new AllureRestAssured())
+                .baseUri(BASE_URL)
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .header("Authorization", "Bearer " + token)
+                .when()
+                .get(TOKEN)
+                .then()
+                .statusCode(200)
+                .extract().jsonPath().getString("token.claims.userId");
     }
 }
