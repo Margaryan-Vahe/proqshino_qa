@@ -1,6 +1,5 @@
 package baseUtils.mobApp;
 
-import baseUtils.DataBaseRequests;
 import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
@@ -19,9 +18,6 @@ public class ApiRequests {
 
     public static final String BASE_URL_2 = "https://app-services.biznespro.info/";
     public static final String REQUEST_ORDER = "api/v1/requests/api/request ";
-
-    String userId = "2811c034-e77e-4faf-98a5-0dfed970935f";
-
 
     @Step("Получить токен авторизации для зарегистрированного пользователя")
     public static Response getToken(String login, String password) {
