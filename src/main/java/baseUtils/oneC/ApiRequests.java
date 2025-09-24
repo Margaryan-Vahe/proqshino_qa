@@ -8,6 +8,8 @@ import io.restassured.response.Response;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 
@@ -24,6 +26,7 @@ public class ApiRequests {
     public static final String NOMENCLATURE = "Nomenclature/";
     public static final String COUNTERPARTY = "Counterparty/";
     public static final String EQUIPMENT = "Equipment/";
+    public static final String CHAT_MESSAGE = "Chat/OutMessage";
 
     public static final String USER_NAME = "API_User";
     public static final String PASSWORD = "123456";
@@ -82,6 +85,7 @@ public class ApiRequests {
                 .baseUri(BASE_URL_PROD)
                 .contentType(ContentType.JSON)
                 .auth().basic(USER_NAME, PASSWORD)
+                .log().all()
                 .when()
                 .get(RENTAL_OBJECT);
     }
@@ -93,6 +97,7 @@ public class ApiRequests {
                 .baseUri(BASE_URL_PROD)
                 .contentType(ContentType.JSON)
                 .auth().basic(USER_NAME, PASSWORD)
+                .log().all()
                 .when()
                 .get(NOMENCLATURE);
     }
@@ -104,6 +109,7 @@ public class ApiRequests {
                 .baseUri(BASE_URL_PROD)
                 .contentType(ContentType.JSON)
                 .auth().basic(USER_NAME, PASSWORD)
+                .log().all()
                 .when()
                 .get(COUNTERPARTY);
     }
@@ -115,7 +121,44 @@ public class ApiRequests {
                 .baseUri(BASE_URL_PROD)
                 .contentType(ContentType.JSON)
                 .auth().basic(USER_NAME, PASSWORD)
+                .log().all()
                 .when()
                 .get(EQUIPMENT);
+    }
+
+    @Step("Отправка сообщения чата в 1С")
+    public Response sendMessage(String token) throws InterruptedException {
+        String messageId = UUID.randomUUID().toString();
+        String taskId = baseUtils.mobApp.ApiRequests.getOrderId(token);
+        String userId = baseUtils.mobApp.ApiRequests.getUserId(token);
+        String userName = "Test Test Test";
+        String createdAt = OffsetDateTime.now(ZoneOffset.UTC)
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+        String message = "test message from MS to 1C - " + createdAt;
+
+        ChatService chatService = new ChatService(
+                messageId,
+                taskId,
+                userId,
+                userName,
+                message,
+                createdAt
+        );
+
+        BatchMessageResponse messageBody = new BatchMessageResponse(List.of(chatService));
+
+        Thread.sleep(30000);
+
+        return given()
+                .filter(new AllureRestAssured())
+                .baseUri(BASE_URL_PROD)
+                .contentType(ContentType.JSON)
+                .body(messageBody)
+                .auth()
+                .preemptive()
+                .basic(USER_NAME, PASSWORD)
+                .log().all()
+                .when()
+                .put(CHAT_MESSAGE);
     }
 }
