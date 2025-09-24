@@ -9,6 +9,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static baseUtils.mobApp.ApiRequests.getToken;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class CheckDataFromOneCTest {
@@ -22,9 +23,12 @@ public class CheckDataFromOneCTest {
         phone = Data.UserTypes.FOR_PROD_TEST_USER.phoneValidValue();
         userId = DataBaseRequests.getUserId(phone, true);
 
-        Response createResp = baseUtils.mobApp.ApiRequests.makeRequestOrder(
+        Response getUserToken = getToken(
                 Data.UserTypes.FOR_PROD_TEST_USER.phoneFullValue(),
                 Data.UserTypes.FOR_PROD_TEST_USER.passwordValidValue());
+        String token = getUserToken.then().extract().path("token");
+
+        Response createResp = baseUtils.mobApp.ApiRequests.makeRequestOrder(token);
 
         Allure.addAttachment("Create request response", "application/json", createResp.asPrettyString());
         createResp.then().statusCode(201);

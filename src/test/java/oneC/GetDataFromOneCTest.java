@@ -3,15 +3,16 @@ package oneC;
 import baseUtils.Data;
 import baseUtils.oneC.ApiRequests;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static baseUtils.mobApp.ApiRequests.getToken;
 import static org.hamcrest.Matchers.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class GetDataFromOneCTest {
     @Test
     @DisplayName("Выполнение запроса на получение данных по помещениям")
+    @Order(1)
     public void getRentalObjectData() {
         Response rentalObject = new ApiRequests().getRentalObjectData();
 
@@ -24,6 +25,7 @@ public class GetDataFromOneCTest {
 
     @Test
     @DisplayName("Выполнение запроса на получение данных по номенклатуре")
+    @Order(2)
     public void getNomenclatureData() {
         Response rentalObject = new ApiRequests().getNomenclatureData();
 
@@ -36,6 +38,7 @@ public class GetDataFromOneCTest {
 
     @Test
     @DisplayName("Выполнение запроса на получение данных по контрагентам")
+    @Order(3)
     public void getCounterpartyData() {
         Response rentalObject = new ApiRequests().getCounterPartyData();
 
@@ -48,6 +51,7 @@ public class GetDataFromOneCTest {
 
     @Test
     @DisplayName("Выполнение запроса на получение данных по оборудованиям")
+    @Order(4)
     public void getEquipmentData() {
         Response rentalObject = new ApiRequests().getEquipmentData();
 
@@ -60,6 +64,7 @@ public class GetDataFromOneCTest {
 
     @Test
     @DisplayName("Отправка сообщения из МС в сторону 1С")
+    @Order(5)
     public void sendChatMessageToOneC() throws InterruptedException {
         Response getUserToken = getToken(
                 Data.UserTypes.FOR_PROD_TEST_USER.phoneFullValue(),
@@ -67,7 +72,6 @@ public class GetDataFromOneCTest {
         String token = getUserToken.then().extract().path("token");
 
         Response sendMessage = new ApiRequests().sendMessage(token);
-
 
         sendMessage
                 .then()
