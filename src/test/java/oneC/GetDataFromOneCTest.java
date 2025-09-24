@@ -1,12 +1,13 @@
 package oneC;
 
+import baseUtils.Data;
 import baseUtils.oneC.ApiRequests;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static baseUtils.mobApp.ApiRequests.getToken;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class GetDataFromOneCTest {
     @Test
@@ -55,5 +56,23 @@ public class GetDataFromOneCTest {
                 .log().all()
                 .statusCode(200)
                 .body(not(emptyOrNullString()));
+    }
+
+    @Test
+    @DisplayName("Отправка сообщения из МС в сторону 1С")
+    public void sendChatMessageToOneC() throws InterruptedException {
+        Response getUserToken = getToken(
+                Data.UserTypes.FOR_PROD_TEST_USER.phoneFullValue(),
+                Data.UserTypes.FOR_PROD_TEST_USER.passwordValidValue());
+        String token = getUserToken.then().extract().path("token");
+
+        Response sendMessage = new ApiRequests().sendMessage(token);
+
+
+        sendMessage
+                .then()
+                .log().all()
+                .statusCode(200)
+                .body("errors.size()", equalTo(0));
     }
 }
