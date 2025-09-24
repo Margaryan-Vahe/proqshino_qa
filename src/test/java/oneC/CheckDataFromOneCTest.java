@@ -10,8 +10,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static baseUtils.mobApp.ApiRequests.getToken;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CheckDataFromOneCTest {
     static String phone;
     static String oneCNumber;
@@ -54,17 +56,18 @@ public class CheckDataFromOneCTest {
         } while ((userRequestId == null || oneCNumber == null) && maxAttempt > 0);
     }
 
-    @AfterEach
-    public void tearDown() {
-        userId = DataBaseRequests.getUserId(phone, true);
-        userRequestId = DataBaseRequests.getUserRequests(userId, true);
-        if (!userRequestId.isEmpty()) {
-            DataBaseRequests.deleteUserRequest(userId, true);
-        }
-    }
+//    @AfterEach
+//    public void tearDown() {
+//        userId = DataBaseRequests.getUserId(phone, true);
+//        userRequestId = DataBaseRequests.getUserRequests(userId, true);
+//        if (!userRequestId.isEmpty()) {
+//            DataBaseRequests.deleteUserRequest(userId, true);
+//        }
+//    }
 
     @Test
     @DisplayName("Проверка получения номера технической заявки из 1С")
+    @Order(1)
     public void checkOrderedOneCNumber() {
         assertNotNull(oneCNumber, "oneCNumber у первой заявки не должен быть null");
     }
@@ -78,6 +81,7 @@ public class CheckDataFromOneCTest {
             "Выполнена"
     })
     @DisplayName("Проверка изменения статуса заявки (параметризованный)")
+    @Order(2)
     void changeOrderStatus(String status) {
         Response response = ApiRequests.authenticate();
         response.then().statusCode(200);
@@ -97,5 +101,21 @@ public class CheckDataFromOneCTest {
                     ".json"
             );
         });
+    }
+    @Test
+    @DisplayName("Отправка сообщения из 1C в сторону МС")
+    @Order(3)
+    public void sendChatMessageToOneC(){
+        Response response = ApiRequests.authenticate();
+        response.then().statusCode(200);
+        String token = response.then().extract().path("id_token");
+
+        Response sendMessage = new ApiRequests().sendMessage(token,userRequestId);
+
+        sendMessage
+                .then()
+                .log().all()
+                .statusCode(200)
+                .body("errors.size()", equalTo(0));
     }
 }

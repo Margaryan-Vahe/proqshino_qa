@@ -20,6 +20,7 @@ public class ApiRequests {
     public static final String BASE_URL_MS = "http://10.129.0.10:8090/api/";
     public static final String AUTHENTICATE = "authenticate";
     public static final String RENT_SERVICE = "v1/one-c/rent/service/";
+    public static final String CHAT_MESSAGE_FROM_1C = "v1/one-c/chat/create";
 
 
     public static final String RENTAL_OBJECT = "RentalObject/";
@@ -160,5 +161,35 @@ public class ApiRequests {
                 .log().all()
                 .when()
                 .put(CHAT_MESSAGE);
+    }
+    @Step("Отправка сообщения чата в МС")
+    public Response sendMessage(String token, String taskId) {
+        String messageId = UUID.randomUUID().toString();
+        String userId = "68480903-9f33-4f11-ac54-0de38b017ba6";
+        String userName = "Маргарян Ваге Каренович";
+        String createdAt = OffsetDateTime.now(ZoneOffset.UTC)
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+        String message = "test message from 1C to MS - " + createdAt;
+
+        ChatService chatService = new ChatService(
+                messageId,
+                taskId,
+                userId,
+                userName,
+                message,
+                createdAt
+        );
+
+        BatchMessageResponse messageBody = new BatchMessageResponse(List.of(chatService));
+
+        return given()
+                .filter(new AllureRestAssured())
+                .baseUri(BASE_URL_MS)
+                .contentType(ContentType.JSON)
+                .header("Authorization", "Bearer " + token)
+                .body(messageBody)
+                .log().all()
+                .when()
+                .put(CHAT_MESSAGE_FROM_1C);
     }
 }
