@@ -1,0 +1,27 @@
+<div>POST to https://app-services.c0d.org/api/v1/auth/auth/authorize</div>
+
+<h4>Body</h4>
+<div>
+    <pre class="preformated-text">
+    {
+    &quot;phoneNumber&quot;: &quot;+7(933) 100-00-01&quot;,
+    &quot;password&quot;: &quot;Password1&quot;
+}
+    </pre>
+</div>
+
+<h4>Headers</h4>
+<div>
+        <div>Accept: */*</div>
+        <div>Content-Type: application/json</div>
+</div>
+
+
+
+<h4>Curl</h4>
+<div>
+curl -v -X POST &#39;https://app-services.c0d.org/api/v1/auth/auth/authorize&#39; -H &#39;Accept: */*&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;phoneNumber&quot;: &quot;+7(933) 100-00-01&quot;,
+    &quot;password&quot;: &quot;Password1&quot;
+}&#39;
+</div>

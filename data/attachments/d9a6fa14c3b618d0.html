@@ -1,0 +1,44 @@
+<div>PUT to https://biznespro.a101.ru/prod_arenda/hs/RentalObject/Chat/OutMessage</div>
+
+<h4>Body</h4>
+<div>
+    <pre class="preformated-text">
+    {
+    &quot;BatchMessage&quot;: [
+        {
+            &quot;MessageID&quot;: &quot;b60bd1d6-8969-437c-8e1a-9d458553b01f&quot;,
+            &quot;TaskID&quot;: &quot;b7c96b51-0a89-4af4-a038-035f990a66c7&quot;,
+            &quot;UserID&quot;: &quot;2811c034-e77e-4faf-98a5-0dfed970935f&quot;,
+            &quot;UserName&quot;: &quot;Test Test Test&quot;,
+            &quot;Message&quot;: &quot;test message from MS to 1C - 2025-09-25T05:33:12&quot;,
+            &quot;CreatedAt&quot;: &quot;2025-09-25T05:33:12&quot;
+        }
+    ]
+}
+    </pre>
+</div>
+
+<h4>Headers</h4>
+<div>
+        <div>Authorization: Basic QVBJX1VzZXI6MTIzNDU2</div>
+        <div>Accept: */*</div>
+        <div>Content-Type: application/json</div>
+</div>
+
+
+
+<h4>Curl</h4>
+<div>
+curl -v -X PUT &#39;https://biznespro.a101.ru/prod_arenda/hs/RentalObject/Chat/OutMessage&#39; -H &#39;Authorization: Basic QVBJX1VzZXI6MTIzNDU2&#39; -H &#39;Accept: */*&#39; -H &#39;Content-Type: application/json&#39; -d &#39;{
+    &quot;BatchMessage&quot;: [
+        {
+            &quot;MessageID&quot;: &quot;b60bd1d6-8969-437c-8e1a-9d458553b01f&quot;,
+            &quot;TaskID&quot;: &quot;b7c96b51-0a89-4af4-a038-035f990a66c7&quot;,
+            &quot;UserID&quot;: &quot;2811c034-e77e-4faf-98a5-0dfed970935f&quot;,
+            &quot;UserName&quot;: &quot;Test Test Test&quot;,
+            &quot;Message&quot;: &quot;test message from MS to 1C - 2025-09-25T05:33:12&quot;,
+            &quot;CreatedAt&quot;: &quot;2025-09-25T05:33:12&quot;
+        }
+    ]
+}&#39;
+</div>
