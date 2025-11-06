@@ -29,6 +29,7 @@ public abstract class RegistrationPageBase {
 
     public abstract SelenideElement alreadyRegisteredPhoneErrorMessage();
     public abstract SelenideElement alreadyRegisteredEmailErrorMessage();
+    public abstract SelenideElement noValidInnErrorMessage();
 
 
     public RegistrationPageBase(AppiumDriver<MobileElement> appiumDriver) {
@@ -53,6 +54,10 @@ public abstract class RegistrationPageBase {
     @Step("Жду отображения ошибки 'Данный Email уже используется, пожалуйста, введите другой'")
     public void waitUntilLoadedAlreadyRegisteredEmailMessage() {
         alreadyRegisteredEmailErrorMessage().shouldBe(visible, Duration.ofSeconds(10));
+    }
+    @Step("Жду отображения ошибки 'Компания по данному ИНН не найдена'")
+    public void waitUntilLoadedNoValidInnErrorMessage() {
+        noValidInnErrorMessage().shouldBe(visible, Duration.ofSeconds(10));
     }
 
     @Step("Ввожу номер телефона")

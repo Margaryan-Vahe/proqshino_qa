@@ -54,6 +54,11 @@ public class RegistrationPageAndroid extends RegistrationPageBase {
         return $(MobileBy.AccessibilityId("Данный Email уже используется, пожалуйста, введите другой"));
     }
 
+    @Override
+    public SelenideElement noValidInnErrorMessage() {
+        return $(MobileBy.AccessibilityId("Компания по данному ИНН не найдена, проверьте корректность введенного ИНН"));
+    }
+
     // Конструктор класса
     public RegistrationPageAndroid(AppiumDriver<MobileElement> appiumDriver) {
         super(appiumDriver);

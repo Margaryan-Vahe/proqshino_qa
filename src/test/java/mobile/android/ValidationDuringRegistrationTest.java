@@ -44,4 +44,23 @@ public class ValidationDuringRegistrationTest extends BaseAndroidTest {
 
         registrationPageAndroid.waitUntilLoadedAlreadyRegisteredEmailMessage();
     }
+
+    @Test
+    @DisplayName("Валидация при регистрации - отображение ошибки 'Данный Email уже используется, пожалуйста, введите другой'")
+    public void checkNoValidInnErrorMessage() throws InterruptedException {
+        phone = Data.UserTypes.FOR_VALIDATION_TEST_USER.phoneValidValue();
+        registrationPageAndroid.successTypePhoneNumber(phone);
+        otpPageAndroid.typeCorrectOtp();
+        setPasswordPageAndroid.inputPassword(
+                Data.UserTypes.FOR_VALIDATION_TEST_USER.passwordValidValue());
+        setPersonalDataPageAndroid.typeAllDataForValidationTest(
+                Data.UserTypes.FOR_VALIDATION_TEST_USER.userLastName(),
+                Data.UserTypes.FOR_VALIDATION_TEST_USER.userFirstName(),
+                Data.UserTypes.FOR_VALIDATION_TEST_USER.userSecondName(),
+                Data.RANDOM_EMAIL,
+                Data.NO_VALID_INN
+        );
+
+        registrationPageAndroid.waitUntilLoadedNoValidInnErrorMessage();
+    }
 }
