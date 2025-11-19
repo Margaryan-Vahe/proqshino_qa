@@ -46,7 +46,7 @@ public class ValidationDuringRegistrationTest extends BaseAndroidTest {
     }
 
     @Test
-    @DisplayName("Валидация при регистрации - отображение ошибки 'Данный Email уже используется, пожалуйста, введите другой'")
+    @DisplayName("Валидация при регистрации - отображение ошибки 'Компания по данному ИНН не найдена'")
     public void checkNoValidInnErrorMessage() throws InterruptedException {
         phone = Data.UserTypes.FOR_VALIDATION_TEST_USER.phoneValidValue();
         registrationPageAndroid.successTypePhoneNumber(phone);
