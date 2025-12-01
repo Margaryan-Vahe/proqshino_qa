@@ -51,7 +51,7 @@ public abstract class LoginPageBase implements pages.BaseProfilePage {
             phone.sendKeys(phoneNumber);
             phoneValue = phone.getText();
             clnPhone = phoneValue.replaceAll("\\D", "");
-        } while (clnPhone.equals(phoneNumber));
+        } while (!clnPhone.equals(phoneNumber));
 
     }
 
