@@ -21,12 +21,16 @@ public class SetPasswordPageAndroid extends SetPasswordPageBase {
 
     @Override
     public SelenideElement setPassField() {
-        return $(MobileBy.xpath("((//android.view.View[@content-desc=\"Задайте пароль\"])[2]//following-sibling::android.widget.EditText)[1]"));
+        return $(MobileBy.AndroidUIAutomator(
+                "new UiSelector().className(\"android.widget.EditText\").instance(0)"
+                ));
     }
 
     @Override
     public SelenideElement repeatPassField() {
-        return $(MobileBy.xpath("((//android.view.View[@content-desc=\"Задайте пароль\"])[2]//following-sibling::android.widget.EditText)[2]"));
+        return $(MobileBy.AndroidUIAutomator(
+                "new UiSelector().className(\"android.widget.EditText\").instance(1)"
+        ));
     }
 
     @Override
