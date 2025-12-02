@@ -301,6 +301,47 @@ public class Data {
                 return "9330000006@test.com";
             }
         },
+        NOT_ACTIVATED_EMPLOYEE_ {
+            public String phoneValidValue() {
+                return "79330000009";
+            }
+
+            public String phoneFullValue() {
+                return "+7 (933) 000-00-09";
+            }
+
+            public String phoneInvalidValue() {
+                return "793300000";
+            }
+
+            public String passwordValidValue() {
+                return "Password1";
+            }
+
+            public String passwordInvalidValue() {
+                return "Password123";
+            }
+
+            public String passwordIncorrectValue() {
+                return "Password";
+            }
+
+            public String userFirstName() {
+                return "NOT_ACTIVATED";
+            }
+
+            public String userSecondName() {
+                return "TEST";
+            }
+
+            public String userLastName() {
+                return "EMPLOYEE";
+            }
+
+            public String userEmail() {
+                return "9330000009@test.com";
+            }
+        },
         FOR_VALIDATION_TEST_USER {
             public String phoneValidValue() {
                 return "79330000007";
