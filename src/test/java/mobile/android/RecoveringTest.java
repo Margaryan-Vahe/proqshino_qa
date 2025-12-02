@@ -73,7 +73,7 @@ public class RecoveringTest extends BaseAndroidTest {
 
         recoverPageAndroid.waitUntilLoaded();
         recoverPageAndroid.inputDataForRecover(
-                Data.UserTypes.NOT_ACTIVATED_EMPLOYEE.phoneValidValue()
+                Data.UserTypes.NOT_ACTIVATED_EMPLOYEE_.phoneValidValue()
         );
 
         recoverPageAndroid.waitUntilLoadedNotActivatedPhoneErrorMessage();
